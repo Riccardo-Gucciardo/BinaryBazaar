@@ -1,143 +1,138 @@
--- Tabella Guest (per tracciare i guest user)
-CREATE TABLE guests (
-    guest_id INT PRIMARY KEY AUTO_INCREMENT,
-    session_token VARCHAR(100) NOT NULL UNIQUE, -- Identificativo univoco per il guest
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    expires_at TIMESTAMP, -- Per gestire la scadenza della sessione
-    INDEX idx_session_token (session_token) -- Indice per velocizzare le query
-);
-
--- Tabella Promozioni (per codici sconto)
-CREATE TABLE promotions (
-    promotion_id INT PRIMARY KEY AUTO_INCREMENT,
-    code VARCHAR(50) NOT NULL UNIQUE,
-    discount DECIMAL(5,2) NOT NULL, -- Es. 10.00 per 10% di sconto
-    valid_from DATE,
-    valid_to DATE,
-    is_active BOOLEAN DEFAULT TRUE
-);
-
--- Tabella Brand
+-- Tabella: brands
 CREATE TABLE brands (
     brand_id INT PRIMARY KEY AUTO_INCREMENT,
-    name VARCHAR(50) NOT NULL
+    name VARCHAR(255) NOT NULL
 );
 
--- Tabella Prodotti (unificata per laptop e accessori)
+-- Tabella: promotions
+CREATE TABLE promotions (
+    promotion_id INT PRIMARY KEY AUTO_INCREMENT,
+    code VARCHAR(255) NOT NULL,
+    discount DECIMAL(10,2) NOT NULL,
+    valid_from DATE,
+    valid_to DATE
+);
+
+-- Tabella: products
 CREATE TABLE products (
     product_id INT PRIMARY KEY AUTO_INCREMENT,
-    slug VARCHAR(100) NOT NULL UNIQUE, -- Per URL (es. "macbook-air-m2")
+    name VARCHAR(255) NOT NULL,          -- Nome del prodotto
+    model VARCHAR(255) NOT NULL,
+    slug VARCHAR(255) NOT NULL UNIQUE,     -- Per URL friendly
     brand_id INT,
-    category ENUM('laptop', 'accessory') NOT NULL,
-    model VARCHAR(100) NOT NULL,
+    category ENUM('laptop','accessory') NOT NULL,
     price DECIMAL(10,2) NOT NULL,
-    original_price DECIMAL(10,2), -- Prezzo originale per promozioni
-    is_promotion BOOLEAN DEFAULT FALSE,
+    discount_price DECIMAL(10,2),          -- Prezzo scontato, se applicabile
     image_url VARCHAR(255),
-    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- Per "ultimi arrivi"
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     stock INT NOT NULL,
     description TEXT,
     FOREIGN KEY (brand_id) REFERENCES brands(brand_id)
 );
 
--- Tabella Dettagli Laptop (specifiche tecniche per i laptop)
+-- Tabella: laptop_details
 CREATE TABLE laptop_details (
     laptop_detail_id INT PRIMARY KEY AUTO_INCREMENT,
     product_id INT,
-    processor VARCHAR(50),
-    ram TINYINT,
-    memory SMALLINT,
-    video_card VARCHAR(50),
-    os VARCHAR(50),
+    processor VARCHAR(255),
+    ram TINYINT,                         -- Quantità in GB (es. 8, 16)
+    memory SMALLINT,                     -- Capacità in GB/SSD-HDD
+    video_card VARCHAR(255),
+    os VARCHAR(255),
     year YEAR,
     FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
 
--- Tabella Dettagli Accessori (specifiche tecniche per gli accessori)
+-- Tabella: accessory_details
 CREATE TABLE accessory_details (
     accessory_detail_id INT PRIMARY KEY AUTO_INCREMENT,
     product_id INT,
-    type VARCHAR(50),
-    compatibility VARCHAR(100),
+    type VARCHAR(255),                   -- Tipo di accessorio (es. mouse, keyboard)
+    compatibility VARCHAR(255),          -- Compatibilità con i sistemi operativi
     FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
 
--- Tabella Ordini (collegata ai guest)
+-- Tabella: orders
 CREATE TABLE orders (
     order_id INT PRIMARY KEY AUTO_INCREMENT,
-    guest_id INT,
-    email VARCHAR(100) NOT NULL, -- Raccolto al checkout
-    address VARCHAR(255) NOT NULL, -- Raccolto al checkout
-    telephone VARCHAR(20), -- Raccolto al checkout
+    name VARCHAR(255) NOT NULL,          -- Nome del cliente
+    lastname VARCHAR(255) NOT NULL,        -- Cognome del cliente
+    email VARCHAR(255) NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    telephone VARCHAR(255),
     order_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     total DECIMAL(10,2) NOT NULL,
-    promotion_id INT, -- Per applicare uno sconto
-    state ENUM('pending', 'processing', 'shipped', 'delivered', 'cancelled') DEFAULT 'pending',
-    FOREIGN KEY (guest_id) REFERENCES guests(guest_id),
+    promotion_id INT,
     FOREIGN KEY (promotion_id) REFERENCES promotions(promotion_id)
 );
 
--- Tabella Prodotti Ordinati
+-- Tabella: product_order
 CREATE TABLE product_order (
     product_order_id INT PRIMARY KEY AUTO_INCREMENT,
     order_id INT,
     product_id INT,
-    amount INT NOT NULL,
-    price DECIMAL(10,2) NOT NULL, -- Prezzo al momento dell'ordine
+    quantity INT NOT NULL,               -- Quantità ordinata
+    price DECIMAL(10,2) NOT NULL,         -- Prezzo al momento dell’ordine
+    name VARCHAR(255) NOT NULL,           -- Nome del prodotto all’atto dell’ordine
     FOREIGN KEY (order_id) REFERENCES orders(order_id),
     FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
 
 
+-- Inserimento Brand
 INSERT INTO brands (name) VALUES
 ('Apple'), ('Dell'), ('HP'), ('Asus'), ('MSI'),
 ('Lenovo'), ('Acer'), ('Samsung'), ('Sony'), ('Logitech');
 
 -- Inserimento Promozioni
-INSERT INTO promotions (code, discount, valid_from, valid_to, is_active) VALUES
-('SUMMER25', 25.00, '2025-06-01', '2025-08-31', TRUE),
-('WELCOME10', 10.00, '2025-01-01', '2025-12-31', TRUE);
+INSERT INTO promotions (code, discount, valid_from, valid_to) VALUES
+('SUMMER25', 25.00, '2025-06-01', '2025-08-31'),
+('WELCOME10', 10.00, '2025-01-01', '2025-12-31');
 
--- Inserimento Guest (esempio)
-INSERT INTO guests (session_token, created_at, expires_at) VALUES
-('guest_12345', NOW(), DATE_ADD(NOW(), INTERVAL 7 DAY));
-
--- Inserimento Prodotti (Laptop)
-INSERT INTO products (slug, brand_id, category, model, price, original_price, is_promotion, image_url, stock, description) VALUES
-('macbook-air-m2', 1, 'laptop', 'MacBook Air M2', 1299.99, 1499.99, TRUE, NULL, 20, 'Laptop leggero con chip M2'),
-('dell-xps-15', 2, 'laptop', 'Dell XPS 15', 1799.99, NULL, FALSE, NULL, 15, 'Laptop con display 4K'),
-('hp-spectre-x360', 3, 'laptop', 'HP Spectre x360', 1599.99, NULL, FALSE, NULL, 18, 'Laptop convertibile premium'),
-('asus-rog-zephyrus', 4, 'laptop', 'Asus ROG Zephyrus', 1999.99, 2199.99, TRUE, NULL, 12, 'Laptop gaming sottile'),
-('msi-stealth-15m', 5, 'laptop', 'MSI Stealth 15M', 1699.99, NULL, FALSE, NULL, 10, 'Laptop gaming portatile'),
-('lenovo-thinkpad-x1', 6, 'laptop', 'Lenovo ThinkPad X1 Carbon', 1899.99, NULL, FALSE, NULL, 14, 'Laptop business ultraleggero'),
-('acer-swift-5', 7, 'laptop', 'Acer Swift 5', 1199.99, NULL, FALSE, NULL, 25, 'Laptop con design elegante'),
-('samsung-galaxy-book', 8, 'laptop', 'Samsung Galaxy Book Pro', 1399.99, NULL, FALSE, NULL, 20, 'Laptop con AMOLED'),
-('sony-vaio-sx14', 9, 'laptop', 'Sony VAIO SX14', 2099.99, NULL, FALSE, NULL, 8, 'Laptop premium compatto'),
-('logitech-creator-laptop', 10, 'laptop', 'Logitech Creator Laptop', 1499.99, NULL, FALSE, NULL, 15, 'Laptop per creativi');
+-- Inserimento Prodotti (Laptop, con discount_price)
+INSERT INTO products (slug, brand_id, category, name, model, price, discount_price, image_url, created_at, stock, description) VALUES
+('macbook-air-m2', 1, 'laptop', 'MacBook Air M2', 'A2681', 1299.99, 1169.99, NULL, CURRENT_TIMESTAMP, 20, 'Laptop leggero con chip M2'),
+('dell-xps-15', 2, 'laptop', 'Dell XPS 15', '9520', 1799.99, NULL, NULL, CURRENT_TIMESTAMP, 15, 'Laptop con display 4K'),
+('hp-spectre-x360', 3, 'laptop', 'HP Spectre x360', '14-EA0023DX', 1599.99, NULL, NULL, CURRENT_TIMESTAMP, 18, 'Laptop convertibile premium'),
+('asus-rog-zephyrus', 4, 'laptop', 'Asus ROG Zephyrus', 'G14-GA402', 1999.99, 1799.99, NULL, CURRENT_TIMESTAMP, 12, 'Laptop gaming sottile'),
+('msi-stealth-15m', 5, 'laptop', 'MSI Stealth 15M', 'B12U', 1699.99, NULL, NULL, CURRENT_TIMESTAMP, 10, 'Laptop gaming portatile'),
+('lenovo-thinkpad-x1', 6, 'laptop', 'Lenovo ThinkPad X1 Carbon', '20U9', 1899.99, NULL, NULL, CURRENT_TIMESTAMP, 14, 'Laptop business ultraleggero'),
+('acer-swift-5', 7, 'laptop', 'Acer Swift 5', 'SF514-55T', 1199.99, NULL, NULL, CURRENT_TIMESTAMP, 25, 'Laptop con design elegante'),
+('samsung-galaxy-book', 8, 'laptop', 'Samsung Galaxy Book Pro', 'NP950XDB', 1399.99, NULL, NULL, CURRENT_TIMESTAMP, 20, 'Laptop con AMOLED'),
+('sony-vaio-sx14', 9, 'laptop', 'Sony VAIO SX14', 'VJS141', 2099.99, NULL, NULL, CURRENT_TIMESTAMP, 8, 'Laptop premium compatto'),
+('logitech-creator-laptop', 10, 'laptop', 'Logitech Creator Laptop', 'LC-2023', 1499.99, NULL, NULL, CURRENT_TIMESTAMP, 15, 'Laptop per creativi');
 
 -- Inserimento Dettagli Laptop
 INSERT INTO laptop_details (product_id, processor, ram, memory, video_card, os, year) VALUES
 (1, 'Apple M2', 8, 256, 'Integrated', 'macOS', 2023),
 (2, 'Intel i7', 16, 512, 'NVIDIA RTX 3050', 'Windows 11', 2023);
 
--- Inserimento Prodotti (Accessori)
-INSERT INTO products (slug, brand_id, category, model, price, original_price, is_promotion, image_url, stock, description) VALUES
-('apple-magic-mouse', 1, 'accessory', 'Apple Magic Mouse', 99.99, NULL, FALSE, NULL, 50, 'Mouse multi-touch'),
-('dell-wireless-keyboard', 2, 'accessory', 'Dell Wireless Keyboard', 59.99, NULL, FALSE, NULL, 40, 'Tastiera wireless silenziosa'),
-('hp-usb-c-hub', 3, 'accessory', 'HP USB-C Hub', 79.99, NULL, FALSE, NULL, 35, 'Hub multiporta USB-C'),
-('asus-rog-mouse-pad', 4, 'accessory', 'Asus ROG Mouse Pad', 29.99, NULL, FALSE, NULL, 60, 'Tappetino gaming XL'),
-('msi-gaming-headset', 5, 'accessory', 'MSI Gaming Headset', 89.99, NULL, FALSE, NULL, 30, 'Cuffie con microfono'),
-('lenovo-docking-station', 6, 'accessory', 'Lenovo Docking Station', 129.99, NULL, FALSE, NULL, 25, 'Dock per laptop ThinkPad'),
-('acer-laptop-sleeve', 7, 'accessory', 'Acer Laptop Sleeve', 39.99, NULL, FALSE, NULL, 45, 'Custodia protettiva 15"'),
-('samsung-ssd-external', 8, 'accessory', 'Samsung SSD External', 149.99, NULL, FALSE, NULL, 20, 'SSD portatile 1TB'),
-('sony-wh-1000xm5', 9, 'accessory', 'Sony WH-1000XM5', 349.99, 399.99, TRUE, NULL, 15, 'Cuffie noise-cancelling'),
-('logitech-mx-master-3', 10, 'accessory', 'Logitech MX Master 3', 109.99, NULL, FALSE, NULL, 30, 'Mouse ergonomico avanzato');
+-- Inserimento Prodotti (Accessori, con discount_price)
+INSERT INTO products (slug, brand_id, category, name, model, price, discount_price, image_url, created_at, stock, description) VALUES
+('apple-magic-mouse', 1, 'accessory', 'Apple Magic Mouse', 'MK2E3ZM/A', 99.99, NULL, NULL, CURRENT_TIMESTAMP, 50, 'Mouse multi-touch'),
+('dell-wireless-keyboard', 2, 'accessory', 'Dell Wireless Keyboard', 'KB700', 59.99, NULL, NULL, CURRENT_TIMESTAMP, 40, 'Tastiera wireless silenziosa'),
+('hp-usb-c-hub', 3, 'accessory', 'HP USB-C Hub', '4M1F3AA', 79.99, NULL, NULL, CURRENT_TIMESTAMP, 35, 'Hub multiporta USB-C'),
+('asus-rog-mouse-pad', 4, 'accessory', 'Asus ROG Mouse Pad', 'ROG-SHEATH', 29.99, NULL, NULL, CURRENT_TIMESTAMP, 60, 'Tappetino gaming XL'),
+('msi-gaming-headset', 5, 'accessory', 'MSI Gaming Headset', 'H991', 89.99, NULL, NULL, CURRENT_TIMESTAMP, 30, 'Cuffie con microfono'),
+('lenovo-docking-station', 6, 'accessory', 'Lenovo Docking Station', '40AY0090', 129.99, NULL, NULL, CURRENT_TIMESTAMP, 25, 'Dock per laptop ThinkPad'),
+('acer-laptop-sleeve', 7, 'accessory', 'Acer Laptop Sleeve', 'NP.BAG1A.291', 39.99, NULL, NULL, CURRENT_TIMESTAMP, 45, 'Custodia protettiva 15"'),
+('samsung-ssd-external', 8, 'accessory', 'Samsung SSD External', 'MU-PC1T0', 149.99, NULL, NULL, CURRENT_TIMESTAMP, 20, 'SSD portatile 1TB'),
+('sony-wh-1000xm5', 9, 'accessory', 'Sony WH-1000XM5', 'WH1000XM5', 349.99, 314.99, NULL, CURRENT_TIMESTAMP, 15, 'Cuffie noise-cancelling'),
+('logitech-mx-master-3', 10, 'accessory', 'Logitech MX Master 3', '910-005620', 109.99, NULL, NULL, CURRENT_TIMESTAMP, 30, 'Mouse ergonomico avanzato');
 
 -- Inserimento Dettagli Accessori
 INSERT INTO accessory_details (product_id, type, compatibility) VALUES
 (11, 'Mouse', 'macOS, Windows'),
 (12, 'Keyboard', 'Windows');
 
+-- Inserimento Ordine (con total)
+INSERT INTO orders (name, lastname, email, address, telephone, order_date, total, promotion_id) VALUES
+('Mario', 'Rossi', 'mario.rossi@email.com', 'Via Roma 1, Milano', '1234567890', CURRENT_TIMESTAMP, 1169.99, 2);
+-- Nota: total è il prezzo scontato (discount_price) del MacBook Air M2, applicando la promozione WELCOME10 (10% di sconto)
+
+-- Inserimento Prodotti Ordinati
+INSERT INTO product_order (order_id, product_id, quantity, price, name) VALUES
+(1, 1, 1, 1299.99, 'MacBook Air M2');
 
 
 
