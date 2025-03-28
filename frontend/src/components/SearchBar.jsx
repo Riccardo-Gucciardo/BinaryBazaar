@@ -1,16 +1,15 @@
-
+import axios from "axios"
 import { useState } from "react";
 
-const productsList = [
-  "Mela",
-  "Banana",
-  "Arancia",
-  "Computer",
-  "Telefono",
-  "Tastiera",
-  "Mouse",
-  "Auricolari",
-];
+const [productsList, setProductsList] = useState([])
+
+function cerca () {
+  
+  axios.get('http://localhost:3000/products')
+
+  
+
+}   
 
 function SearchBar() {
   const [search, setSearch] = useState("");
