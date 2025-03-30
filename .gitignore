@@ -44,7 +44,6 @@ backend/.idea/
 frontend/.idea/
 
 # File di lock (globali)
-package-lock.json
 yarn.lock
 
 # File temporanei e di sistema (globali)
