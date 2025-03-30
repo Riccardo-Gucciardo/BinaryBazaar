@@ -1,10 +1,10 @@
 import NavBar from "./NavBar"
-import SearchBar from "./SearchBar"
+// import SearchBar from "./SearchBar"
 
 export default function Header() {
     return (
         <>
-            <SearchBar />
+            {/* <SearchBar /> */}
             <NavBar />
 
         </>

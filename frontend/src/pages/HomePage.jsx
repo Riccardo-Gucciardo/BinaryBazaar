@@ -1,5 +1,13 @@
+// import ProductsList from "./ProductsList"
+import Card from "../components/Card"
+
 export default function HomePage() {
     return (
-        <h1>QUESTA è LA HOME</h1>
+        <>
+        <h1>gdsag</h1>
+        
+        <Card/>
+        
+        </>
     )
 }
