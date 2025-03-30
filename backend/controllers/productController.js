@@ -12,7 +12,7 @@ function index(req, res) {
             error: 'error'
         })
 
-        // res.json(results); //* AGGIORNAMENTO CON USO MIDDLEWARE
+        // res.json(results); 
         const products = results.map(p => {
             return {
                 ...p,
@@ -20,11 +20,8 @@ function index(req, res) {
             }
 
         });
-        res.json(products)
+        res.json(products)//* AGGIORNAMENTO CON USO MIDDLEWARE
     })
-
-
-
 }
 
 export default index
