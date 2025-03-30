@@ -4,9 +4,9 @@ Certo, ecco come puoi integrare l'invio di email nel tuo backend utilizzando Mai
 
     Se stai utilizzando Node.js per il tuo backend, Nodemailer è una libreria popolare per l'invio di email.
 
- ```sh
- npm install nodemailer
- ```
+```sh
+npm install nodemailer
+```
 
 2.  **Configurazione di Mailtrap:**
 
