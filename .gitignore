@@ -6,6 +6,7 @@
 .env.production.local
 backend/.env
 frontend/.env
+.vite
 
 # Node.js (per backend e frontend)
 node_modules/
