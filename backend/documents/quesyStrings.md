@@ -25,6 +25,7 @@ Questo README contiene 30 esempi di query SQL basate sullo schema di un database
    FROM products
    WHERE discount_price IS NOT NULL AND discount_price < price;
    ```
+   <!--! UTILE -->
 
 2. **Elenca i laptop con più di 8GB di RAM**
 *Spiegazione*: Filtra i laptop con RAM superiore a 8GB per esigenze di prestazioni. 
