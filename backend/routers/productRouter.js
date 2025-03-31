@@ -3,7 +3,7 @@
 import express from 'express'
 const router = express.Router();
 
-import index from '../controllers/productController.js'
+import { index, showLaptop } from '../controllers/productController.js'
 
 // /SyntaxRecap ==> {
 //     // router.VERBO('percorsoRadice/:Params', middleware, 'CallBack')
@@ -14,8 +14,8 @@ import index from '../controllers/productController.js'
 //     store : funzione CallBack importata da movieController
 // }*/
 
-router.get('/',index)
-
+router.get('/', index)
+router.get('/:slug/:id', showLaptop)
 export default router
 
 
