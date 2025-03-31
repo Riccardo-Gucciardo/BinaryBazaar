@@ -90,14 +90,14 @@
     object-fit: cover;
 }
 
-/* .navigation-arrows {
+.navigation-arrows {
     position: absolute;
     bottom: 20px;
     left: 50%;
     transform: translateX(-50%);
     display: flex;
     gap: 20px;
-} */
+}
 
 .arrow-button {
     background-color: rgba(0, 0, 0, 0.5);
