@@ -1,7 +1,6 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 export default function Hero() {
-    // Array di immagini di esempio (puoi sostituirle con le tue)
     const images = [
         'https://images.unsplash.com/photo-1741800459656-4116dcb230ae?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxNnx8fGVufDB8fHx8fA%3D%3D',
         'https://images.unsplash.com/photo-1743024282286-5bfecf55a834?w=600&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwxMnx8fGVufDB8fHx8fA%3D%3D',
@@ -10,18 +9,21 @@ export default function Hero() {
 
     const [currentIndex, setCurrentIndex] = useState(0);
 
-    // Funzione per andare all'immagine precedente
+    // Cambia immagine ogni 10 secondi
+    useEffect(() => {
+        const interval = setInterval(() => {
+            setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
+        }, 5000);
+
+        return () => clearInterval(interval); // Pulisce l'intervallo quando il componente si smonta
+    }, []);
+
     const prevSlide = () => {
-        setCurrentIndex((prev) => 
-            prev === 0 ? images.length - 1 : prev - 1
-        );
+        setCurrentIndex((prev) => (prev === 0 ? images.length - 1 : prev - 1));
     };
 
-    // Funzione per andare all'immagine successiva
     const nextSlide = () => {
-        setCurrentIndex((prev) => 
-            prev === images.length - 1 ? 0 : prev + 1
-        );
+        setCurrentIndex((prev) => (prev === images.length - 1 ? 0 : prev + 1));
     };
 
     return (

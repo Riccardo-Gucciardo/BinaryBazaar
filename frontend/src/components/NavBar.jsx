@@ -5,6 +5,10 @@ export default function NavBar() {
 
         <header className="header">
 
+            
+                <img src="/public/Logo.png" alt="" className="img-logo" />
+            
+
         <ul
             className="nav justify-content-center  "
         >
