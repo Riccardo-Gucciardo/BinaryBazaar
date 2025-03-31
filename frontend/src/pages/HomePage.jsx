@@ -34,9 +34,11 @@ export default function HomePage() {
         <>
         <Hero/>
         <h1>i nostri prodotti</h1>
-        
+       <div className="row row-cols-md-3 row-cols-lg-4">
         {/* <Card/> */}
         {renderPoducts()}
+        </div> 
+        
         
         </>
     )
