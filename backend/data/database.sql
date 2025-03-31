@@ -103,9 +103,17 @@ INSERT INTO products (slug, brand_id, category, name, model, price, discount_pri
 ('logitech-creator-laptop', 10, 'laptop', 'Logitech Creator Laptop', 'LC-2023', 1499.99, NULL, NULL, CURRENT_TIMESTAMP, 15, 'Laptop per creativi');
 
 -- Inserimento Dettagli Laptop
-INSERT INTO laptop_details (product_id, processor, ram, memory, video_card, os, year) VALUES
-(1, 'Apple M2', 8, 256, 'Integrated', 'macOS', 2023),
-(2, 'Intel i7', 16, 512, 'NVIDIA RTX 3050', 'Windows 11', 2023);
+INSERT INTO laptop_details (product_id, processor, screen_size, compatibility) VALUES
+(21, 'Apple M2', '13.6"', 'macOS'), -- MacBook Air M2
+(22, 'Intel Core i7-12700H', '15.6"', 'Windows 11'), -- Dell XPS 15
+(23, 'Intel Core i7-1165G7', '13.5"', 'Windows 11'), -- HP Spectre x360
+(24, 'AMD Ryzen 9 6900HS', '14"', 'Windows 11'), -- Asus ROG Zephyrus
+(25, 'Intel Core i7-11800H', '15.6"', 'Windows 11'), -- MSI Stealth 15M
+(26, 'Intel Core i7-1260P', '14"', 'Windows 11, Linux'), -- Lenovo ThinkPad X1 Carbon
+(27, 'Intel Core i5-1135G7', '14"', 'Windows 11'), -- Acer Swift 5
+(28, 'Intel Core i7-1165G7', '15.6"', 'Windows 11'), -- Samsung Galaxy Book Pro
+(29, 'Intel Core i7-1260P', '14"', 'Windows 11'), -- Sony VAIO SX14
+(30, 'Intel Core i7-11800H', '15.6"', 'Windows 11'); -- Logitech Creator Laptop
 
 -- Inserimento Prodotti (Accessori, con discount_price)
 INSERT INTO products (slug, brand_id, category, name, model, price, discount_price, image_url, created_at, stock, description) VALUES
@@ -122,8 +130,14 @@ INSERT INTO products (slug, brand_id, category, name, model, price, discount_pri
 
 -- Inserimento Dettagli Accessori
 INSERT INTO accessory_details (product_id, type, compatibility) VALUES
-(11, 'Mouse', 'macOS, Windows'),
-(12, 'Keyboard', 'Windows');
+(13, 'Hub', 'Windows, macOS, Linux'), -- HP USB-C Hub
+(14, 'Mouse Pad', 'Universale'), -- Asus ROG Mouse Pad
+(15, 'Headset', 'Windows, macOS, PS4, Xbox'), -- MSI Gaming Headset
+(16, 'Docking Station', 'Windows, macOS (ThinkPad compatibile)'), -- Lenovo Docking Station
+(17, 'Sleeve', 'Universale (fino a 15")'), -- Acer Laptop Sleeve
+(18, 'SSD External', 'Windows, macOS, Linux'), -- Samsung SSD External
+(19, 'Headphones', 'Bluetooth, Windows, macOS, Android, iOS'), -- Sony WH-1000XM5
+(20, 'Mouse', 'Windows, macOS, Linux'); -- Logitech MX Master 3
 
 -- Inserimento Ordine (con total)
 INSERT INTO orders (name, lastname, email, address, telephone, order_date, total, promotion_id) VALUES
