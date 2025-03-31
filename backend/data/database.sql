@@ -130,6 +130,14 @@ INSERT INTO products (slug, brand_id, category, name, model, price, discount_pri
 
 -- Inserimento Dettagli Accessori
 INSERT INTO accessory_details (product_id, type, compatibility) VALUES
+(11, 'Mouse', 'macOS, Windows'), -- Apple Magic Mouse 
+(12, 'Keyboard', 'Windows'), -- Dell Wireless Keyboard
+
+-- aggiunti solo dopo, integrare questo codice!!!
+-- INSERT INTO accessory_details (product_id, type, compatibility) VALUES
+-- (11, 'Mouse', 'macOS, Windows'), -- Apple Magic Mouse
+-- (12, 'Keyboard', 'Windows'); -- Dell Wireless Keyboard
+
 (13, 'Hub', 'Windows, macOS, Linux'), -- HP USB-C Hub
 (14, 'Mouse Pad', 'Universale'), -- Asus ROG Mouse Pad
 (15, 'Headset', 'Windows, macOS, PS4, Xbox'), -- MSI Gaming Headset
