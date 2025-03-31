@@ -1,5 +1,6 @@
-import express from 'express'
 import cors from 'cors'
+import express from 'express'
+import handleImagePath from './middlewares/handlerPath.js';
 
 const app = express()
 const port = process.env.SERVER_PORT || 3000;
@@ -12,10 +13,16 @@ app.use(cors({
     origin: endpoint
 }))
 
-//body parse
+//middleware body parse
 app.use(express.json())
 
-//router
+//middleware gestionePathIMG
+app.use(handleImagePath)
+
+//middleware asset statico
+app.use(express.static('public'))
+
+//mount router
 app.use('/products', productRouter)
 
 
