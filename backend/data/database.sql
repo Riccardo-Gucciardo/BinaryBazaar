@@ -103,17 +103,17 @@ INSERT INTO products (slug, brand_id, category, name, model, price, discount_pri
 ('logitech-creator-laptop', 10, 'laptop', 'Logitech Creator Laptop', 'LC-2023', 1499.99, NULL, NULL, CURRENT_TIMESTAMP, 15, 'Laptop per creativi');
 
 -- Inserimento Dettagli Laptop
-INSERT INTO laptop_details (product_id, processor, screen_size, compatibility) VALUES
-(21, 'Apple M2', '13.6"', 'macOS'), -- MacBook Air M2
-(22, 'Intel Core i7-12700H', '15.6"', 'Windows 11'), -- Dell XPS 15
-(23, 'Intel Core i7-1165G7', '13.5"', 'Windows 11'), -- HP Spectre x360
-(24, 'AMD Ryzen 9 6900HS', '14"', 'Windows 11'), -- Asus ROG Zephyrus
-(25, 'Intel Core i7-11800H', '15.6"', 'Windows 11'), -- MSI Stealth 15M
-(26, 'Intel Core i7-1260P', '14"', 'Windows 11, Linux'), -- Lenovo ThinkPad X1 Carbon
-(27, 'Intel Core i5-1135G7', '14"', 'Windows 11'), -- Acer Swift 5
-(28, 'Intel Core i7-1165G7', '15.6"', 'Windows 11'), -- Samsung Galaxy Book Pro
-(29, 'Intel Core i7-1260P', '14"', 'Windows 11'), -- Sony VAIO SX14
-(30, 'Intel Core i7-11800H', '15.6"', 'Windows 11'); -- Logitech Creator Laptop
+INSERT INTO laptop_details (product_id, processor, ram, memory, video_card, os, year) VALUES
+(1, 'Apple M2', 8, 256, 'Integrated', 'macOS', 2023), -- MacBook Air M2
+(2, 'Intel i7', 16, 512, 'NVIDIA RTX 3050', 'Windows 11', 2023), -- Dell XPS 15
+(3, 'Intel i7', 16, 512, 'Integrated', 'Windows 11', 2023), -- HP Spectre x360
+(4, 'AMD Ryzen 9', 32, 1000, 'NVIDIA RTX 3060', 'Windows 11', 2023), -- Asus ROG Zephyrus
+(5, 'Intel i7', 16, 512, 'NVIDIA RTX 3050', 'Windows 11', 2023), -- MSI Stealth 15M
+(6, 'Intel i7', 16, 512, 'Integrated', 'Windows 11', 2023), -- Lenovo ThinkPad X1 Carbon
+(7, 'Intel i5', 8, 256, 'Integrated', 'Windows 11', 2023), -- Acer Swift 5
+(8, 'Intel i7', 16, 512, 'Integrated', 'Windows 11', 2023), -- Samsung Galaxy Book Pro
+(9, 'Intel i7', 16, 512, 'Integrated', 'Windows 11', 2023), -- Sony VAIO SX14
+(10, 'Intel i7', 16, 1000, 'NVIDIA RTX 3050', 'Windows 11', 2023); -- Logitech Creator Laptop
 
 -- Inserimento Prodotti (Accessori, con discount_price)
 INSERT INTO products (slug, brand_id, category, name, model, price, discount_price, image_url, created_at, stock, description) VALUES
