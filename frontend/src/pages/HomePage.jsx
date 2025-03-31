@@ -2,7 +2,7 @@ import { useEffect, useState } from "react"
 import axios from 'axios'
 // import ProductsList from "./ProductsList"
 import Card from "../components/Card"
-import Hero from "../components/hero"
+import Hero from "../components/Hero"
 
 export default function HomePage() {
 
