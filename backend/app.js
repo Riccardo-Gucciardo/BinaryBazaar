@@ -10,7 +10,7 @@ import productRouter from './routers/productRouter.js'
 
 //cors
 app.use(cors({
-    origin: endpoint
+    origin: process.env.FRONTEND_PORT
 }))
 
 //middleware body parse
