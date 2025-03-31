@@ -3,10 +3,10 @@
 import express from 'express'
 const router = express.Router();
 
-import index from '../controllers/productController.js'
+import { index, showProductDetails } from '../controllers/productController.js'
 
 // /SyntaxRecap ==> {
-//     // router.VERBO('percorsoRadice/:Params', middleware, 'CallBack')
+//      router.VERBO('percorsoRadice/:Params', middleware, 'CallBack')
 //     //? router.post('/', upload.single('image') ,store)
 //     router: istanza di express.Router() => definisce route modulari
 //     .post('/'): verboHTTP.('percorsoRadice /: Params'(eventuale) )
@@ -14,7 +14,14 @@ import index from '../controllers/productController.js'
 //     store : funzione CallBack importata da movieController
 // }*/
 
-router.get('/',index)
+//chiamata INDEX
+router.get('/', index)
+
+//chiamata SHOW singolo prodotto
+router.get('/:slug/', showProductDetails)
+
+
+
 
 export default router
 

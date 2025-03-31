@@ -104,8 +104,16 @@ INSERT INTO products (slug, brand_id, category, name, model, price, discount_pri
 
 -- Inserimento Dettagli Laptop
 INSERT INTO laptop_details (product_id, processor, ram, memory, video_card, os, year) VALUES
-(1, 'Apple M2', 8, 256, 'Integrated', 'macOS', 2023),
-(2, 'Intel i7', 16, 512, 'NVIDIA RTX 3050', 'Windows 11', 2023);
+(1, 'Apple M2', 8, 256, 'Integrated', 'macOS', 2023), -- MacBook Air M2
+(2, 'Intel i7', 16, 512, 'NVIDIA RTX 3050', 'Windows 11', 2023), -- Dell XPS 15
+(3, 'Intel i7', 16, 512, 'Integrated', 'Windows 11', 2023), -- HP Spectre x360
+(4, 'AMD Ryzen 9', 32, 1000, 'NVIDIA RTX 3060', 'Windows 11', 2023), -- Asus ROG Zephyrus
+(5, 'Intel i7', 16, 512, 'NVIDIA RTX 3050', 'Windows 11', 2023), -- MSI Stealth 15M
+(6, 'Intel i7', 16, 512, 'Integrated', 'Windows 11', 2023), -- Lenovo ThinkPad X1 Carbon
+(7, 'Intel i5', 8, 256, 'Integrated', 'Windows 11', 2023), -- Acer Swift 5
+(8, 'Intel i7', 16, 512, 'Integrated', 'Windows 11', 2023), -- Samsung Galaxy Book Pro
+(9, 'Intel i7', 16, 512, 'Integrated', 'Windows 11', 2023), -- Sony VAIO SX14
+(10, 'Intel i7', 16, 1000, 'NVIDIA RTX 3050', 'Windows 11', 2023); -- Logitech Creator Laptop
 
 -- Inserimento Prodotti (Accessori, con discount_price)
 INSERT INTO products (slug, brand_id, category, name, model, price, discount_price, image_url, created_at, stock, description) VALUES
@@ -122,8 +130,22 @@ INSERT INTO products (slug, brand_id, category, name, model, price, discount_pri
 
 -- Inserimento Dettagli Accessori
 INSERT INTO accessory_details (product_id, type, compatibility) VALUES
-(11, 'Mouse', 'macOS, Windows'),
-(12, 'Keyboard', 'Windows');
+(11, 'Mouse', 'macOS, Windows'), -- Apple Magic Mouse 
+(12, 'Keyboard', 'Windows'), -- Dell Wireless Keyboard
+
+-- aggiunti solo dopo, integrare questo codice!!!
+-- INSERT INTO accessory_details (product_id, type, compatibility) VALUES
+-- (11, 'Mouse', 'macOS, Windows'), -- Apple Magic Mouse
+-- (12, 'Keyboard', 'Windows'); -- Dell Wireless Keyboard
+
+(13, 'Hub', 'Windows, macOS, Linux'), -- HP USB-C Hub
+(14, 'Mouse Pad', 'Universale'), -- Asus ROG Mouse Pad
+(15, 'Headset', 'Windows, macOS, PS4, Xbox'), -- MSI Gaming Headset
+(16, 'Docking Station', 'Windows, macOS (ThinkPad compatibile)'), -- Lenovo Docking Station
+(17, 'Sleeve', 'Universale (fino a 15")'), -- Acer Laptop Sleeve
+(18, 'SSD External', 'Windows, macOS, Linux'), -- Samsung SSD External
+(19, 'Headphones', 'Bluetooth, Windows, macOS, Android, iOS'), -- Sony WH-1000XM5
+(20, 'Mouse', 'Windows, macOS, Linux'); -- Logitech MX Master 3
 
 -- Inserimento Ordine (con total)
 INSERT INTO orders (name, lastname, email, address, telephone, order_date, total, promotion_id) VALUES

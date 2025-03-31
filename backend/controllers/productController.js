@@ -1,7 +1,7 @@
 import connection from '../data/db.js'
 
 
-
+//* chiama INDEX di TUTTI i prodotti
 function index(req, res) {
 
 
@@ -24,4 +24,65 @@ function index(req, res) {
     })
 }
 
-export default index
+
+// function showLaptop(req, res) {
+//     const { slug } = req.params;
+
+//     const sql = "SELECT * FROM products WHERE slug=?";
+
+//     connection.query(sql, [slug], (err, results) => {
+//         if (err) return res.status(500).json({ error: 'error' });
+//         if (results.length === 0) return res.status(404).json({ error: 'Prodotto Non Trovato' });
+
+//         const laptop = results[0];
+//         const laptopSql = 'SELECT * FROM laptop_details WHERE product_id = ?'; //Ora si usa il product_id dal result della prima query.
+
+//         connection.query(laptopSql, [laptop.product_id], (err, laptopResults) => {
+//             if (err) return res.status(500).json({ error: 'error' });
+//             laptop.laptop_details = laptopResults;
+
+//             res.json({
+//                 ...laptop,
+//                 image_url: `${req.imagePath}${laptop.slug}.webp`
+//             });
+//         });
+//     });
+// }
+
+//*chiamata SHOW del singolo prodotto a prescindere dal TYPE
+
+function showProductDetails(req, res) {
+    const { slug } = req.params;
+    const { type } = req.query; // Ottieni il tipo dalla query string
+
+    const sql = "SELECT * FROM products WHERE slug=?";
+
+    connection.query(sql, [slug], (err, results) => {
+        if (err) return res.status(500).json({ error: 'error' });
+        if (results.length === 0) return res.status(404).json({ error: 'Prodotto Non Trovato' });
+
+        const product = results[0];
+        let detailsSql;
+
+        if (type === 'laptop') {
+            detailsSql = 'SELECT * FROM laptop_details WHERE product_id = ?';
+        } else if (type === 'accessory') {
+            detailsSql = 'SELECT * FROM accessory_details WHERE product_id = ?';
+        } else {
+            return res.status(400).json({ error: 'Tipo di prodotto non valido' });
+        }
+
+        connection.query(detailsSql, [product.product_id], (err, detailsResults) => {
+            if (err) return res.status(500).json({ error: 'error' });
+            product.product_details = detailsResults; // Usa un nome di proprietà generico
+
+            res.json({
+                ...product,
+                image_url: `${req.imagePath}${product.slug}.webp`
+            });
+        });
+    });
+}
+
+
+export { index, showProductDetails }
