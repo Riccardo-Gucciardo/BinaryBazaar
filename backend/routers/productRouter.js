@@ -15,7 +15,7 @@ import { index, showLaptop } from '../controllers/productController.js'
 // }*/
 
 router.get('/', index)
-router.get('/:slug/:id', showLaptop)
+router.get('/:slug/', showLaptop)
 export default router
 
 
