@@ -3,6 +3,8 @@ import { NavLink } from "react-router-dom"
 export default function NavBar() {
     return (
 
+        <header className="header">
+
         <ul
             className="nav justify-content-center  "
         >
@@ -20,6 +22,8 @@ export default function NavBar() {
                 <NavLink className="nav-link disabled" to="/:slug">Disabled link</NavLink>
             </li> */}
         </ul>
+        
+        </header>    
 
 
 

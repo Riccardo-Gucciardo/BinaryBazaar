@@ -20,7 +20,7 @@ export default function Card() {
                    <button className="buy-button">Acquista Ora</button>
                </div>
            </div>
-       </div> 
+        </div> 
 
         </>
     )

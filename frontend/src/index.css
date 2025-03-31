@@ -1,3 +1,41 @@
+.header{
+    width: 100%;
+    height: 10vh;
+    background-color: white;
+}
+
+.nav-link {
+    position: relative;
+    text-decoration: none; /* Rimuove la sottolineatura di default */
+    color: black;
+    transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
+    font-size: 1.3rem; 
+  }
+  
+  .nav-link::after {
+    content: "";
+    position: absolute;
+    left: 50%;
+    bottom: -15px; /* Distanza della sottolineatura dal testo */
+    width: 0;
+    height: 2px; 
+    background-color: red;
+    bottom: -10px; 
+    transition: width 0.3s ease-in-out, left 0.3s ease-in-out;
+  }
+  
+  .nav-link:hover {
+    color: red; /* Cambia colore al passaggio del mouse */
+    transform: scale(1.2)  ; /* Ingrandisce leggermente */
+  }
+  
+  .nav-link:hover::after {
+    width: 100%;
+    left: 0;
+  }
+
+
+/* card del prodotto --------------------- */
 .product-card {
     width: 320px;
     background: white;
@@ -66,3 +104,4 @@
 .buy-button:hover {
     background-color: #0056b3;
 }
+/* ---------------------------------------- */
