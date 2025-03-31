@@ -10,7 +10,7 @@ export default function Card({product}) {
         <div className="box-card">
 
            <div className="product-card">
-               <img src="" alt="Product Image" className="product-image"/>
+               <img src={product.image_url} alt="Product Image" className="product-image"/>
                <div className="product-info">
                    <h2 className="product-name">{product.name}</h2>
                    <p className="product-description">{product.description}</p>
