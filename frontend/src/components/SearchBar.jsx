@@ -1,76 +1,75 @@
-// import { useEffect, useState } from "react";
-// import { useNavigate } from "react-router-dom";
-// import axios from 'axios'
+import { useEffect, useState } from "react";
+import {
+    Link
+} from "react-router-dom";
+import axios from 'axios'
 
-// export default function SearchBar() {
+export default function SearchBar() {
+    const [products, setProducts] = useState([]);
+    const [search, setSearch] = useState("");
+    const [filteredProducts, setFilteredProducts] = useState([]);
 
-//     const [products, setProducts] = useState([])
+    useEffect(() => {
+        // Sposta la fetch in useEffect per evitare chiamate multiple
+        axios.get('http://localhost:3000/products')
+            .then(res => setProducts(res.data))
+            .catch(err => console.error('Errore nel caricamento prodotti:', err));
+    }, []);
 
-//     const fetchProducts =()=> {
-//         axios.get('http://localhost:3000/products')
-//         .then(res => setProducts (res.data) )
-//         .catch(err => console.error(err))
-//     }
+    const handleChange = (e) => {
+        const value = e.target.value;
+        setSearch(value);
 
-//     const [search, setSearch] = useState("");
-//     const [filteredProducts, setFilteredProducts] = useState([]);
-//     const navigate = useNavigate();
-  
-//     const handleChange = (e) => {
-//       const value = e.target.value;
-//       setSearch(value);
-  
-//       if (value.length > 0) {
-//         const filtered = products.filter((product) =>
-//           product.name.toLowerCase().includes(value.toLowerCase())
-//         );
-//         setFilteredProducts(filtered);
-//       } else {
-//         setFilteredProducts([]);
-//       }
-//     };
-  
-//     const handleSubmit = (e) => {
-//       e.preventDefault();
-//       if (search.trim() !== "") {
-//         const selectedProduct = products.find(
-//           (product) => product.name.toLowerCase() === search.toLowerCase()
-//         );
-//         if (selectedProduct) {
-//           navigate(`/product/${selectedProduct.slug}`);
-//         }
-//       }
-//     };
-  
-//     const handleSelect = (product) => {
-//       setSearch(product.name);
-//       setFilteredProducts([]);
-//       navigate(`/product/${product.slug}`);
-//     };
+        // Migliora la logica di filtro
+        if (value.trim().length > 0) {
+            const filtered = products.filter((product) =>
+                product.name.toLowerCase().includes(value.toLowerCase()) ||
+                product.description.toLowerCase().includes(value.toLowerCase())
+            );
+            setFilteredProducts(filtered.slice(0, 5)); // Limita i risultati a 5
+        } else {
+            setFilteredProducts([]);
+        }
+    };
 
-//     useEffect(fetchProducts,[])
+    const handleSubmit = (e) => {
+        e.preventDefault();
+        if (filteredProducts.length > 0) {
+            handleSelect(filteredProducts[0]); // Seleziona il primo risultato
+        }
+    };
 
-//     return (
-//         <div className="search-bar">
-//       <form onSubmit={handleSubmit}>
-//         <input
-//           type="text"
-//           value={search}
-//           onChange={handleChange}
-//           placeholder="Cerca un prodotto..."
-//         />
-//         <button type="submit">Cerca</button>
-//       </form>
+    const handleSelect = (product) => {
+        setSearch("");
+        setFilteredProducts([]);
+    };
 
-//       {filteredProducts.length > 0 && (
-//         <ul className="search-results">
-//           {filteredProducts.map((product) => (
-//             <li key={product.product_id} onClick={() => handleSelect(product)}>
-//               {product.name}
-//             </li>
-//           ))}
-//         </ul>
-//       )}
-//     </div>
-//     )
-// }
+    return (
+        <div className="search-bar">
+            <form onSubmit={handleSubmit}>
+                <input
+                    type="text"
+                    value={search}
+                    onChange={handleChange}
+                    placeholder="Cerca un prodotto..."
+                    className="search-input"
+                />
+                <button type="submit" className="search-button">Cerca</button>
+            </form>
+
+            {filteredProducts.length > 0 && (
+                <ul className="search-results">
+                    {filteredProducts.map((product) => (
+                        <li
+                            key={product.product_id}
+                            onClick={() => handleSelect(product)}
+                            className="search-result-item"
+                        >
+                            <Link to={`/${product.slug}/?category=${product.category}`} >{product.name}</Link>
+                        </li>
+                    ))}
+                </ul>
+            )}
+        </div>
+    );
+}

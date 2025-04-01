@@ -157,9 +157,9 @@ function createOrder(req, res) {
             })
         })
     }
-    //avvio processo GLOBALE con evocazione
-    calculateTotalAndInsertOrder()
 
+    //*avvio processo GLOBALE con evocazione
+    calculateTotalAndInsertOrder()
 
     //ESPERIMENTO TRY/CATCH try {
     //     // Inserimento ordine

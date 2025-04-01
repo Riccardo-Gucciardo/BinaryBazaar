@@ -1,13 +1,14 @@
 import { NavLink } from "react-router-dom"
+import SearchBar from "./SearchBar"
 
 export default function NavBar() {
     return (
 
         <header className="header">
 
-
             <NavLink to="/"> <img src="/Logo.png" alt="" className="img-logo" /> </NavLink>
 
+            <SearchBar />
 
             <ul
                 className="nav justify-content-center  "
