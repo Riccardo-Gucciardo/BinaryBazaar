@@ -1,12 +1,16 @@
-import { useParams } from "react-router-dom";
+import { useParams, useLocation } from "react-router-dom";
+import SingleCard from "../components/SingleCard";
 
 function ProductPage() {
   const { slug } = useParams();
+  const location = useLocation();
+  const product = location.state?.product; 
+
+  if (!product) return <p>Caricamento...</p>;
 
   return (
-    <div>
-      <h1>Dettagli del prodotto</h1>
-      <p>Hai selezionato il prodotto: {slug}</p>
+    <div className="product-page">
+      <SingleCard product={product} type={product.category} /> 
     </div>
   );
 }

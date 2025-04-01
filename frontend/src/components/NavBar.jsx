@@ -6,7 +6,7 @@ export default function NavBar() {
         <header className="header">
 
             
-                <img src="/public/Logo.png" alt="" className="img-logo" />
+                <img src="/Logo.png" alt="" className="img-logo" />
             
 
         <ul
