@@ -5,29 +5,29 @@ export default function NavBar() {
 
         <header className="header">
 
-            
-                <img src="/public/Logo.png" alt="" className="img-logo" />
-            
 
-        <ul
-            className="nav justify-content-center  "
-        >
-            <li className="nav-item">
-                <NavLink className="nav-link active" to="/" aria-current="page">
-                    HomePage
-                </NavLink>
-            </li>
-            <li className="nav-item">
-                <NavLink className="nav-link" to="/:slug">
-                    I Nostri Prodotti
-                </NavLink>
-            </li>
-            {/* <li className="nav-item">
+            <NavLink to="/"> <img src="/Logo.png" alt="" className="img-logo" /> </NavLink>
+
+
+            <ul
+                className="nav justify-content-center  "
+            >
+                <li className="nav-item">
+                    <NavLink className="nav-link active" to="/" aria-current="page">
+                        HomePage
+                    </NavLink>
+                </li>
+                <li className="nav-item">
+                    <NavLink className="nav-link" to="/:slug">
+                        I Nostri Prodotti
+                    </NavLink>
+                </li>
+                {/* <li className="nav-item">
                 <NavLink className="nav-link disabled" to="/:slug">Disabled link</NavLink>
             </li> */}
-        </ul>
-        
-        </header>    
+            </ul>
+
+        </header>
 
 
 
