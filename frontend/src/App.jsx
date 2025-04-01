@@ -5,15 +5,18 @@ import ProductPage from "./pages/ProductPage";
 
 function App() {
   return (
-    <BrowserRouter>
-      <Routes>
-        <Route element={<DefaultLayout />}>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/product/:slug" element={<ProductPage />} />
-        </Route>
-      </Routes>
-    </BrowserRouter>
-  );
+    <>
+      <BrowserRouter>
+        <Routes>
+          <Route Component={DefaultLayout}>
+            <Route path="/" Component={HomePage} />
+            <Route path="/:slug/" Component={ProductPage} />
+          </Route>
+        </Routes>
+      </BrowserRouter>
+    </>
+
+  )
 }
 
 export default App;

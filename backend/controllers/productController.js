@@ -16,6 +16,7 @@ function index(req, res) {
         const products = results.map(p => {
             return {
                 ...p,
+
                 image_url: `${req.imagePath}${p.slug}.webp`
             }
 
@@ -53,7 +54,7 @@ function index(req, res) {
 
 function showProductDetails(req, res) {
     const { slug } = req.params;
-    const { type } = req.query; // Ottieni il tipo dalla query string
+    const category = req.query.category; // Ottieni il tipo dalla query string
 
     const sql = "SELECT * FROM products WHERE slug=?";
 
@@ -64,9 +65,9 @@ function showProductDetails(req, res) {
         const product = results[0];
         let detailsSql;
 
-        if (type === 'laptop') {
+        if (category === 'laptop') {
             detailsSql = 'SELECT * FROM laptop_details WHERE product_id = ?';
-        } else if (type === 'accessory') {
+        } else if (category === 'accessory') {
             detailsSql = 'SELECT * FROM accessory_details WHERE product_id = ?';
         } else {
             return res.status(400).json({ error: 'Tipo di prodotto non valido' });
@@ -75,7 +76,7 @@ function showProductDetails(req, res) {
         connection.query(detailsSql, [product.product_id], (err, detailsResults) => {
             if (err) return res.status(500).json({ error: 'error' });
             product.product_details = detailsResults; // Usa un nome di proprietà generico
-
+            product.details = detailsResults[0] || {};
             res.json({
                 ...product,
                 image_url: `${req.imagePath}${product.slug}.webp`
@@ -83,6 +84,11 @@ function showProductDetails(req, res) {
         });
     });
 }
+
+//TODO aggiornare funzione di ricerca!
+// function searchProduct(req, res){
+
+// }
 
 
 export { index, showProductDetails }
