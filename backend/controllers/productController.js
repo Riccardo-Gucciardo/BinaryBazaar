@@ -84,5 +84,10 @@ function showProductDetails(req, res) {
     });
 }
 
+//TODO aggiornare funzione di ricerca!
+// function searchProduct(req, res){
+
+// }
+
 
 export { index, showProductDetails }

@@ -7,6 +7,7 @@ const port = process.env.SERVER_PORT || 3000;
 const endpoint = process.env.FRONTEND_PORT
 
 import productRouter from './routers/productRouter.js'
+import orderRouter from './routers/orderRouter.js'
 
 //cors
 app.use(cors({
@@ -22,9 +23,11 @@ app.use(handleImagePath)
 //middleware asset statico
 app.use(express.static('public'))
 
-//mount router
+//mount productRouter
 app.use('/products', productRouter)
 
+//mount orderRouter
+app.use('/orders', orderRouter)
 
 
 //attivazione del server
