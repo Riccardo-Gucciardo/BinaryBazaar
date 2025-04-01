@@ -14,10 +14,10 @@ export default function Card({product}) {
                <div className="product-info">
                    <h2 className="product-name">{product.name}</h2>
                    <p className="product-description">{product.description}</p>
-                   <p className="product-model"><strong>Modello:</strong>{product.model}</p>
+                   <p className="product-model"><strong>Modello: </strong>{product.model}</p>
                    <p className="product-price">
-                       Prezzo: <span className="original-price">{product.price}</span>
-                       <span className="discount-price">{product.discount_price}</span>
+                       Prezzo: <span className="original-price">{product.discount_price}</span>
+                       <span className="discount-price">{product.price}</span>
                    </p>
                    <button className="buy-button">Acquista Ora</button>
                </div>
