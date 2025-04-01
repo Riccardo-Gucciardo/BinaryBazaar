@@ -3,6 +3,7 @@ import axios from 'axios'
 // import ProductsList from "./ProductsList"
 import Card from "../components/Card"
 import Hero from "../components/Hero"
+import { Link } from "react-router-dom"
 
 export default function HomePage() {
 
@@ -20,9 +21,10 @@ export default function HomePage() {
         return (
             products.map((product) => {
                 return (
-                    <div key={product.id}>
+
+                    <Link to={`/${product.slug}`} key={product.id}>
                         <Card product={product} />
-                    </div>
+                    </Link>
                 )
             })
         )
