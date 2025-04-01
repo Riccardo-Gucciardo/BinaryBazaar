@@ -18,7 +18,6 @@ function App() {
             <Route path="/:slug" Component={ProductPage} />
           </Route>
         </Routes>
-
       </BrowserRouter>
     </>
 
