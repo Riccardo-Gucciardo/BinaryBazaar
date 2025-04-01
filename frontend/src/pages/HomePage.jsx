@@ -22,7 +22,7 @@ export default function HomePage() {
             products.map((product) => {
                 return (
 
-                    <Link to={`/${product.slug}`} key={product.id}>
+                    <Link to={`/${product.slug}?category=${product.category}`} key={product.id}>
                         <Card product={product} />
                     </Link>
                 )

@@ -123,7 +123,7 @@ function createOrder(req, res) {
                             res.status(201).json({
                                 order_id: orderId,
                                 message: "Ordine effettuato con successo",
-                                total
+                                total: `${total.toFixed(2)} €`
                             });
                         }
                     });
