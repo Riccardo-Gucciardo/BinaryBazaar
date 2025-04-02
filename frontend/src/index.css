@@ -1,3 +1,11 @@
+/* import matrix font */
+/* @import url('https://fonts.cdnfonts.com/css/matrix'); */
+@import url('https://fonts.cdnfonts.com/css/share-techmono-2');
+
+body {
+    font-family: 'Share-TechMono', sans-serif;
+}
+
 /* header------------------------ */
 .header {
     width: 100%;

@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 export default function Card({ product }) {
     return (
@@ -32,7 +33,7 @@ export default function Card({ product }) {
                                 </span>
                             )}
                         </p>
-                        <button className="buy-button">Acquista Ora</button>
+                        <Link to={`/${product.slug}`} ><button className="buy-button float end">More Info</button></Link>
                     </div>
                 </div>
             </div>
