@@ -28,7 +28,7 @@ export default function NavBar() {
                     <button
                         className="btn btn-primary"
                         onClick={handleShowCart}
-                        style={{ position: "relative" }}
+                        style={{ position: "relative",marginTop: "40px" }}
                     >
                         Carrello
                         {cart.length > 0 && (
