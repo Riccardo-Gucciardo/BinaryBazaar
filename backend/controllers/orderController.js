@@ -19,8 +19,8 @@ function createOrder(req, res) {
         host: "sandbox.smtp.mailtrap.io",
         port: 2525,
         auth: {
-            user: "e05078ec635d3a",
-            pass: "9749f64807ff56" // Sostituisci con la password reale di Mailtrap
+            user: process.env.MAILTRAP_USER,
+            pass: process.env.MAILTRAP_PASS // Sostituisci con la password reale di Mailtrap
         }
     });
 
@@ -206,7 +206,7 @@ function createOrder(req, res) {
                                 res.status(201).json({
                                     order_id: orderId,
                                     message: "Ordine effettuato con successo",
-                                    total: `${total.toFixed(2)} €`
+                                    total: `${total.toFixed(2)}`
                                 });
                             });
                         }
