@@ -1,5 +1,6 @@
 import { NavLink } from "react-router-dom"
 import SearchBar from "./SearchBar"
+import CartOffcanvas from "./CartOffcanvas"
 
 export default function NavBar() {
     return (
@@ -22,6 +23,9 @@ export default function NavBar() {
                     <NavLink className="nav-link" to="/:slug">
                         I Nostri Prodotti
                     </NavLink>
+                </li>
+                <li className="nav-item">
+                    
                 </li>
                 {/* <li className="nav-item">
                 <NavLink className="nav-link disabled" to="/:slug">Disabled link</NavLink>
