@@ -65,9 +65,9 @@ export default function HomePage() {
         <>
             <Hero />
             <div className="container mx-auto">
-                <Button variant="primary" onClick={handleShow} style={{ marginBottom: '20px' }}>
+                {/* <Button variant="primary" onClick={handleShow} style={{ marginBottom: '20px' }}>
                     Carrello ({cart.length})
-                </Button>
+                </Button> */}
 
                 <h1 className="lime">laptop</h1>
                 <div className="row row-cols-md-3 row-cols-lg-4 g-1">
@@ -80,12 +80,12 @@ export default function HomePage() {
                 </div>
             </div>
 
-            <CartOffcanvas 
+            {/* <CartOffcanvas 
                 show={show} 
                 handleClose={handleClose} 
                 cart={cart} 
                 removeFromCart={removeFromCart} 
-            />
+            /> */}
         </>
     );
 }

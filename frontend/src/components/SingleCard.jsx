@@ -79,12 +79,12 @@
 // }
 
 // export default SingleCard
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; // Per redirect opzionale
+import React from "react";
+import { useCart } from "../contexts/CartContext";
+import CartOffcanvas from "./CartOffcanvas";
 
 function SingleCard({ product }) {
-    const [localCartMessage, setLocalCartMessage] = useState(''); // Stato locale per feedback
-    const navigate = useNavigate();
+    const { addToCart, showCart, handleCloseCart } = useCart();
 
     const {
         name,
@@ -96,34 +96,25 @@ function SingleCard({ product }) {
         details = {},
     } = product;
 
-    const handleAddToCart = () => {
-        // Simulazione di aggiunta al carrello (senza contesto)
-        setLocalCartMessage(`${name} aggiunto al carrello! Torna alla Home per vedere il carrello.`);
-        // Opzionale: redirect alla HomePage dopo un delay
-        setTimeout(() => {
-            navigate('/');
-        }, 2000);
-    };
-
     return (
         <div className="product-details-container-single">
             <div className="product-grid-single">
                 <div className="product-image-section-single">
-                    <img 
-                        src={image_url || 'placeholder-image.jpg'} 
-                        alt={name || 'Prodotto senza nome'} 
+                    <img
+                        src={image_url || "placeholder-image.jpg"}
+                        alt={name || "Prodotto senza nome"}
                         className="product-main-image-single"
                     />
                 </div>
 
                 <div className="product-info-section-single">
-                    <h2 className="product-title-single">{name || 'Nome non disponibile'}</h2>
-                    <p className="product-brand-single">Categoria: {category || 'Non specificata'}</p>
+                    <h2 className="product-title-single">{name || "Nome non disponibile"}</h2>
+                    <p className="product-brand-single">Categoria: {category || "Non specificata"}</p>
                     <hr />
-                    <p className="product-description-single">{description || 'Descrizione non disponibile'}</p>
+                    <p className="product-description-single">{description || "Descrizione non disponibile"}</p>
                     <hr />
 
-                    {Object.keys(details).length > 0 ? (
+                    {Object.keys(details).length > 0 && (
                         <div className="product-details-section-single">
                             <h3>Dettagli del prodotto</h3>
                             <ul className="product-features-single">
@@ -137,15 +128,13 @@ function SingleCard({ product }) {
                                 {details.compatibility && <li><strong>Compatibilità:</strong> {details.compatibility}</li>}
                             </ul>
                         </div>
-                    ) : (
-                        <p className="no-details-message">Dettagli non disponibili per questo prodotto.</p>
                     )}
                 </div>
 
                 <div className="product-purchase-section-single">
                     <div className="price-container-single">
                         <span className="product-price-single">
-                            €{discount_price || price || 'N/A'}
+                            €{discount_price || price || "N/A"}
                         </span>
                         {discount_price && (
                             <span className="original-price-single">
@@ -155,17 +144,9 @@ function SingleCard({ product }) {
                     </div>
 
                     <div className="purchase-actions">
-                        <button className="add-to-cart-btn" onClick={handleAddToCart}>
+                        <button className="add-to-cart-btn" onClick={() => addToCart(product)}>
                             Aggiungi al carrello
                         </button>
-                        <button className="buy-now-btn">
-                            Acquista ora
-                        </button>
-                    </div>
-
-                    <div className="shipping-info-single">
-                        <p>Resi gratuiti entro 30 giorni</p>
-                        {localCartMessage && <p style={{ color: 'green' }}>{localCartMessage}</p>}
                     </div>
                 </div>
             </div>

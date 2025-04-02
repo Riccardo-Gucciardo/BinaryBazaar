@@ -3,6 +3,7 @@ import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import SingleCard from "../components/SingleCard";
+import CartOffcanvas from "../components/CartOffcanvas";
 
 function ProductPage() {
     const { slug } = useParams();
@@ -26,7 +27,12 @@ function ProductPage() {
         return <div>Caricamento...</div>;
     }
 
-    return <SingleCard product={product} />;
+    return (
+        <>
+      <SingleCard product={product} />;
+      <CartOffcanvas/>
+      </>  
+    )
 }
 
 export default ProductPage;

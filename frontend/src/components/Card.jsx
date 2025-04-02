@@ -30,9 +30,9 @@ export default function Card({ product, addToCart }) {
                             </span>
                         )}
                     </p>
-                    <button className="buy-button" onClick={handleAddToCart}>
+                    {/* <button className="buy-button" onClick={handleAddToCart}>
                         Aggiungi al carrello
-                    </button>
+                    </button> */}
                 </div>
             </div>
         </div>
