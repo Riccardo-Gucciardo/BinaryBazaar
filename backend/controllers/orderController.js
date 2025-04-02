@@ -19,8 +19,8 @@ function createOrder(req, res) {
         host: "sandbox.smtp.mailtrap.io",
         port: 2525,
         auth: {
-            user: "f782795498ad80",
-            pass: "f8ae7ee00fbc4b" // Sostituisci con la password reale di Mailtrap
+            user: "e05078ec635d3a",
+            pass: "9749f64807ff56" // Sostituisci con la password reale di Mailtrap
         }
     });
 
