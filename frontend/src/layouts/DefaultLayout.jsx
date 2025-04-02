@@ -9,7 +9,7 @@ export default function DefaultLayout() {
             <main className='main-box' >
                 <Outlet />
             </main>
-            <Footer />
+            {/* <Footer /> commentato SOLO PER ORA*/}
         </>
 
     )

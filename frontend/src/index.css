@@ -38,7 +38,7 @@
     /* Distanza della sottolineatura dal testo */
     width: 0;
     height: 2px;
-    background-color: red;
+    background-color: lime;
     bottom: -10px;
     transform: translateX(-50%);
     /* Centra la linea rispetto al link */
@@ -46,7 +46,7 @@
 }
 
 .nav-link:hover {
-    color: red;
+    color: lime;
     /* Cambia colore al passaggio del mouse */
     transform: scale(1.2);
     /* Ingrandisce leggermente */
@@ -162,7 +162,7 @@
 .hero-container {
     width: 100%;
     margin: 0 auto;
-    height: 30vh;
+    height: 40vh;
     position: relative;
 }
 
@@ -173,7 +173,7 @@
 
 .hero-image {
     width: 100%;
-    height: 30vh;
+    height: 40vh;
     display: block;
     object-fit: cover;
 }
@@ -218,8 +218,8 @@
     bottom: 0;
     text-align: center;
     padding-top: 20px;
-   
-    
+
+
 }
 
 
@@ -229,115 +229,116 @@
     max-width: 1200px;
     margin: 20px auto;
     padding: 20px;
-  }
-  
-  .product-grid-single {
+}
+
+.product-grid-single {
     display: grid;
     grid-template-columns: 1fr 2fr 1fr;
     gap: 30px;
-  }
-  
-  .product-main-image-single {
+}
+
+.product-main-image-single {
     max-width: 400px;
     height: auto;
     border: 1px solid #ddd;
-  }
-  
-  .product-title-single {
+}
+
+.product-title-single {
     font-size: 24px;
     margin-bottom: 10px;
-  }
-  
-  .product-rating-single {
+}
+
+.product-rating-single {
     color: #ffa41c;
     margin-bottom: 10px;
-  }
-  
-  .review-count-single {
+}
+
+.review-count-single {
     color: #555;
     margin-left: 10px;
-  }
-  
-  .product-description-single {
+}
+
+.product-description-single {
     line-height: 1.6;
     margin: 15px 0;
-  }
-  
-  .product-features-single {
+}
+
+.product-features-single {
     list-style-type: disc;
     padding-left: 20px;
-  }
-  
-  .price-container-single {
+}
+
+.price-container-single {
     margin: 15px 0;
-  }
-  
-  .product-price-single {
+}
+
+.product-price-single {
     font-size: 24px;
     color: #B12704;
     font-weight: bold;
-  }
-  
-  .original-price-single {
+}
+
+.original-price-single {
     text-decoration: line-through;
     color: #888;
     margin-left: 10px;
-  }
-  
-  .in-stock-single {
+}
+
+.in-stock-single {
     color: #007600;
-  }
-  
-  .out-stock-single {
+}
+
+.out-stock-single {
     color: #B12704;
-  }
-  
-  .purchase-actions-single {
+}
+
+.purchase-actions-single {
     margin: 20px 0;
-  }
-  
-  .add-to-cart-btn {
+}
+
+.add-to-cart-btn {
     background-color: #f0c14b;
     border: 1px solid #a88734;
     padding: 10px 20px;
     width: 100%;
     margin-bottom: 10px;
     cursor: pointer;
-  }
-  
-  .buy-now-btn {
+}
+
+.buy-now-btn {
     background-color: #ffa41c;
     border: 1px solid #ff8f00;
     padding: 10px 20px;
     width: 100%;
     cursor: pointer;
-  }
-  
-  .shipping-info {
+}
+
+.shipping-info {
     font-size: 14px;
     color: #555;
-  }
-  
-  .additional-details {
+}
+
+.additional-details {
     margin-top: 40px;
-  }
-  
-  .product-specs {
+}
+
+.product-specs {
     width: 100%;
     border-collapse: collapse;
-  }
-  
-  .product-specs td {
+}
+
+.product-specs td {
     padding: 8px;
     border: 1px solid #ddd;
-  }
-  
-  @media (max-width: 768px) {
+}
+
+@media (max-width: 768px) {
     .product-grid {
-      grid-template-columns: 1fr;
+        grid-template-columns: 1fr;
     }
-  }
-  a {
+}
+
+a {
     text-decoration: none !important;
 }
 
@@ -363,7 +364,7 @@
     top: 50%;
     transform: translateY(-50%);
     padding: 5px 10px;
-    background-color: #007bff;
+    background-color: lime;
     color: white;
     border: none;
     border-radius: 3px;
