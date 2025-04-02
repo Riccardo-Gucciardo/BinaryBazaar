@@ -2,14 +2,11 @@ import { useEffect, useState } from "react";
 import axios from 'axios';
 import Card from "../components/Card";
 import Hero from "../components/Hero";
-import Button from 'react-bootstrap/Button';
-import CartOffcanvas from "../components/CartOffcanvas";
 import { Link } from "react-router-dom";
 
 export default function HomePage() {
     const [products, setProducts] = useState([]);
-    const [cart, setCart] = useState([]);
-    const [show, setShow] = useState(false);
+
 
     const fetchProducts = () => {
         axios.get('http://localhost:3000/products')
@@ -21,19 +18,6 @@ export default function HomePage() {
         fetchProducts();
     }, []);
 
-    const addToCart = (product) => {
-        setCart((prevCart) => [...prevCart, product]);
-        setShow(true);
-        console.log("Prodotto aggiunto:", product);
-    };
-
-    const removeFromCart = (indexToRemove) => {
-        setCart((prevCart) => prevCart.filter((_, index) => index !== indexToRemove));
-        console.log("Prodotto rimosso dall'indice:", indexToRemove);
-    };
-
-    const handleClose = () => setShow(false);
-    const handleShow = () => setShow(true);
 
     const renderLaptops = () => {
         const laptops = products.filter(product => product.category === 'laptop');
@@ -43,7 +27,7 @@ export default function HomePage() {
                 key={product.product_id} 
                 style={{ textDecoration: 'none', color: 'inherit' }}
             >
-                <Card product={product} addToCart={addToCart} />
+                <Card product={product}/>
             </Link>
         ));
     };
@@ -56,7 +40,7 @@ export default function HomePage() {
                 key={product.product_id} 
                 style={{ textDecoration: 'none', color: 'inherit' }}
             >
-                <Card product={product} addToCart={addToCart} />
+                <Card product={product}/>
             </Link>
         ));
     };
