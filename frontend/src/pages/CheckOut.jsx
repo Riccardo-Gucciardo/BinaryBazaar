@@ -9,7 +9,7 @@ export default function CheckOut() {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         firstName: "",
-        lastName: "", 
+        lastName: "",
         email: "",
         address: "",
         city: "",
@@ -47,7 +47,6 @@ export default function CheckOut() {
         if (!validateForm()) return;
 
         setIsLoading(true);
-
         const orderData = {
             name: formData.firstName,
             lastname: formData.lastName,
@@ -57,7 +56,7 @@ export default function CheckOut() {
             telephone: formData.telephone,
             promotion_code: formData.promotionCode || null,
             products: cart.map(item => ({
-                product_id: item.product_id,
+                slug: item.slug, // Usa slug invece di product_id
                 quantity: 1,
                 price: item.discount_price || item.price,
                 name: item.name
@@ -80,7 +79,7 @@ export default function CheckOut() {
                 console.error("Errore:", error.response ? error.response.data : error.message);
                 alert("Errore: " + (error.response?.data?.error || error.message));
             })
-            .then(() => {
+            .finally(() => {
                 setIsLoading(false);
             });
     };
@@ -88,7 +87,7 @@ export default function CheckOut() {
     return (
         <Container className="py-5">
             <h2 className="mb-4 text-center">Checkout</h2>
-            
+
             {cart.length === 0 ? (
                 <p className="text-center">Il carrello è vuoto</p>
             ) : (

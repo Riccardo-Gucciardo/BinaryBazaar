@@ -63,7 +63,7 @@ function createOrder(req, res) {
             const mailOptions = {
                 from: 'noreply@binarybazaarassistant.com', // Mittente
                 to: customerEmail, // Destinatario (email del cliente)
-                subject: 'Conferma del tuo ordine - TechShop',
+                subject: 'Conferma del tuo ordine - BinaryBazaar',
                 html: `
                     <h1>Grazie per il tuo ordine, ${customerName}!</h1>
                     <p>Il tuo ordine è stato ricevuto con successo. Ecco i dettagli:</p>
@@ -71,9 +71,10 @@ function createOrder(req, res) {
                     <p><strong>Prodotti:</strong></p>
                     <ul>${productList}</ul>
                     ${promoMessage}
-                    <p><strong>Totale:</strong> €${total.toFixed(2)}</p>
-                    <p>Ti contatteremo presto per la spedizione. Grazie per aver scelto TechShop!</p>
-                    <p>Per qualsiasi domanda, contattaci a support@techshop.com</p>
+                    <p><strong>Totale:</strong> ${total.toFixed(2)} €</p>
+                    <p>Ti contatteremo presto per la spedizione. Grazie per aver scelto BinaryBazaar!</p>
+                    <p>Per qualsiasi domanda, contattaci a support@BinaryBazaar.com</p>
+                    <p>Non rispondere a questa mail</p>
                 `
             };
 
