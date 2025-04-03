@@ -3,27 +3,57 @@ import connection from '../data/db.js'
 
 //* chiama INDEX di TUTTI i prodotti
 function index(req, res) {
+    // Estrai i parametri di filtro
+    const {
+        q: searchTerm,
+        category,
+        minPrice,
+        maxPrice,
+        sortBy
+    } = req.query;
 
+    // Costruisci la query base
+    let sql = 'SELECT * FROM products WHERE 1=1';
+    const params = [];
 
-    const sql = 'SELECT * FROM products'
+    // Aggiungi filtri dinamici
+    if (searchTerm) {
+        sql += ' AND LOWER(name) LIKE LOWER(?)';
+        params.push(`%${searchTerm}%`);
+    }
 
-    connection.query(sql, (err, results) => {
-        if (err) return res.status(500).json({
-            error: 'error'
-        })
+    if (category) {
+        sql += ' AND category = ?';
+        params.push(category);
+    }
 
-        // res.json(results); 
-        const products = results.map(p => {
-            return {
-                ...p,
-                image_url: `${req.imagePath}${p.slug}.webp`
-            }
+    if (minPrice) {
+        sql += ' AND price >= ?';
+        params.push(parseFloat(minPrice));
+    }
 
-        });
-        res.json(products)//* AGGIORNAMENTO CON USO MIDDLEWARE
-    })
+    if (maxPrice) {
+        sql += ' AND price <= ?';
+        params.push(parseFloat(maxPrice));
+    }
+
+    // Aggiungi ordinamento
+    const validSortColumns = ['name', 'price'];
+    if (validSortColumns.includes(sortBy)) {
+        sql += ` ORDER BY ${sortBy}`;
+    }
+
+    connection.query(sql, params, (err, results) => {
+        if (err) return res.status(500).json({ error: 'Database error' });
+
+        const products = results.map(p => ({
+            ...p,
+            image_url: `${req.imagePath}${p.slug}.webp`
+        }));
+
+        res.json(products);
+    });
 }
-
 
 function searchProduct(req, res) {
     const searchTerm = req.query.q || '';
