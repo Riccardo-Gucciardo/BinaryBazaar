@@ -1,3 +1,4 @@
+
 import connection from '../data/db.js';
 import nodemailer from 'nodemailer';
 
@@ -13,13 +14,87 @@ function createOrder(req, res) {
     let total = 0;
     let promotion_id = null;
 
+    // Configurazione del transporter di Nodemailer con Mailtrap
+    const transporter = nodemailer.createTransport({
+        host: "sandbox.smtp.mailtrap.io",
+        port: 2525,
+        auth: {
+            user: process.env.MAILTRAP_USER,
+            pass: process.env.MAILTRAP_PASS // Sostituisci con la password reale di Mailtrap
+        }
+    });
+
+    function sendOrderConfirmationEmail(orderId, customerEmail, customerName, total, products, promotion_id, callback) {
+        // Genera l'elenco dei prodotti per l'email
+        const productList = products.map(item => {
+            return `<li>${item.name} - Quantità: ${item.quantity} - Prezzo unitario: €${item.price.toFixed(2)}</li>`;
+        }).join('');
+
+        // Funzione per recuperare i dettagli della promozione (se esiste)
+        function getPromotionDetails(callback) {
+            if (!promotion_id) {
+                return callback(null, null); // Nessuna promozione, procedi senza dettagli
+            }
+
+            const promoSql = `
+                SELECT code, discount
+                FROM promotions
+                WHERE promotion_id = ?
+            `;
+            connection.query(promoSql, [promotion_id], (err, promoResults) => {
+                if (err) {
+                    console.error('Errore nel recupero della promozione:', err);
+                    return callback(null, null); // In caso di errore, procedi senza i dettagli della promo
+                }
+                if (promoResults.length > 0) {
+                    return callback(null, promoResults[0]);
+                }
+                callback(null, null); // Nessuna promozione trovata
+            });
+        }
+
+        // Recupera i dettagli della promozione e poi invia l'email
+        getPromotionDetails((err, promoDetails) => {
+            // Costruisci il messaggio della promozione (se esiste)
+            const promoMessage = promoDetails
+                ? `<p><strong>Promozione applicata:</strong> Codice "${promoDetails.code}" - Sconto: ${promoDetails.discount}%</p>`
+                : '';
+
+            const mailOptions = {
+                from: 'noreply@binarybazaarassistant.com', // Mittente
+                to: customerEmail, // Destinatario (email del cliente)
+                subject: 'Conferma del tuo ordine - TechShop',
+                html: `
+                    <h1>Grazie per il tuo ordine, ${customerName}!</h1>
+                    <p>Il tuo ordine è stato ricevuto con successo. Ecco i dettagli:</p>
+                    <p><strong>Numero ordine:</strong> ${orderId}</p>
+                    <p><strong>Prodotti:</strong></p>
+                    <ul>${productList}</ul>
+                    ${promoMessage}
+                    <p><strong>Totale:</strong> €${total.toFixed(2)}</p>
+                    <p>Ti contatteremo presto per la spedizione. Grazie per aver scelto TechShop!</p>
+                    <p>Per qualsiasi domanda, contattaci a support@techshop.com</p>
+                `
+            };
+
+            // Invia la mail con una callback
+            transporter.sendMail(mailOptions, (error, info) => {
+                if (error) {
+                    console.error('Errore durante l\'invio della mail:', error);
+                    return callback(error); // Passa l'errore alla callback
+                }
+                console.log('Email di conferma inviata a:', customerEmail, 'Info:', info.response);
+                callback(null); // Nessun errore, procedi
+            });
+        });
+    }
+
     // Funzione unica di inserimento dell'ordine e del calcolo del totale
     function calculateTotalAndInsertOrder() {
         let processedProducts = 0;
 
         // Verifica dei prodotti e calcolo del totale
         products.forEach((p, index) => {
-            // Correzione: usa slug invece di product_id
             const sql = 'SELECT product_id, price, discount_price, stock, name FROM products WHERE slug = ?';
             connection.query(sql, [p.slug], (err, results) => {
                 if (err) {
@@ -31,8 +106,10 @@ function createOrder(req, res) {
                     return res.status(400).json({ error: `Prodotto ${p.slug} non disponibile o stock insufficiente` });
                 }
 
-                // Controllo sullo sconto
-                const price = results[0].discount_price || results[0].price;
+
+                // Converti price e discount_price in numeri
+                const price = parseFloat(results[0].discount_price || results[0].price);
+
 
                 // Calcolo totale in base alla quantità
                 total += price * p.quantity;
@@ -58,11 +135,10 @@ function createOrder(req, res) {
     function applicaPromo() {
         if (promotion_code) {
             const promoSql = `
-        SELECT promotion_id, discount
-        FROM promotions
-        WHERE code = ? AND valid_from <= CURDATE() AND valid_to >= CURDATE()
-      `; // Correzione: rimosso errore di sintassi
-
+                SELECT promotion_id, discount
+                FROM promotions
+                WHERE code = ? AND valid_from <= CURDATE() AND valid_to >= CURDATE()
+            `;
             connection.query(promoSql, [promotion_code], (err, promoResults) => {
                 if (err) {
                     return res.status(500).json({ error: "Errore lato server" });
@@ -74,18 +150,18 @@ function createOrder(req, res) {
                     const discount = promoResults[0].discount;
                     total = total * (1 - discount / 100);
                 }
-                insertOrder(); // Correzione: chiama insertOrder dopo lo sconto
+                insertOrder();
             });
         } else {
-            insertOrder(); // Chiama insertOrder se non c'è promozione
+            insertOrder();
         }
     }
 
     function insertOrder() {
         const orderSql = `
-      INSERT INTO orders (name, lastname, email, address, telephone, order_date, total, promotion_id)
-      VALUES (?, ?, ?, ?, ?, NOW(), ?, ?)
-    `; // Correzione: usa VALUES, non VALUE
+            INSERT INTO orders (name, lastname, email, address, telephone, order_date, total, promotion_id)
+            VALUES (?, ?, ?, ?, ?, NOW(), ?, ?)
+        `;
         connection.query(orderSql, [name, lastname, email, address, telephone || null, total, promotion_id || null], (err, orderResult) => {
             if (err) {
                 return res.status(500).json({ error: "Errore lato server" });
@@ -93,9 +169,9 @@ function createOrder(req, res) {
 
             const orderId = orderResult.insertId;
             const orderDetailsSql = `
-        INSERT INTO product_order (order_id, product_id, quantity, price, name)
-        VALUES ?
-      `;
+                INSERT INTO product_order (order_id, product_id, quantity, price, name)
+                VALUES ?
+            `;
             const orderDetailsValues = products.map(item => [orderId, item.product_id, item.quantity, item.price, item.name]);
 
             connection.query(orderDetailsSql, [orderDetailsValues], (err) => {
@@ -108,9 +184,9 @@ function createOrder(req, res) {
 
                 products.forEach(item => {
                     const sql = `
-            UPDATE products SET stock = stock - ?
-            WHERE product_id = ?
-          `;
+                        UPDATE products SET stock = stock - ?
+                        WHERE product_id = ?
+                    `;
                     connection.query(sql, [item.quantity, item.product_id], (err) => {
                         if (err) {
                             return res.status(500).json({ error: "Errore lato server" });
@@ -120,10 +196,18 @@ function createOrder(req, res) {
                         updateStock++;
 
                         if (updateStock === products.length) {
-                            res.status(201).json({
-                                order_id: orderId,
-                                message: "Ordine effettuato con successo",
-                                total: `${total.toFixed(2)} €`
+                            // Invio la mail di conferma dopo aver aggiornato lo stock
+                            sendOrderConfirmationEmail(orderId, email, name, total, products, promotion_id, (emailError) => {
+                                if (emailError) {
+                                    console.error('Errore invio mail, ma ordine completato:', emailError);
+                                }
+
+                                // Rispondi al client con il successo dell'ordine
+                                res.status(201).json({
+                                    order_id: orderId,
+                                    message: "Ordine effettuato con successo",
+                                    total: `${total.toFixed(2)}`
+                                });
                             });
                         }
                     });
@@ -132,52 +216,8 @@ function createOrder(req, res) {
         });
     }
 
-    //*avvio processo GLOBALE con evocazione
-    calculateTotalAndInsertOrder()
-
-    //ESPERIMENTO TRY/CATCH try {
-    //     // Inserimento ordine
-    //     const orderSql = 'INSERT INTO orders (name, lastname, email, address, telephone, order_date, total, promotion_id) VALUES (?, ?, ?, NOW())';
-    //     connection.query(orderSql, [buyer_data.name, buyer_data.email, total_amount], async (err, result) => {
-    //         if (err) return res.status(500).json({ error: 'Errore creazione ordine' });
-
-    //         const orderId = result.insertId;
-
-    //         // Inserimento prodotti dell'ordine
-    //         const orderDetailsSql = 'INSERT INTO order_products (order_id, product_id, quantity) VALUES (?, ?, ?)';
-    //         for (let product of products) {
-    //             await connection.query(orderDetailsSql, [orderId, product.id, product.quantity]);
-    //         }
-
-    //         // Invio email
-    //         const transporter = nodemailer.createTransport({
-    //             // configurazione del servizio email
-    //         });
-
-    //         const mailOptions = {
-    //             from: 'your@email.com',
-    //             to: buyer_data.email,
-    //             subject: 'Conferma Ordine',
-    //             html: `
-    //                 <h1>Grazie per il tuo ordine!</h1>
-    //                 <p>Numero ordine: ${orderId}</p>
-    //                 <p>Totale: €${total_amount}</p>
-    //                 // ... altri dettagli dell'ordine
-    //             `
-    //         };
-
-    //         await transporter.sendMail(mailOptions);
-
-    //         res.status(201).json({
-    //             message: 'Ordine creato con successo',
-    //             order_id: orderId
-    //         });
-    //     });
-    // } catch (error) {
-    //     res.status(500).json({ error: 'Errore durante la creazione dell\'ordine' });
-    // }
+    // Avvio processo globale
+    calculateTotalAndInsertOrder();
 }
 
-
-
-export { createOrder }
+export { createOrder };

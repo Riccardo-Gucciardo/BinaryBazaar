@@ -1,10 +1,15 @@
+
 export default function Card({ product, addToCart }) {
     const handleAddToCart = (e) => {
         e.preventDefault();
         addToCart(product);
     };
 
+import { Link } from "react-router-dom";
+
+
     return (
+
         <div className="box-card">
             <div className="product-card">
                 <img src={product.image_url} alt="Product Image" className="product-image" />
@@ -33,8 +38,14 @@ export default function Card({ product, addToCart }) {
                     {/* <button className="buy-button" onClick={handleAddToCart}>
                         Aggiungi al carrello
                     </button> */}
+
                 </div>
             </div>
         </div>
     );
+
 }
+
+
+
+

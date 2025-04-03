@@ -30,7 +30,7 @@
 //           <hr />
 //           <p className="product-description-single">{product.description}</p>
 //           <hr />
-          
+
 //           {product.product_details  && (
 //             <ul className="product-features-single">
 //               {product.product_details.map((feature, index) => (
@@ -51,7 +51,7 @@
 //               </span>
 //             )}
 //           </div>
-          
+
 //           {/* <div className="availability">
 //             <span className={product.inStock ? 'in-stock' : 'out-stock'}>
 //               {product.inStock ? 'Disponibile' : 'Non disponibile'}
@@ -73,7 +73,7 @@
 //         </div>
 //       </div>
 
-     
+
 //     </div>
 //   );
 // }
@@ -84,6 +84,7 @@ import { useCart } from "../contexts/CartContext";
 import CartOffcanvas from "./CartOffcanvas";
 
 function SingleCard({ product }) {
+
     const { addToCart, showCart, handleCloseCart } = useCart();
 
     const {
@@ -150,6 +151,7 @@ function SingleCard({ product }) {
                     </div>
                 </div>
             </div>
+
         </div>
     );
 }
