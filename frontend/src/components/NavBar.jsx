@@ -15,7 +15,7 @@ export default function NavBar() {
 
                 <div className="d-flex align-items-center order-lg-last">
                     <button
-                        className="btn cart-button me-2"
+                        className="btn cart-button border-none"
                         onClick={handleShowCart}
                     >
                         <FaShoppingCart size={20} />

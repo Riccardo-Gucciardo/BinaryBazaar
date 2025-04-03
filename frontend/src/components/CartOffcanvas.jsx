@@ -55,10 +55,10 @@ export default function CartOffcanvas() {
                             ))}
                         </ul>
                         <div style={{ marginTop: "20px", borderTop: "1px solid #dee2e6", paddingTop: "10px" }}>
-                            <h5>Totale: €{calculateTotal()}</h5>
+                            <h5>Totale: {calculateTotal()} €</h5>
                             <Link to="/checkout">
-                                <Button 
-                                    variant="primary" 
+                                <Button
+                                    variant="success"
                                     onClick={handleCloseCart}
                                     style={{ width: "100%", marginTop: "10px" }}
                                 >
