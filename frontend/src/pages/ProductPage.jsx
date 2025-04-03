@@ -1,5 +1,4 @@
 import { useParams, } from "react-router-dom";
-import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import SingleCard from "../components/SingleCard";
@@ -7,14 +6,12 @@ import CartOffcanvas from "../components/CartOffcanvas";
 
 function ProductPage() {
     const { slug } = useParams();
-    const [searchParams] = useSearchParams();
     const [product, setProduct] = useState(null);
     const [error, setError] = useState(null);
 
     useEffect(() => {
-      const category = searchParams.get("category");
         axios
-            .get(`http://localhost:3000/products/${slug}?category=${category}`)
+            .get(`http://localhost:3000/products/${slug}`)
             .then((res) => setProduct(res.data))
             .catch((err) => setError(err.response?.data?.error || "Errore sconosciuto"));
     }, [slug]);
