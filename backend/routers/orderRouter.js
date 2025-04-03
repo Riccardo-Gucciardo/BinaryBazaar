@@ -3,6 +3,6 @@ const router = express.Router();
 
 import { createOrder } from '../controllers/orderController.js'
 
-router.post('/orders', createOrder)
+router.post('/', createOrder)
 
 export default router
