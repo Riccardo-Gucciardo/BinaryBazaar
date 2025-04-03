@@ -340,11 +340,7 @@ body {
     border: 1px solid #ddd;
 }
 
-@media (max-width: 768px) {
-    .product-grid {
-        grid-template-columns: 1fr;
-    }
-}
+
 
 a {
     text-decoration: none !important;
@@ -356,7 +352,7 @@ a {
 
 .searchBox {
   display: flex;
-  width: 400px;
+  width: 100%;
   align-items: center;
   justify-content: space-between;
   
@@ -365,6 +361,7 @@ a {
   border-radius: 50px;
   position: relative;
 }
+
 
 .searchButton {
   color: white;
@@ -385,7 +382,7 @@ button:hover {
   box-shadow: rgba(0, 0, 0, 0.5) 0 10px 20px;
   transform: translateY(-3px);
 }
-/*button pressing effect*/
+
 button:active {
   box-shadow: none;
   transform: translateY(0);
@@ -400,6 +397,90 @@ button:active {
   padding: 24px 46px 24px 26px;
   
 }
+
+
+
+
+/* MENU HAMBURGER */
+.menu-checkbox {
+    display: none;
+}
+
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    position: absolute;
+    right: 20px;
+    top: 20px;
+}
+
+.bar {
+    width: 25px;
+    height: 4px;
+    background-color: black;
+    margin: 5px 0;
+}
+
+/* DEFAULT SEARCHBAR (DESKTOP) */
+.desktop-search {
+    display: flex; /* Mostra solo sopra 1070px */
+}
+
+/* NASCONDI SEARCHBAR MOBILE PER DESKTOP */
+.mobile-search {
+    display: none;
+}
+
+/* MENU MOBILE */
+@media (max-width: 1070px) {
+    .menu-toggle {
+        display: flex;
+    }
+
+    .nav-menu {
+        display: none;
+    }
+
+    .menu-checkbox:checked + .menu-toggle + .nav-menu {
+        display: flex;
+        flex-direction: column;
+        background-color: lightgray;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .nav {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .nav-item {
+        margin: 10px 0;
+    }
+
+    /* MOSTRA SEARCHBAR SOLO IN MODALITÀ MOBILE */
+    .mobile-search {
+        display: flex;
+        width: 100%;
+        padding: 10px 0;
+        justify-content: center;
+        margin-bottom: 20px;
+    }
+
+    /* NASCONDI SEARCHBAR DESKTOP IN MODALITÀ MOBILE */
+    .desktop-search {
+        display: none;
+    }
+}
+
+
+
 
 
 
