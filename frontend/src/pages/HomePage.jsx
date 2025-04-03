@@ -21,7 +21,7 @@ export default function HomePage() {
     const renderLaptops = () => {
         const laptops = products.filter(product => product.category === 'laptop');
         return laptops.map((product) => (
-            <Link to={`/${product.slug}?category=${product.category}`} key={product.product_id}>
+            <Link to={`/${product.slug}`} key={product.product_id}> {/* Rimosso ?category */}
                 <Card product={product} />
             </Link>
         ));
@@ -31,7 +31,7 @@ export default function HomePage() {
     const renderAccessories = () => {
         const accessories = products.filter(product => product.category === 'accessory');
         return accessories.map((product) => (
-            <Link to={`/${product.slug}?category=${product.category}`} key={product.product_id}>
+            <Link to={`/${product.slug}`} key={product.product_id}> {/* Rimosso ?category */}
                 <Card product={product} />
             </Link>
         ));
@@ -41,14 +41,11 @@ export default function HomePage() {
         <>
             <Hero />
             <div className="container mx-auto">
-                {/* Sezione laptop */}
-                <h1 className="lime">laptop</h1>
+                <h1 className="lime">Laptop</h1>
                 <div className="row row-cols-md-3 row-cols-lg-4 g-1">
                     {renderLaptops()}
                 </div>
-
-                {/* Sezione accessori */}
-                <h1 className="lime">accessori</h1>
+                <h1 className="lime">Accessori</h1>
                 <div className="row row-cols-md-3 row-cols-lg-4 g-1">
                     {renderAccessories()}
                 </div>

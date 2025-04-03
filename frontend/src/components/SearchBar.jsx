@@ -34,9 +34,9 @@ export default function SearchBar() {
     const navigateToProduct = () => {
         // Trova il prodotto che corrisponde al nome
         const selectedProduct = products.find(product => product.name.toLowerCase() === search.toLowerCase());
-        
+
         if (selectedProduct) {
-            navigate(`/${selectedProduct.slug}/?category=${selectedProduct.category}`);
+            navigate(`/${selectedProduct.slug}`);
             // Resetta la ricerca
             setSearch("");
             setShowDatalist(false);
