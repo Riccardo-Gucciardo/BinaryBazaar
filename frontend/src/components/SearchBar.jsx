@@ -11,7 +11,7 @@ export default function SearchBar() {
 
     useEffect(() => {
         // Sposta la fetch in useEffect per evitare chiamate multiple
-        axios.get('http://localhost:3000/products')
+        axios.get(`http://localhost:3000/products`) //fix deve cambiare questo endpoint!!!
             .then(res => setProducts(res.data))
             .catch(err => console.error('Errore nel caricamento prodotti:', err));
     }, []);
