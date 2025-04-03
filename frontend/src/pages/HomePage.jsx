@@ -23,7 +23,7 @@ export default function HomePage() {
         const laptops = products.filter(product => product.category === 'laptop');
         return laptops.map((product) => (
             <Link 
-                to={`/${product.slug}?category=${product.category}`} 
+                to={`/${product.slug}`} 
                 key={product.product_id} 
                 style={{ textDecoration: 'none', color: 'inherit' }}
             >
@@ -36,7 +36,7 @@ export default function HomePage() {
         const accessories = products.filter(product => product.category === 'accessory');
         return accessories.map((product) => (
             <Link 
-                to={`/${product.slug}?category=${product.category}`} 
+                to={`/${product.slug}`} 
                 key={product.product_id} 
                 style={{ textDecoration: 'none', color: 'inherit' }}
             >
