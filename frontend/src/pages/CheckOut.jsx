@@ -9,7 +9,7 @@ export default function CheckOut() {
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         firstName: "",
-        lastName: "",
+        lastName: "", 
         email: "",
         address: "",
         city: "",
