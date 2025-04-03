@@ -3,7 +3,7 @@
 import express from 'express'
 const router = express.Router();
 
-import { index, showProductDetails } from '../controllers/productController.js'
+import { index, showProductDetails, searchProduct } from '../controllers/productController.js'
 
 // /SyntaxRecap ==> {
 //      router.VERBO('percorsoRadice/:Params', middleware, 'CallBack')
@@ -17,9 +17,11 @@ import { index, showProductDetails } from '../controllers/productController.js'
 //chiamata INDEX
 router.get('/', index)
 
+//chiamata SEARCH prodotto
+router.get('/search', searchProduct);
+
 //chiamata SHOW singolo prodotto
 router.get('/:slug/', showProductDetails)
-
 
 
 

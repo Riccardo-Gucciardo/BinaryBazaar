@@ -1,45 +1,66 @@
 import { NavLink } from "react-router-dom";
 import SearchBar from "./SearchBar";
+import { useCart } from "../contexts/CartContext";
+import { FaShoppingCart } from 'react-icons/fa'; // Install react-icons if not already installed
 
 export default function NavBar() {
+    const { cart, handleShowCart } = useCart();
+
     return (
-        <header className="header">
-            <NavLink to="/"> 
-                <img src="/Logo.png" alt="" className="img-logo" />
-            </NavLink>
+        <nav className="navbar navbar-expand-lg navbar-light">
+            <div className="container-fluid">
+                <NavLink className="navbar-brand" to="/">
+                    <img src="/Logo.png" alt="" className="img-logo img-fluid" />
+                </NavLink>
 
-            {/* SearchBar Desktop */}
-            <div className="desktop-search">
-                <SearchBar />
-            </div>
+                <div className="d-flex align-items-center order-lg-last">
+                    <button
+                        className="btn cart-button me-2"
+                        onClick={handleShowCart}
+                    >
+                        <FaShoppingCart size={20} />
+                        {cart.length > 0 && (
+                            <span className="cart-badge">
+                                {cart.length}
+                            </span>
+                        )}
+                    </button>
 
-            {/* Menu Hamburger */}
-            <input type="checkbox" className="menu-checkbox" id="menu-toggle" />
-            <label className="menu-toggle" htmlFor="menu-toggle">
-                <div className="bar"></div>
-                <div className="bar"></div>
-                <div className="bar"></div>
-            </label>
+                    <button
+                        className="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarContent"
+                        aria-controls="navbarContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                    >
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                </div>
 
-            {/* Menu Items */}
-            <div className="nav-menu">
-                {/* SearchBar Mobile */}
-                <div className="mobile-search">
+                <div className="collapse navbar-collapse" id="navbarContent">
+                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/" aria-current="page">
+                                HomePage
+                            </NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/products" aria-current="page">
+                                Prodotti
+                            </NavLink>
+                        </li>
+                    </ul>
+                    <div className="d-lg-none d-xl-none">
+                        <SearchBar />
+                    </div>
+                </div>
+
+                <div className="d-none d-lg-block">
                     <SearchBar />
                 </div>
-                <ul className="nav">
-                    <li className="nav-item">
-                        <NavLink className="nav-link active" to="/" aria-current="page">
-                            HomePage
-                        </NavLink>
-                    </li>
-                    <li className="nav-item">
-                        <NavLink className="nav-link" to="/:slug">
-                            I Nostri Prodotti
-                        </NavLink>
-                    </li>
-                </ul>
             </div>
-        </header>
+        </nav>
     );
 }

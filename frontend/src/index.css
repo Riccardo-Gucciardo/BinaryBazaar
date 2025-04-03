@@ -17,8 +17,45 @@ body {
     position: sticky;
     top: 0;
     z-index: 1;
+    padding: 0 20px;
+}
 
+.cart-button {
+    position: relative;
+    background-color: transparent !important;
+    border: 2px solid lime !important;
+    color: black !important;
+    transition: all 0.3s ease;
+    padding: 0.5rem 1rem;
+}
 
+.cart-button:hover {
+    background-color: lime !important;
+    color: white !important;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -8px;
+    right: -8px;
+    background-color: red;
+    color: white;
+    border-radius: 50%;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.75rem;
+}
+
+.navbar {
+    background-color: lightgrey;
+    padding: 1rem;
+}
+
+.navbar-toggler {
+    border-color: lime;
+}
+
+.navbar-toggler:focus {
+    box-shadow: 0 0 0 0.2rem rgba(0, 255, 0, 0.25);
 }
 
 
@@ -342,6 +379,7 @@ body {
 
 
 
+
 a {
     text-decoration: none !important;
 }
@@ -364,38 +402,39 @@ a {
 
 
 .searchButton {
-  color: white;
-  position: absolute;
-  right: 8px;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  background: var(--gradient-2, linear-gradient(90deg, #2AF598 0%, #a3ccba 100%));
-  border: 0;
-  display: inline-block;
-  transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
+    color: white;
+    position: absolute;
+    right: 8px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--gradient-2, linear-gradient(90deg, #2AF598 0%, #a3ccba 100%));
+    border: 0;
+    display: inline-block;
+    transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
 }
+
 /*hover effect*/
 button:hover {
-  color: #99f2a9;
-  background-color: #1A1A1A;
-  box-shadow: rgba(0, 0, 0, 0.5) 0 10px 20px;
-  transform: translateY(-3px);
+    color: #99f2a9;
+    background-color: #1A1A1A;
+    box-shadow: rgba(0, 0, 0, 0.5) 0 10px 20px;
+    transform: translateY(-3px);
 }
 
 button:active {
-  box-shadow: none;
-  transform: translateY(0);
+    box-shadow: none;
+    transform: translateY(0);
 }
 
 .searchInput {
-  border: none;
-  background: none;
-  outline: none;
-  color: white;
-  font-size: 15px;
-  padding: 24px 46px 24px 26px;
-  
+    border: none;
+    background: none;
+    outline: none;
+    color: white;
+    font-size: 15px;
+    padding: 24px 46px 24px 26px;
+
 }
 
 
