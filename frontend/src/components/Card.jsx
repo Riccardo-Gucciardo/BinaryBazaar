@@ -19,15 +19,15 @@ export default function Card({ product, addToCart }) {
                     <p className="product-description">{product.description}</p>
                     <p className="product-model"><strong>Modello: </strong>{product.model}</p>
                     <p className="product-price">
-                        Prezzo:{' '}
+
                         {product.discount_price ? (
                             <>
-                                <span className="original-price">{product.price}</span>
+                                <span className="original-price">{product.price} €</span>
                                 <span
                                     className="discount-price"
                                     style={{ color: 'black', fontWeight: 'bold' }}
                                 >
-                                    {product.discount_price}
+                                    {product.discount_price} €
                                 </span>
                             </>
                         ) : (
