@@ -3,7 +3,10 @@
 import express from 'express'
 const router = express.Router();
 
-import { index, showProductDetails, searchProduct } from '../controllers/productController.js'
+import {
+    index, showProductDetails, searchProduct,
+    //  searchProductName
+} from '../controllers/productController.js'
 
 // /SyntaxRecap ==> {
 //      router.VERBO('percorsoRadice/:Params', middleware, 'CallBack')
@@ -22,6 +25,9 @@ router.get('/:slug/', showProductDetails)
 
 //chiamata SEARCH prodotto
 router.get('/search', searchProduct)
+
+//chiamata SEARCH prodotto singolo in base al nome
+// router.get('/searchh', searchProductName)
 
 
 export default router

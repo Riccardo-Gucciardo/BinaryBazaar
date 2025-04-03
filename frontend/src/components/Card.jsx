@@ -7,8 +7,6 @@ export default function Card({ product, addToCart }) {
     };
 
 
-
-
     return (
 
         <div className="box-card">
