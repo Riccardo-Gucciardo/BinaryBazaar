@@ -447,3 +447,65 @@ button:active {
         padding: 0.4rem 0.8rem;
     }
 }
+
+
+
+
+
+
+.product-list-container {
+    padding: 20px;
+}
+
+.controls {
+    margin-bottom: 20px;
+}
+
+.view-toggle button {
+    padding: 8px 16px;
+    margin-right: 10px;
+    border: 1px solid #ccc;
+    background: gray;
+    cursor: pointer;
+}
+
+.view-toggle button.active {
+    background: lime;
+    color: black;
+    border-color: lime;
+}
+
+.filters {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.filters select,
+.filters input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.products-grid {
+    display: grid;
+    gap: 20px;
+    width: 100%; /* Assicura che la griglia occupi tutta la larghezza */
+}
+
+/* 4 colonne in modalità single */
+.products-grid.single {
+    grid-template-columns: repeat(4, 1fr); /* 4 colonne di uguale larghezza */
+}
+
+/* 1 colonna in modalità row, occupa tutta la larghezza */
+.products-grid.row {
+    grid-template-columns: 1fr; /* 1 colonna */
+}
+
+/* Stile per le card nella modalità row */
+.products-grid.row .card {
+    width: 100%; /* Forza la card a occupare tutta la larghezza disponibile */
+    box-sizing: border-box; /* Include padding e bordi nella larghezza */
+}
