@@ -53,6 +53,18 @@ export default function SearchBar() {
         navigateToProduct();
     };
 
+    //todo landing ricerca globale con filtri
+    const handleSub = (e) => {
+        e.preventDefault();
+        if (search.trim()) {
+            navigate(`/products?search=${encodeURIComponent(search.trim())}`);
+            setSearch("");
+            setShowDatalist(false);
+        } else {
+            navigate("/products");
+        }
+    }
+
     const navigateToProduct = () => {
         const selectedProduct = products.find(product =>
             product.name.toLowerCase() === search.toLowerCase()
@@ -68,7 +80,7 @@ export default function SearchBar() {
     return (
         <div style={{ position: "relative", width: "500px", margin: "auto" }}>
             <div className="searchBox" style={{ height: "60px", padding: "5px 10px" }}>
-                <form style={{ display: "flex", alignItems: "center", width: "100%" }}>
+                <form onSubmit={handleSub} style={{ display: "flex", alignItems: "center", width: "100%" }}>
                     <input
                         className="searchInput"
                         type="text"

@@ -73,7 +73,7 @@ export default function CheckOut() {
             .then((response) => {
                 console.log("Ordine creato:", response.data);
                 alert("Ordine creato con successo!");
-                navigate("/order-confirmation", { state: { orderId: response.data.orderId } });
+                navigate("/allDone", { state: { orderId: response.data.orderId } });
             })
             .catch((error) => {
                 console.error("Errore:", error.response ? error.response.data : error.message);
@@ -82,7 +82,6 @@ export default function CheckOut() {
             .finally(() => {
                 setIsLoading(false);
                 resetCart()
-
             });
     };
 

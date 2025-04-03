@@ -59,8 +59,6 @@ body {
 }
 
 
-
-
 /* ----------------------------------- */
 
 .img-logo {
@@ -437,6 +435,8 @@ button:active {
     padding: 24px 46px 24px 26px;
 
 }
+
+
 
 @media (max-width: 991px) {
     .navbar .container-fluid {
