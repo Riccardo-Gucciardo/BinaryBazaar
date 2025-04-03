@@ -17,11 +17,12 @@ import { index, showProductDetails, searchProduct } from '../controllers/product
 //chiamata INDEX
 router.get('/', index)
 
+//chiamata SEARCH prodotto
+router.get('/search', searchProduct);
+
 //chiamata SHOW singolo prodotto
 router.get('/:slug/', showProductDetails)
 
-//chiamata SEARCH prodotto
-router.get('/search', searchProduct)
 
 
 export default router
