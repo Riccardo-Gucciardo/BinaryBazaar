@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 
 export default function Card({ product, addToCart }) {
     const handleAddToCart = (e) => {
@@ -5,7 +6,7 @@ export default function Card({ product, addToCart }) {
         addToCart(product);
     };
 
-import { Link } from "react-router-dom";
+
 
 
     return (
