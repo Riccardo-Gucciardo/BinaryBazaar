@@ -30,7 +30,7 @@
 //           <hr />
 //           <p className="product-description-single">{product.description}</p>
 //           <hr />
-          
+
 //           {product.product_details  && (
 //             <ul className="product-features-single">
 //               {product.product_details.map((feature, index) => (
@@ -51,7 +51,7 @@
 //               </span>
 //             )}
 //           </div>
-          
+
 //           {/* <div className="availability">
 //             <span className={product.inStock ? 'in-stock' : 'out-stock'}>
 //               {product.inStock ? 'Disponibile' : 'Non disponibile'}
@@ -73,7 +73,7 @@
 //         </div>
 //       </div>
 
-     
+
 //     </div>
 //   );
 // }
@@ -98,9 +98,9 @@ function SingleCard({ product }) {
       <div className="product-grid-single">
         {/* Sezione immagine */}
         <div className="product-image-section-single">
-          <img 
-            src={image_url || 'placeholder-image.jpg'} 
-            alt={name || 'Prodotto senza nome'} 
+          <img
+            src={image_url || 'placeholder-image.jpg'}
+            alt={name || 'Prodotto senza nome'}
             className="product-main-image-single"
           />
         </div>
@@ -136,14 +136,15 @@ function SingleCard({ product }) {
         {/* Sezione acquisto */}
         <div className="product-purchase-section-single">
           <div className="price-container-single">
-            <span className="product-price-single">
-              €{discount_price || price || 'N/A'} {/* Mostra il prezzo scontato se disponibile */}
-            </span>
+
             {discount_price && (
               <span className="original-price-single">
-                €{price}
+                {price} €
               </span>
             )}
+            <span className="product-price-single mx-2">
+              {discount_price || price || 'N/A'} € {/* Mostra il prezzo scontato se disponibile */}
+            </span>
           </div>
 
           <div className="purchase-actions">
