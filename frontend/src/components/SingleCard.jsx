@@ -5,7 +5,13 @@ import { useCart } from "../contexts/CartContext";
 
 function SingleCard({ product }) {
 
-    const { addToCart, showCart, handleCloseCart } = useCart();
+    const { addToCart, showCart, handleCloseCart,handleShowCart } = useCart();
+
+    function mostraCart(e){
+        e.preventDefault
+        handleShowCart()
+        addToCart(product)
+    }
 
     const {
         name,
@@ -65,7 +71,7 @@ function SingleCard({ product }) {
                     </div>
 
                     <div className="purchase-actions">
-                        <button className="add-to-cart-btn" onClick={() => addToCart(product)}>
+                        <button className="add-to-cart-btn" onClick={mostraCart}>
                             Aggiungi al carrello
                         </button>
                     </div>
