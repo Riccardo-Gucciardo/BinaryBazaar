@@ -1,57 +1,66 @@
 import { NavLink } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import { useCart } from "../contexts/CartContext";
+import { FaShoppingCart } from 'react-icons/fa'; // Install react-icons if not already installed
 
 export default function NavBar() {
     const { cart, handleShowCart } = useCart();
 
     return (
-        <header className="header">
+        <nav className="navbar navbar-expand-lg navbar-light">
+            <div className="container-fluid">
+                <NavLink className="navbar-brand" to="/">
+                    <img src="/Logo.png" alt="" className="img-logo img-fluid" />
+                </NavLink>
 
-            <NavLink to="/">
-                <img src="/Logo.png" alt="" className="img-logo" />
-            </NavLink>
-
-            <SearchBar />
-
-            <ul className="nav justify-content-center">
-                <li className="nav-item">
-                    <NavLink className="nav-link active" to="/" aria-current="page">
-                        HomePage
-                    </NavLink>
-                </li>
-                <li className="nav-item">
-                    <NavLink className="nav-link" to="/:slug">
-                        I Nostri Prodotti
-                    </NavLink>
-                </li>
-                <li className="nav-item">
+                <div className="d-flex align-items-center order-lg-last">
                     <button
-                        className="btn btn-primary"
+                        className="btn cart-button me-2"
                         onClick={handleShowCart}
-                        style={{ position: "relative",marginTop: "40px" }}
                     >
-                        Carrello
+                        <FaShoppingCart size={20} />
                         {cart.length > 0 && (
-                            <span
-                                style={{
-                                    position: "absolute",
-                                    top: "-5px",
-                                    right: "-10px",
-                                    backgroundColor: "red",
-                                    color: "white",
-                                    borderRadius: "50%",
-                                    padding: "5px 10px",
-                                    fontSize: "12px",
-                                }}
-                            >
+                            <span className="cart-badge">
                                 {cart.length}
                             </span>
                         )}
                     </button>
-                </li>
-            </ul>
-        </header>
-    );
 
+                    <button
+                        className="navbar-toggler"
+                        type="button"
+                        data-bs-toggle="collapse"
+                        data-bs-target="#navbarContent"
+                        aria-controls="navbarContent"
+                        aria-expanded="false"
+                        aria-label="Toggle navigation"
+                    >
+                        <span className="navbar-toggler-icon"></span>
+                    </button>
+                </div>
+
+                <div className="collapse navbar-collapse" id="navbarContent">
+                    <ul className="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/" aria-current="page">
+                                HomePage
+                            </NavLink>
+                        </li>
+                        <li className="nav-item">
+                            <NavLink className="nav-link" to="/products" aria-current="page">
+                                Prodotti
+                            </NavLink>
+                        </li>
+                    </ul>
+                    <div className="d-lg-none d-xl-none">
+                        <SearchBar />
+                    </div>
+                </div>
+
+                <div className="d-none d-lg-block">
+                    <SearchBar />
+                </div>
+            </div>
+        </nav>
+    );
 }
