@@ -5,7 +5,7 @@ import { useNavigate } from "react-router-dom";
 import axios from "axios";
 
 export default function CheckOut() {
-    const { cart } = useCart();
+    const { cart, resetCart } = useCart();
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         firstName: "",
@@ -81,6 +81,8 @@ export default function CheckOut() {
             })
             .finally(() => {
                 setIsLoading(false);
+                resetCart()
+
             });
     };
 

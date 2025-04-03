@@ -19,17 +19,22 @@ export function CartProvider({ children }) {
         setCart(prevCart => prevCart.filter((_, i) => i !== index));
     };
 
+    const resetCart = () => {
+        setCart('')
+    }
+
     const handleCloseCart = () => setShowCart(false);
     const handleShowCart = () => setShowCart(true);
 
     return (
-        <CartContext.Provider value={{ 
-            cart, 
+        <CartContext.Provider value={{
+            cart,
             addToCart,
-            removeFromCart, 
-            showCart, 
-            handleCloseCart, 
-            handleShowCart 
+            removeFromCart,
+            showCart,
+            handleCloseCart,
+            handleShowCart,
+            resetCart
         }}>
             {children}
         </CartContext.Provider>
