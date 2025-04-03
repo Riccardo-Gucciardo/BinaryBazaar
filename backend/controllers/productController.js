@@ -136,28 +136,27 @@ function searchProduct(req, res) {
 
 function showProductDetails(req, res) {
     const { slug } = req.params;
-    const category = req.query.category; // Ottieni il tipo dalla query string
 
-    const sql = "SELECT * FROM products WHERE slug=?";
-
+    const sql = "SELECT * FROM products WHERE slug = ?";
     connection.query(sql, [slug], (err, results) => {
-        if (err) return res.status(500).json({ error: 'error' });
-        if (results.length === 0) return res.status(404).json({ error: 'Prodotto Non Trovato' });
+        if (err) return res.status(500).json({ error: 'Errore del server' });
+        if (results.length === 0) return res.status(404).json({ error: 'Prodotto non trovato' });
 
         const product = results[0];
         let detailsSql;
 
-        if (category === 'laptop') {
+        // Usa il campo category dal database invece di req.query.category
+        if (product.category === 'laptop') {
             detailsSql = 'SELECT * FROM laptop_details WHERE product_id = ?';
-        } else if (category === 'accessory') {
+        } else if (product.category === 'accessory') {
             detailsSql = 'SELECT * FROM accessory_details WHERE product_id = ?';
         } else {
             return res.status(400).json({ error: 'Tipo di prodotto non valido' });
         }
 
         connection.query(detailsSql, [product.product_id], (err, detailsResults) => {
-            if (err) return res.status(500).json({ error: 'error' });
-            product.product_details = detailsResults; // Usa un nome di proprietà generico
+            if (err) return res.status(500).json({ error: 'Errore del server' });
+            product.product_details = detailsResults; // Dettagli del prodotto
             product.details = detailsResults[0] || {};
             res.json({
                 ...product,
@@ -166,6 +165,7 @@ function showProductDetails(req, res) {
         });
     });
 }
+
 
 //TODO aggiornare funzione di ricerca!
 // function searchProduct(req, res){
