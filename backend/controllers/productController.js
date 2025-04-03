@@ -133,47 +133,47 @@ function searchProduct(req, res) {
     });
 }
 
-//FIX Funzione per cercare i prodotti solo in base al nome
-// function searchProductName(req, res) {
-//     // 1. Estrai il parametro name da req.query
-//     const { name } = req.query;
+// FIX Funzione per cercare i prodotti solo in base al nome
+function searchProductName(req, res) {
+    // 1. Estrai il parametro name da req.query
+    const { name } = req.query;
 
-//     // 2. Prepara il valore per la ricerca (se name non è presente, usa una stringa vuota)
-//     const searchName = name ? name.trim() : "";
+    // 2. Prepara il valore per la ricerca (se name non è presente, usa una stringa vuota)
+    const searchName = name ? name.trim() : "";
 
-//     // 3. Costruisci la query SQL
-//     // Cerca i prodotti il cui nome contiene il valore di searchName (case-insensitive)
-//     const sql = `
-//         SELECT 
-//             name, 
-//             slug, 
-//             price, 
-//             discount_price, 
-//             category
-//         FROM products
-//         WHERE LOWER(name) LIKE LOWER(?)
-//     `;
+    // 3. Costruisci la query SQL
+    // Cerca i prodotti il cui nome contiene il valore di searchName (case-insensitive)
+    const sql = `
+        SELECT 
+            name, 
+            slug, 
+            price, 
+            discount_price, 
+            category
+        FROM products
+        WHERE LOWER(name) LIKE LOWER(?)
+    `;
 
-//     // 4. Valore per il placeholder (aggiungi % per il LIKE)
-//     const values = [`%${searchName}%`];
+    // 4. Valore per il placeholder (aggiungi % per il LIKE)
+    const values = [`%${searchName}%`];
 
-//     // 5. Esegui la query
-//     connection.query(sql, values, (err, results) => {
-//         if (err) {
-//             console.error("Errore nella query di ricerca:", err);
-//             return res.status(500).json({ error: "Errore lato server" });
-//         }
+    // 5. Esegui la query
+    connection.query(sql, values, (err, results) => {
+        if (err) {
+            console.error("Errore nella query di ricerca:", err);
+            return res.status(500).json({ error: "Errore lato server" });
+        }
 
-//         // 6. Mappa i risultati per aggiungere l'image_url
-//         const products = results.map((product) => ({
-//             ...product,
-//             image_url: `${req.imagePath}${p.slug}.webp`, // Costruisci l'URL dell'immagine
-//         }));
+        // 6. Mappa i risultati per aggiungere l'image_url
+        const products = results.map((product) => ({
+            ...product,
+            image_url: `${req.imagePath}${p.slug}.webp`, // Costruisci l'URL dell'immagine
+        }));
 
-//         // 7. Restituisci i risultati al frontend
-//         res.status(200).json(products);
-//     });
-// }
+        // 7. Restituisci i risultati al frontend
+        res.status(200).json(products);
+    });
+}
 
 //*chiamata SHOW del singolo prodotto a prescindere dal TYPE
 
