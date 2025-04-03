@@ -11,8 +11,8 @@ import CheckOut from './pages/CheckOut'
 function App() {
   return (
     <>
-    <CartProvider>
-      <BrowserRouter>
+     <BrowserRouter>
+      <CartProvider>
         <Routes>
           <Route Component={DefaultLayout}>
             <Route path="/" Component={HomePage} />
@@ -20,9 +20,8 @@ function App() {
             <Route path="/checkout" Component={CheckOut} />
           </Route>
         </Routes>
-      </BrowserRouter>
       </CartProvider>
-    </>
+     </BrowserRouter></>
 
   )
 }
