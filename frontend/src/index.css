@@ -723,3 +723,12 @@ button:active {
 
 
 }
+
+.color {
+    color: lime !important;
+}
+
+#viewModeSwitch {
+
+    border-color: lime;
+}
