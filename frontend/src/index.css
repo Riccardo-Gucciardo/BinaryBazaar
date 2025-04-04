@@ -48,6 +48,9 @@ body {
     padding: 0.25rem 0.5rem;
     font-size: 0.75rem;
 }
+.cart-container{
+    margin-top: 40px;
+}
 
 .navbar {
     background-color: rgb(168, 164, 164);
@@ -488,97 +491,10 @@ button:active {
     justify-content: center;
 }
 
-/* Menu Hamburger */
-/* Rendi la checkbox invisibile */
-.menu-checkbox {
-    display: none;
-}
-
-
-/* Icona dell'hamburger */
-.menu-toggle {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-    position: relative;
-}
-
-/* Barra dell'hamburger */
-.bar {
-    width: 25px;
-    height: 4px;
-    background-color: black;
-    margin: 5px 0;
-}
-
-/* Mobile Search (nascondi inizialmente) */
-.mobile-search {
-    display: none;
-}
-
-.filters {
-    margin-top: 15px;
-    display: flex;
-    gap: 10px;
-}
-
-.filters select,
-.filters input {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.products-grid {
-    display: grid;
-    gap: 20px;
-    width: 100%;
-    /* Assicura che la griglia occupi tutta la larghezza */
-}
-
-/* 4 colonne in modalità single */
-.products-grid.single {
-    grid-template-columns: repeat(4, 1fr);
-    /* 4 colonne di uguale larghezza */
-}
-
-/* 1 colonna in modalità row, occupa tutta la larghezza */
-.products-grid.row {
-    grid-template-columns: 1fr;
-    /* 1 colonna */
-}
-
-/* Stile per le card nella modalità row */
-.products-grid.row .card {
-    width: 100%;
-    /* Forza la card a occupare tutta la larghezza disponibile */
-    box-sizing: border-box;
-    /* Include padding e bordi nella larghezza */
-}
-
-
-@media (max-width: 768px) {
-    .hero-slogan h2 {
-        font-size: 1.2rem;
-    }
-
-    .hero-slogan {
-        width: 90%;
-        padding: 0.5rem 1rem;
-    }
-}
 
 
 
-@media (max-width: 991px) {
-    .navbar .container-fluid {
-        padding: 0.5rem;
-    }
 
-    .cart-button {
-        padding: 0.4rem 0.8rem;
-    }
-}
 
 /* NOT FOUND CSS */
 /* Stili per la pagina 404 */
