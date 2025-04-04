@@ -26,6 +26,7 @@ function ProductPage() {
 
     return (
         <>
+        
             <SingleCard product={product} />
             <CartOffcanvas />
         </>
