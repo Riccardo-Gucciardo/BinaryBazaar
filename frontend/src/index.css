@@ -73,6 +73,7 @@ body {
 
 .img-logo {
     width: 350px;
+    padding: 3rem;
 }
 
 .nav-link {
@@ -730,60 +731,166 @@ button:active {
 
 
 
+/* Contenitore principale */
+.product-list-container {
+    margin-left: 250px; /* Spazio per la barra laterale */
+    padding: 20px;
+}
+
+/* Barra dei controlli a sinistra */
+.controls {
+    position: fixed; /* Fissa a sinistra */
+    left: 0;
+    bottom: 0;
+    /* width: 250px; Larghezza fissa della barra */
+    height: 90vh; /* Altezza piena */
+    background-color: rgb(33, 37, 41); /* Sfondo chiaro */
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Ombra a destra */
+    display: flex;
+    flex-direction: column; /* Disposizione verticale */
+    gap: 20px; /* Spaziatura tra gli elementi */
+    z-index: 10; /* Sopra il contenuto */
+}
+
+/* Toggle della vista */
+.view-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Filtri */
+.filters {
+    display: flex;
+    flex-direction: column; /* Verticale */
+    gap: 15px;
+}
+
+/* Stile per select, input e checkbox */
+.filters select,
+.filters input[type="number"] {
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 20px;
+    background-color: black;
+    font-size: 14px;
+    width: 100%; /* Occupa tutta la larghezza disponibile */
+    transition: border-color 0.3s ease;
+}
+
+.filters select:focus,
+.filters input[type="number"]:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Checkbox dei prodotti scontati */
+.filters label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Risultati */
+.results-count {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 16px;
+    color: #666;
+}
+
+/* Griglia prodotti */
+.products-grid {
+    padding: 20px;
+}
+
+/* Vista "single" */
+.products-grid.single {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* Vista "row" */
+.products-grid.row {
+    display: block;
+}
+
+.products-grid.row ul {
+    list-style: none;
+    padding: 0;
+}
+
+.products-grid.row ul li {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.products-grid.row ul li a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 16px;
+}
+
+.products-grid.row ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Stile dello switch */
 .switch {
-    /* switch */
     --switch-width: 46px;
     --switch-height: 24px;
     --switch-bg: rgb(131, 131, 131);
     --switch-checked-bg: rgb(0, 218, 80);
     --switch-offset: calc((var(--switch-height) - var(--circle-diameter)) / 2);
     --switch-transition: all .2s cubic-bezier(0.27, 0.2, 0.25, 1.51);
-    /* circle */
     --circle-diameter: 18px;
     --circle-bg: #fff;
     --circle-shadow: 1px 1px 2px rgba(146, 146, 146, 0.45);
     --circle-checked-shadow: -1px 1px 2px rgba(163, 163, 163, 0.45);
     --circle-transition: var(--switch-transition);
-    /* icon */
     --icon-transition: all .2s cubic-bezier(0.27, 0.2, 0.25, 1.51);
     --icon-cross-color: var(--switch-bg);
     --icon-cross-size: 6px;
     --icon-checkmark-color: var(--switch-checked-bg);
     --icon-checkmark-size: 10px;
-    /* effect line */
     --effect-width: calc(var(--circle-diameter) / 2);
     --effect-height: calc(var(--effect-width) / 2 - 1px);
     --effect-bg: var(--circle-bg);
     --effect-border-radius: 1px;
     --effect-transition: all .2s ease-in-out;
-  }
-  
-  .switch input {
+}
+
+.switch input {
     display: none;
-  }
-  
-  .switch {
+}
+
+.switch {
     display: inline-block;
-  }
-  
-  .switch svg {
+}
+
+.switch svg {
     transition: var(--icon-transition);
     position: absolute;
     height: auto;
-  }
-  
-  .switch .checkmark {
+}
+
+.switch .checkmark {
     width: var(--icon-checkmark-size);
     color: var(--icon-checkmark-color);
     transform: scale(0);
-  }
-  
-  .switch .cross {
+}
+
+.switch .cross {
     width: var(--icon-cross-size);
     color: var(--icon-cross-color);
-  }
-  
-  .slider {
+}
+
+.slider {
     box-sizing: border-box;
     width: var(--switch-width);
     height: var(--switch-height);
@@ -794,9 +901,9 @@ button:active {
     position: relative;
     transition: var(--switch-transition);
     cursor: pointer;
-  }
-  
-  .circle {
+}
+
+.circle {
     width: var(--circle-diameter);
     height: var(--circle-diameter);
     background: var(--circle-bg);
@@ -809,9 +916,9 @@ button:active {
     z-index: 1;
     position: absolute;
     left: var(--switch-offset);
-  }
-  
-  .slider::before {
+}
+
+.slider::before {
     content: "";
     position: absolute;
     width: var(--effect-width);
@@ -820,26 +927,25 @@ button:active {
     background: var(--effect-bg);
     border-radius: var(--effect-border-radius);
     transition: var(--effect-transition);
-  }
-  
-  /* Azioni */
-  .switch input:checked + .slider {
+}
+
+.switch input:checked + .slider {
     background: var(--switch-checked-bg);
-  }
-  
-  .switch input:checked + .slider .checkmark {
+}
+
+.switch input:checked + .slider .checkmark {
     transform: scale(1);
-  }
-  
-  .switch input:checked + .slider .cross {
+}
+
+.switch input:checked + .slider .cross {
     transform: scale(0);
-  }
-  
-  .switch input:checked + .slider::before {
+}
+
+.switch input:checked + .slider::before {
     left: calc(100% - var(--effect-width) - (var(--effect-width) / 2) - var(--switch-offset));
-  }
-  
-  .switch input:checked + .slider .circle {
+}
+
+.switch input:checked + .slider .circle {
     left: calc(100% - var(--circle-diameter) - var(--switch-offset));
     box-shadow: var(--circle-checked-shadow);
-  }
+}

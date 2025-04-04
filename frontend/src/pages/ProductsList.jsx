@@ -3,12 +3,11 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import Card from '../components/Card';
 
-
 export default function ProductList() {
     const [searchParams, setSearchParams] = useSearchParams();
     const searchQuery = searchParams.get('q') || '';
     const [products, setProducts] = useState([]);
-    const [viewMode, setViewMode] = useState('single'); // Inizia con "single" (spento)
+    const [viewMode, setViewMode] = useState('single');
 
     const [filters, setFilters] = useState({
         category: searchParams.get('category') || '',
@@ -53,19 +52,18 @@ export default function ProductList() {
         setSearchParams(newParams);
     };
 
-    // Gestisci il cambio dello switch
     const handleViewToggle = (e) => {
         setViewMode(e.target.checked ? "row" : "single");
     };
 
     return (
-        <div className="product-list-container">
+        <>
             <div className="controls">
                 <div className="view-toggle">
                     <label className="switch">
                         <input
                             type="checkbox"
-                            checked={viewMode === "row"} // Acceso per "row", spento per "single"
+                            checked={viewMode === "row"}
                             onChange={handleViewToggle}
                         />
                         <div className="slider">
@@ -160,33 +158,29 @@ export default function ProductList() {
                 </div>
             </div>
 
-            <div className="results-count">
-                <p>Trovati {products.length} prodotti</p>
-            </div>
-             
-           
+            <div className="product-list-container">
+                <div className="results-count">
+                    <p>Trovati {products.length} prodotti</p>
+                </div>
 
-                           
-            <div className={` products-grid row-cols-md-2 row-cols-lg-4 d-flex flex-wrap container mx-auto ${viewMode}`}>
-                {viewMode === 'single' ? (
-                    products.map((p) => (
-                        <Link to={`/${p.slug}`} key={p.slug}>
-                         
-                            <Card product={p} />
-                           
-                        </Link>
-                    ))
-                ) : (
-                    <ul>
-                        {products.map((p) => (
-                            <li key={p.slug}>
-                                <Link to={`/${p.slug}`}>{p.name}</Link>
-                            </li>
-                        ))}
-                    </ul>
-                )}
+                <div className={`row-cols-md-2 row-cols-lg-4 d-flex flex-wrap container mx-auto ${viewMode}`}>
+                    {viewMode === 'single' ? (
+                        products.map((p) => (
+                            <Link to={`/${p.slug}`} key={p.slug}>
+                                <Card product={p} />
+                            </Link>
+                        ))
+                    ) : (
+                        <ul>
+                            {products.map((p) => (
+                                <li key={p.slug}>
+                                    <Link to={`/${p.slug}`}>{p.name}</Link>
+                                </li>
+                            ))}
+                        </ul>
+                    )}
+                </div>
             </div>
-        </div>
+        </>
     );
 }
-
