@@ -158,28 +158,31 @@ export default function ProductList() {
                 </div>
             </div>
 
-            <div className="product-list-container">
-                <div className="results-count">
-                    <p>Trovati {products.length} prodotti</p>
-                </div>
+            <div className="results-count">
+                <p>Trovati {products.length} prodotti</p>
+            </div>
 
-                <div className={`row-cols-md-2 row-cols-lg-4 d-flex flex-wrap container mx-auto ${viewMode}`}>
-                    {viewMode === 'single' ? (
-                        products.map((p) => (
-                            <Link to={`/${p.slug}`} key={p.slug}>
-                                <Card product={p} />
-                            </Link>
-                        ))
-                    ) : (
-                        <ul>
-                            {products.map((p) => (
-                                <li key={p.slug}>
-                                    <Link to={`/${p.slug}`}>{p.name}</Link>
-                                </li>
-                            ))}
-                        </ul>
-                    )}
-                </div>
+
+
+
+            <div className={` row-cols-md-2 row-cols-lg-4 d-flex flex-wrap container mx-auto ${viewMode}`}>
+                {viewMode === 'single' ? (
+                    products.map((p) => (
+                        <Link to={`/${p.slug}`} key={p.slug}>
+
+                            <Card product={p} />
+
+                        </Link>
+                    ))
+                ) : (
+                    <ul>
+                        {products.map((p) => (
+                            <li key={p.slug}>
+                                <Link to={`/${p.slug}`}>{p.product_name}</Link>
+                            </li>
+                        ))}
+                    </ul>
+                )}
             </div>
         </>
     );

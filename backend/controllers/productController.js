@@ -31,13 +31,13 @@ function searchProduct(req, res) {
     let sql = `
       SELECT 
         products.product_id,  
-        products.name, 
+        products.name AS product_name, 
         products.slug, 
         products.price, 
         products.discount_price, 
         products.category,
         products.image_url,
-        brands.name,
+        brands.name AS brand_name,
         products.description,
         products.model
       FROM products

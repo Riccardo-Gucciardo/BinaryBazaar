@@ -949,3 +949,11 @@ button:active {
     left: calc(100% - var(--circle-diameter) - var(--switch-offset));
     box-shadow: var(--circle-checked-shadow);
 }
+
+/* Media Query per schermi piccoli (sotto 768px) */
+@media (max-width: 768px) {
+    .product-list-container {
+        margin-left: 0; /* Rimuovi margine sinistro */
+        padding: 10px; /* Riduci padding */
+    }
+}
