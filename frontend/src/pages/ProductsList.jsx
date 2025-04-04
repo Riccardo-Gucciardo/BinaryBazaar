@@ -4,16 +4,18 @@ import axios from 'axios';
 import Card from '../components/Card';
 
 export default function ProductList() {
-    const [searchParams] = useSearchParams();
-    const searchQuery = searchParams.get('q');
+    const [searchParams, setSearchParams] = useSearchParams(); // Aggiunto setSearchParams
+    const searchQuery = searchParams.get('q') || ''; // Leggi q dall'URL
     const [products, setProducts] = useState([]);
     const [viewMode, setViewMode] = useState('single');
+
+    // Inizializza i filtri dall'URL
     const [filters, setFilters] = useState({
-        category: '',
-        minPrice: '',
-        maxPrice: '',
-        sortBy: 'name-asc',
-        discounted: false
+        category: searchParams.get('category') || '',
+        minPrice: searchParams.get('minPrice') || '',
+        maxPrice: searchParams.get('maxPrice') || '',
+        sortBy: searchParams.get('sortBy') || 'name-asc',
+        discounted: searchParams.get('discounted') === 'true' || false,
     });
 
     useEffect(() => {
@@ -43,14 +45,25 @@ export default function ProductList() {
             .get(url, { params })
             .then((res) => setProducts(res.data))
             .catch((err) => console.error('Error fetching products:', err));
-    }, [searchQuery, filters]);
+    }, [searchQuery, filters]); // Dipendenze corrette
 
     const handleFilterChange = (e) => {
         const { name, value, type, checked } = e.target;
-        setFilters((prev) => ({
-            ...prev,
-            [name]: type === 'checkbox' ? checked : value
-        }));
+        const newFilters = {
+            ...filters,
+            [name]: type === 'checkbox' ? checked : value,
+        };
+        setFilters(newFilters);
+
+        // Aggiorna l'URL con i nuovi filtri
+        const newParams = {};
+        if (searchQuery) newParams.q = searchQuery; // Mantieni q se presente
+        if (newFilters.category) newParams.category = newFilters.category;
+        if (newFilters.minPrice) newParams.minPrice = newFilters.minPrice;
+        if (newFilters.maxPrice) newParams.maxPrice = newFilters.maxPrice;
+        if (newFilters.sortBy) newParams.sortBy = newFilters.sortBy;
+        if (newFilters.discounted) newParams.discounted = newFilters.discounted;
+        setSearchParams(newParams);
     };
 
     return (
