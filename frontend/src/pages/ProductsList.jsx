@@ -4,42 +4,70 @@ import axios from 'axios';
 import Card from '../components/Card';
 
 export default function ProductList() {
-    const [searchParams] = useSearchParams();
-    const searchQuery = searchParams.get('search');
+    const [searchParams, setSearchParams] = useSearchParams(); // Aggiunto setSearchParams
+    const searchQuery = searchParams.get('q') || ''; // Leggi q dall'URL
     const [products, setProducts] = useState([]);
-    const [viewMode, setViewMode] = useState('single'); // 'single' o 'row'
+    const [viewMode, setViewMode] = useState('single');
+
+    // Inizializza i filtri dall'URL
     const [filters, setFilters] = useState({
-        category: '',
-        minPrice: '',
-        maxPrice: '',
-        sortBy: 'name'
+        category: searchParams.get('category') || '',
+        minPrice: searchParams.get('minPrice') || '',
+        maxPrice: searchParams.get('maxPrice') || '',
+        sortBy: searchParams.get('sortBy') || 'name-asc',
+        discounted: searchParams.get('discounted') === 'true' || false,
     });
 
     useEffect(() => {
+        let url = 'http://localhost:3000/products/s';
         let params = {};
 
-        if (searchQuery) params.q = searchQuery;
-        if (filters.category) params.category = filters.category;
-        if (filters.minPrice) params.minPrice = filters.minPrice;
-        if (filters.maxPrice) params.maxPrice = filters.maxPrice;
-        if (filters.sortBy) params.sortBy = filters.sortBy;
+        if (searchQuery) {
+            params.q = searchQuery;
+        }
+        if (filters.category) {
+            params.category = filters.category;
+        }
+        if (filters.minPrice) {
+            params.minPrice = filters.minPrice;
+        }
+        if (filters.maxPrice) {
+            params.maxPrice = filters.maxPrice;
+        }
+        if (filters.sortBy) {
+            params.sortBy = filters.sortBy;
+        }
+        if (filters.discounted) {
+            params.discounted = filters.discounted;
+        }
 
-        axios.get('http://localhost:3000/products', { params })
-            .then(res => setProducts(res.data))
-            .catch(err => console.error('Error:', err));
-    }, [searchQuery, filters]);
+        axios
+            .get(url, { params })
+            .then((res) => setProducts(res.data))
+            .catch((err) => console.error('Error fetching products:', err));
+    }, [searchQuery, filters]); // Dipendenze corrette
 
     const handleFilterChange = (e) => {
-        const { name, value } = e.target;
-        setFilters(prev => ({
-            ...prev,
-            [name]: value
-        }));
+        const { name, value, type, checked } = e.target;
+        const newFilters = {
+            ...filters,
+            [name]: type === 'checkbox' ? checked : value,
+        };
+        setFilters(newFilters);
+
+        // Aggiorna l'URL con i nuovi filtri
+        const newParams = {};
+        if (searchQuery) newParams.q = searchQuery; // Mantieni q se presente
+        if (newFilters.category) newParams.category = newFilters.category;
+        if (newFilters.minPrice) newParams.minPrice = newFilters.minPrice;
+        if (newFilters.maxPrice) newParams.maxPrice = newFilters.maxPrice;
+        if (newFilters.sortBy) newParams.sortBy = newFilters.sortBy;
+        if (newFilters.discounted) newParams.discounted = newFilters.discounted;
+        setSearchParams(newParams);
     };
 
     return (
         <div className="product-list-container">
-            {/* Controlli */}
             <div className="controls">
                 <div className="view-toggle">
                     <button
@@ -63,8 +91,8 @@ export default function ProductList() {
                         onChange={handleFilterChange}
                     >
                         <option value="">All Categories</option>
-                        <option value="laptop">laptop</option>
-                        <option value="Accessory">Accessory</option>
+                        <option value="laptop">Laptop</option>
+                        <option value="accessory">Accessory</option>
                     </select>
                     <input
                         type="number"
@@ -85,20 +113,43 @@ export default function ProductList() {
                         value={filters.sortBy}
                         onChange={handleFilterChange}
                     >
-                        <option value="name">Sort by Name</option>
-                        <option value="price">Sort by Price</option>
+                        <option value="name-asc">Name (A-Z)</option>
+                        <option value="name-desc">Name (Z-A)</option>
+                        <option value="price-asc">Price (Low to High)</option>
+                        <option value="price-desc">Price (High to Low)</option>
                     </select>
+                    <label>
+                        <input
+                            type="checkbox"
+                            name="discounted"
+                            checked={filters.discounted}
+                            onChange={handleFilterChange}
+                        />
+                        Solo Prodotti Scontati
+                    </label>
                 </div>
             </div>
 
-            {/* Griglia Prodotti */}
-            <div className={`products-grid ${viewMode}`}>
-                {
-                    (viewMode == 'single')
-                        ? (products.map(p => <Link to={`/${p.slug}`}><Card key={p.id} product={p}></Card></Link>))
-                        : (products.map(p => <li key={p.id}><Link to={`/${p.slug}`}>{p.name}</Link></li>))
+            <div className="results-count">
+                <p>Trovati {products.length} prodotti</p>
+            </div>
 
-                }
+            <div className={`products-grid ${viewMode}`}>
+                {viewMode === 'single' ? (
+                    products.map((p) => (
+                        <Link to={`/${p.slug}`} key={p.slug}>
+                            <Card product={p} />
+                        </Link>
+                    ))
+                ) : (
+                    <ul>
+                        {products.map((p) => (
+                            <li key={p.slug}>
+                                <Link to={`/${p.slug}`}>{p.name}</Link>
+                            </li>
+                        ))}
+                    </ul>
+                )}
             </div>
         </div>
     );
