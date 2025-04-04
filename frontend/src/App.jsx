@@ -7,6 +7,7 @@ import ProductPage from "./pages/ProductPage";
 import CheckOut from './pages/CheckOut'
 import ProductList from "./pages/ProductsList";
 import AllDone from "./pages/AllDone";
+import NotFound from "./pages/NotFound";
 
 
 function App() {
@@ -21,11 +22,11 @@ function App() {
               <Route path="/checkout" Component={CheckOut} />
               <Route path="/products" Component={ProductList} />
               <Route path="/allDone" Component={AllDone} />
+              <Route path="*" Component={NotFound} />
             </Route>
           </Routes>
         </CartProvider>
       </BrowserRouter></>
-
   )
 }
 

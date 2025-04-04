@@ -5,9 +5,9 @@ import { useCart } from "../contexts/CartContext";
 
 function SingleCard({ product }) {
 
-    const { addToCart, showCart, handleCloseCart,handleShowCart } = useCart();
+    const { addToCart, showCart, handleCloseCart, handleShowCart } = useCart();
 
-    function mostraCart(e){
+    function mostraCart(e) {
         e.preventDefault
         handleShowCart()
         addToCart(product)
@@ -79,7 +79,7 @@ function SingleCard({ product }) {
             </div>
 
         </div>
-    );
+    )
 }
 
 export default SingleCard;

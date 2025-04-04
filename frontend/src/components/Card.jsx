@@ -32,7 +32,7 @@ export default function Card({ product, addToCart }) {
                             </>
                         ) : (
                             <span className="normal-price" style={{ color: 'black' }}>
-                                {product.price}
+                                {product.price} €
                             </span>
                         )}
                     </p>

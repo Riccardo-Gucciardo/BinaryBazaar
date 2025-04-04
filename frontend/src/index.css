@@ -34,6 +34,10 @@ body {
     color: white !important;
 }
 
+.border-none {
+    border: none;
+}
+
 .cart-badge {
     position: absolute;
     top: -8px;
@@ -46,9 +50,10 @@ body {
 }
 
 .navbar {
-    background-color: lightgrey;
+    background-color: rgb(168, 164, 164);
     padding: 1rem;
 }
+
 
 .navbar-toggler {
     border-color: lime;
@@ -74,10 +79,6 @@ body {
     font-size: 1.1rem;
     margin: 40px 0;
 }
-.cart-container {
-    margin: 40px 0;
-     
- }
 
 .nav-link::after {
     content: "";
@@ -189,6 +190,7 @@ body {
     color: green;
     font-weight: bold;
 }
+
 
 .buy-button {
     background-color: #007bff;
@@ -441,6 +443,224 @@ button:active {
 
 }
 
+.hero-slogan {
+    position: absolute;
+    bottom: 20%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: rgba(0, 0, 0, 0.8);
+    padding: 1rem 2rem;
+    border-radius: 5px;
+    text-align: center;
+    transition: opacity 0.3s ease;
+}
+
+.hero-slogan h2 {
+    color: white;
+    margin: 0;
+    font-size: 2rem;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+
+
+
+
+
+
+
+.product-list-container {
+    padding: 20px;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Menu Hamburger */
+/* Rendi la checkbox invisibile */
+.menu-checkbox {
+    display: none;
+}
+
+
+/* Icona dell'hamburger */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    position: relative;
+}
+
+/* Barra dell'hamburger */
+.bar {
+    width: 25px;
+    height: 4px;
+    background-color: black;
+    margin: 5px 0;
+}
+
+/* Mobile Search (nascondi inizialmente) */
+.mobile-search {
+    display: none;
+}
+
+.filters {
+    margin-top: 15px;
+    display: flex;
+    gap: 10px;
+}
+
+.filters select,
+.filters input {
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+.products-grid {
+    display: grid;
+    gap: 20px;
+    width: 100%;
+    /* Assicura che la griglia occupi tutta la larghezza */
+}
+
+/* 4 colonne in modalità single */
+.products-grid.single {
+    grid-template-columns: repeat(4, 1fr);
+    /* 4 colonne di uguale larghezza */
+}
+
+/* 1 colonna in modalità row, occupa tutta la larghezza */
+.products-grid.row {
+    grid-template-columns: 1fr;
+    /* 1 colonna */
+}
+
+/* Stile per le card nella modalità row */
+.products-grid.row .card {
+    width: 100%;
+    /* Forza la card a occupare tutta la larghezza disponibile */
+    box-sizing: border-box;
+    /* Include padding e bordi nella larghezza */
+}
+
+
+@media (max-width: 768px) {
+    .hero-slogan h2 {
+        font-size: 1.2rem;
+    }
+
+    .hero-slogan {
+        width: 90%;
+        padding: 0.5rem 1rem;
+    }
+}
+
+
+
+@media (max-width: 991px) {
+    .navbar .container-fluid {
+        padding: 0.5rem;
+    }
+
+    .cart-button {
+        padding: 0.4rem 0.8rem;
+    }
+}
+
+/* NOT FOUND CSS */
+/* Stili per la pagina 404 */
+.not-found-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+    background-color: #212529;
+    padding: 20px;
+    text-align: center;
+    flex-wrap: wrap;
+}
+
+.not-found-content {
+    max-width: 500px;
+    margin-right: 20px;
+}
+
+.not-found-title {
+    font-size: 6rem;
+    color: #ff4d4d;
+    margin: 0;
+    line-height: 1;
+}
+
+.not-found-subtitle {
+    font-size: 2rem;
+    color: #F0C14B;
+    margin: 10px 0;
+}
+
+.not-found-message {
+    font-size: 1.1rem;
+    color: #F0C14B;
+    margin-bottom: 20px;
+}
+
+.not-found-button {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: lime;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+.not-found-button:hover {
+    background-color: #F0C14B;
+}
+
+.not-found-image img {
+    max-width: 100%;
+    height: auto;
+    width: 300px;
+}
+
+/* Stili responsive */
+@media (max-width: 768px) {
+    .not-found-container {
+        flex-direction: column;
+    }
+
+    .not-found-content {
+        margin-right: 0;
+        margin-bottom: 20px;
+    }
+
+    .not-found-title {
+        font-size: 4rem;
+    }
+
+    .not-found-subtitle {
+        font-size: 1.5rem;
+    }
+
+    .not-found-image img {
+        width: 200px;
+    }
+}
 
 
 
@@ -563,11 +783,3 @@ button:active {
 
    
 }
-
-
-
-
-
-
-
-

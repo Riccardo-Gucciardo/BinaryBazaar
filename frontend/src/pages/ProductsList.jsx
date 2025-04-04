@@ -16,28 +16,17 @@ export default function ProductList() {
     });
 
     useEffect(() => {
-        let url = 'http://localhost:3000/products';
         let params = {};
 
-        if (searchQuery) {
-            params.q = searchQuery;
-        }
-        if (filters.category) {
-            params.category = filters.category;
-        }
-        if (filters.minPrice) {
-            params.minPrice = filters.minPrice;
-        }
-        if (filters.maxPrice) {
-            params.maxPrice = filters.maxPrice;
-        }
-        if (filters.sortBy) {
-            params.sortBy = filters.sortBy;
-        }
+        if (searchQuery) params.q = searchQuery;
+        if (filters.category) params.category = filters.category;
+        if (filters.minPrice) params.minPrice = filters.minPrice;
+        if (filters.maxPrice) params.maxPrice = filters.maxPrice;
+        if (filters.sortBy) params.sortBy = filters.sortBy;
 
-        axios.get(url, { params })
+        axios.get('http://localhost:3000/products', { params })
             .then(res => setProducts(res.data))
-            .catch(err => console.error('Error fetching products:', err));
+            .catch(err => console.error('Error:', err));
     }, [searchQuery, filters]);
 
     const handleFilterChange = (e) => {
@@ -53,13 +42,13 @@ export default function ProductList() {
             {/* Controlli */}
             <div className="controls">
                 <div className="view-toggle">
-                    <button 
+                    <button
                         onClick={() => setViewMode('single')}
                         className={viewMode === 'single' ? 'active' : ''}
                     >
                         Single View
                     </button>
-                    <button 
+                    <button
                         onClick={() => setViewMode('row')}
                         className={viewMode === 'row' ? 'active' : ''}
                     >
@@ -68,14 +57,14 @@ export default function ProductList() {
                 </div>
 
                 <div className="filters">
-                    <select 
-                        name="category" 
+                    <select
+                        name="category"
                         value={filters.category}
                         onChange={handleFilterChange}
                     >
                         <option value="">All Categories</option>
-                        <option value="electronics">Electronics</option>
-                        <option value="clothing">Clothing</option>
+                        <option value="laptop">laptop</option>
+                        <option value="Accessory">Accessory</option>
                     </select>
                     <input
                         type="number"
@@ -105,10 +94,10 @@ export default function ProductList() {
             {/* Griglia Prodotti */}
             <div className={`products-grid ${viewMode}`}>
                 {
-                (viewMode == 'single') 
-                ? (products.map(p => <Link to={`/${p.slug}`}><Card key={p.id} product={p}></Card></Link>))
-                : (products.map(p => <li key={p.id}><Link to={`/${p.slug}`}>{p.name}</Link></li>))
-                    
+                    (viewMode == 'single')
+                        ? (products.map(p => <Link to={`/${p.slug}`}><Card key={p.id} product={p}></Card></Link>))
+                        : (products.map(p => <li key={p.id}><Link to={`/${p.slug}`}>{p.name}</Link></li>))
+
                 }
             </div>
         </div>
