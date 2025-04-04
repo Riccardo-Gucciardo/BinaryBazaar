@@ -3,7 +3,7 @@
 import express from 'express'
 const router = express.Router();
 
-import { index, showProductDetails, searchProduct } from '../controllers/productController.js'
+import { showProductDetails, searchProduct, index } from '../controllers/productController.js'
 
 // /SyntaxRecap ==> {
 //      router.VERBO('percorsoRadice/:Params', middleware, 'CallBack')
@@ -14,15 +14,14 @@ import { index, showProductDetails, searchProduct } from '../controllers/product
 //     store : funzione CallBack importata da movieController
 // }*/
 
-//chiamata INDEX
+
 router.get('/', index)
 
-//chiamata SEARCH prodotto
-router.get('/search', searchProduct);
+// Route per lista prodotti e ricerca con filtri
+router.get('/s', searchProduct);
 
-//chiamata SHOW singolo prodotto
-router.get('/:slug/', showProductDetails)
-
+// Route per dettagli prodotto singolo
+router.get('/:slug', showProductDetails); // Rimosso lo slash finale per convenzione
 
 
 export default router

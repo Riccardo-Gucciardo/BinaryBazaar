@@ -3,78 +3,101 @@ import connection from '../data/db.js'
 
 //* chiama INDEX di TUTTI i prodotti
 function index(req, res) {
-    // Estrai i parametri di filtro
-    const {
-        q: searchTerm,
-        category,
-        minPrice,
-        maxPrice,
-        sortBy
-    } = req.query;
 
-    // Costruisci la query base
-    let sql = 'SELECT * FROM products WHERE 1=1';
-    const params = [];
 
-    // Aggiungi filtri dinamici
-    if (searchTerm) {
-        sql += ' AND LOWER(name) LIKE LOWER(?)';
-        params.push(`%${searchTerm}%`);
-    }
+    const sql = 'SELECT * FROM products'
 
-    if (category) {
-        sql += ' AND category = ?';
-        params.push(category);
-    }
+    connection.query(sql, (err, results) => {
+        if (err) return res.status(500).json({
+            error: 'error'
+        })
 
-    if (minPrice) {
-        sql += ' AND price >= ?';
-        params.push(parseFloat(minPrice));
-    }
+        // res.json(results); 
+        const products = results.map(p => {
+            return {
+                ...p,
+                image_url: `${req.imagePath}${p.slug}.webp`
+            }
 
-    if (maxPrice) {
-        sql += ' AND price <= ?';
-        params.push(parseFloat(maxPrice));
-    }
-
-    // Aggiungi ordinamento
-    const validSortColumns = ['name', 'price'];
-    if (validSortColumns.includes(sortBy)) {
-        sql += ` ORDER BY ${sortBy}`;
-    }
-
-    connection.query(sql, params, (err, results) => {
-        if (err) return res.status(500).json({ error: 'Database error' });
-
-        const products = results.map(p => ({
-            ...p,
-            image_url: `${req.imagePath}${p.slug}.webp`
-        }));
-
-        res.json(products);
-    });
+        });
+        res.json(products)//* AGGIORNAMENTO CON USO MIDDLEWARE
+    })
 }
 
 function searchProduct(req, res) {
-    const searchTerm = req.query.q || '';
+    const { q, category, minPrice, maxPrice, sortBy, discounted } = req.query;
+    const searchTerm = q || '';
 
-    const sql = `
-        SELECT 
-            name, 
-            slug, 
-            price, 
-            discount_price, 
-            category 
-        FROM products 
-        WHERE LOWER(name) LIKE LOWER(CONCAT('%', ?, '%'))
+    let sql = `
+      SELECT 
+        products.product_id,  
+        products.name, 
+        products.slug, 
+        products.price, 
+        products.discount_price, 
+        products.category,
+        products.image_url,
+        brands.name,
+        products.description,
+        products.model
+      FROM products
+      LEFT JOIN brands ON products.brand_id = brands.brand_id
     `;
+    let params = [];
+    let conditions = [];
 
-    connection.query(sql, [searchTerm], (err, results) => {
-        if (err) return res.status(500).json({ error: 'Errore del database' });
+    if (searchTerm) {
+        conditions.push(`LOWER(products.name) LIKE LOWER(?)`);
+        params.push(`%${searchTerm}%`);
+    }
+    if (category) {
+        conditions.push(`products.category = ?`);
+        params.push(category);
+    }
+    if (minPrice) {
+        conditions.push(`COALESCE(products.discount_price, products.price) >= ?`);
+        params.push(parseFloat(minPrice));
+    }
+    if (maxPrice) {
+        conditions.push(`COALESCE(products.discount_price, products.price) <= ?`);
+        params.push(parseFloat(maxPrice));
+    }
+    if (discounted === 'true') {
+        conditions.push(`products.discount_price IS NOT NULL`);
+    }
+
+    if (conditions.length > 0) {
+        sql += ` WHERE ${conditions.join(' AND ')}`;
+    }
+
+    if (sortBy) {
+        switch (sortBy) {
+            case 'name-asc':
+                sql += ` ORDER BY products.name ASC`;
+                break;
+            case 'name-desc':
+                sql += ` ORDER BY products.name DESC`;
+                break;
+            case 'price-asc':
+                sql += ` ORDER BY COALESCE(products.discount_price, products.price) ASC`;
+                break;
+            case 'price-desc':
+                sql += ` ORDER BY COALESCE(products.discount_price, products.price) DESC`;
+                break;
+            default:
+                sql += ` ORDER BY products.name ASC`;
+        }
+    }
+
+    connection.query(sql, params, (err, results) => {
+        if (err) {
+            console.error('Errore nella query dei prodotti:', err);
+            return res.status(500).json({ error: 'Errore del database' });
+        }
 
         const products = results.map(product => ({
             ...product,
-            image_url: `${req.imagePath}${product.slug}.webp`
+            image_url: product.image_url || `${req.imagePath}${product.slug}.webp`
         }));
 
         res.json(products);
