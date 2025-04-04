@@ -163,12 +163,17 @@ export default function ProductList() {
             <div className="results-count">
                 <p>Trovati {products.length} prodotti</p>
             </div>
+             
+           
 
-            <div className={`products-grid ${viewMode}`}>
+                           
+            <div className={` products-grid row-cols-md-2 row-cols-lg-4 d-flex flex-wrap container mx-auto ${viewMode}`}>
                 {viewMode === 'single' ? (
                     products.map((p) => (
                         <Link to={`/${p.slug}`} key={p.slug}>
+                         
                             <Card product={p} />
+                           
                         </Link>
                     ))
                 ) : (
