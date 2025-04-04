@@ -52,18 +52,28 @@ export default function HomePage() {
     return (
         <>
             <Hero />
-            <div className="container mx-auto">
+            <div className="titolo-nome">
+                <h1 className="lime">LAPTOP</h1>
 
+                </div>
+            <div className="container mx-auto ">
+
+                
                 {/* <Button variant="primary" onClick={handleShow} style={{ marginBottom: '20px' }}>
                     Carrello ({cart.length})
                 </Button> */}
-
-                <h1 className="lime">laptop</h1>
                 <div className="row row-cols-md-3 row-cols-lg-4 g-1">
                     {renderLaptops()}
                 </div>
 
-                <h1 className="lime">accessori</h1>
+                
+            </div>
+            <div className="titolo-nome">
+                <h1 className="lime">ACCESSORI</h1>
+
+            </div>
+
+            <div className="container mx-auto ">
 
                 <div className="row row-cols-md-3 row-cols-lg-4 g-1">
                     {renderAccessories()}

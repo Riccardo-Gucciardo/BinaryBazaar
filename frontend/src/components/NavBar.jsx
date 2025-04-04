@@ -63,7 +63,7 @@ export default function NavBar({ cart = [], handleShowCart }) {
     return (
         <header className="header">
             <NavLink to="/">
-                <img src="/Logo.png" alt="" className="img-logo" />
+                <img src="/LOGO.png" alt="" className="img-logo" />
             </NavLink>
 
             {/* Menu Hamburger */}

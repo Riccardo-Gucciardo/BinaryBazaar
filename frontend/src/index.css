@@ -10,10 +10,11 @@ body {
 .header {
     width: 100%;
     height: 10vh;
-    background-color: lightgrey;
+    background-color: black;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    border-bottom: 3px solid lime;
     position: sticky;
     top: 0;
     z-index: 1;
@@ -70,14 +71,14 @@ body {
 /* ----------------------------------- */
 
 .img-logo {
-    width: 250px;
+    width: 400px;
 }
 
 .nav-link {
     position: relative;
     text-decoration: none;
     /* Rimuove la sottolineatura di default */
-    color: black;
+    color: white;
     transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
     font-size: 1.1rem;
     margin: 40px 0;
@@ -114,15 +115,27 @@ body {
 
 
 
-/* card del prodotto --------------------- */
 .main-box {
     min-height: 80vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: rgb(32, 30, 30);
+}
+.titolo-nome{
+    width: 100%;
+    background-color: black;
+    text-align: center;
+    padding: 20px;
+    
+}
+h1{
+    color: lime;
 }
 
+
+/* card del prodotto --------------------- */
 .box-card {
     width: 100%;
     display: flex;
@@ -134,9 +147,9 @@ body {
 .product-card {
     width: 320px;
     height: auto;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background: rgb(255, 255, 255);
+    border: 3px solid lime;
+    box-shadow: 0 4px 8px rgba(0, 255, 115, 0.6);
     overflow: hidden;
     text-align: center;
     transition: transform 0.3s ease-in-out;
@@ -155,6 +168,9 @@ body {
 
 .product-info {
     padding: 15px;
+    
+    
+   
 }
 
 .product-name {
@@ -230,6 +246,7 @@ body {
     height: 40vh;
     display: block;
     object-fit: cover;
+    border-bottom: 3px solid lime;
 }
 
 
@@ -417,7 +434,7 @@ a {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: var(--gradient-2, linear-gradient(90deg, #2AF598 0%, #a3ccba 100%));
+    background: var(--gradient-2, linear-gradient(90deg, #00ff11 100%, #00ff11 100%));
     border: 0;
     display: inline-block;
     transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
@@ -593,6 +610,8 @@ button:active {
     border: none;
     position: relative;
     cursor: pointer;
+    color: white !important;
+    
 }
 
 .cart-badge {
@@ -629,7 +648,7 @@ button:active {
 .bar {
     width: 25px;
     height: 4px;
-    background-color: black;
+    background-color: white;
     margin: 5px 0;
 }
 
@@ -639,7 +658,7 @@ button:active {
 }
 
 /* Stili per dispositivi mobili */
-@media (max-width: 1170px) {
+@media (max-width: 1320px) {
     /* Mostra l'icona dell'hamburger */
     .menu-toggle {
         display: flex;
@@ -660,7 +679,7 @@ button:active {
     .menu-checkbox:checked ~ .nav-menu {
         display: flex;
         flex-direction: column;
-        background-color: lightgray;
+        background-color: black;
         position: absolute;
         top: 60px;
         left: 0;
