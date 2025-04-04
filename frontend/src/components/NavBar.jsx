@@ -10,7 +10,7 @@ export default function NavBar() {
     return (
         <header className="header">
             <NavLink to="/">
-                <img src="/Logo.png" alt="" className="img-logo" />
+                <img src="/Logo.png" alt="" className="img-logo img-fluid" />
             </NavLink>
 
             {/* Menu Hamburger */}

@@ -134,7 +134,7 @@ export default function ProductList() {
                 <p>Trovati {products.length} prodotti</p>
             </div>
 
-            <div className={`products-grid ${viewMode}`}>
+            <div className={`products-grid d-flex flex-wrap md-2- lg-4 ${viewMode}`}>
                 {viewMode === 'single' ? (
                     products.map((p) => (
                         <Link to={`/${p.slug}`} key={p.slug}>
