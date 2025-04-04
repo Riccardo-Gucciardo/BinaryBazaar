@@ -8,6 +8,7 @@ import CheckOut from './pages/CheckOut'
 import ProductList from "./pages/ProductsList";
 import AllDone from "./pages/AllDone";
 import NotFound from "./pages/NotFound";
+import DiscountGame from "./pages/DiscountGame";
 
 
 function App() {
@@ -22,6 +23,7 @@ function App() {
               <Route path="/checkout" Component={CheckOut} />
               <Route path="/products" Component={ProductList} />
               <Route path="/allDone" Component={AllDone} />
+              <Route path="/gameDiscount" Component={DiscountGame} />
               <Route path="*" Component={NotFound} />
             </Route>
           </Routes>

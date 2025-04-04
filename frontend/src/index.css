@@ -1,6 +1,18 @@
 /* import matrix font */
-/* @import url('https://fonts.cdnfonts.com/css/matrix'); */
 @import url('https://fonts.cdnfonts.com/css/share-techmono-2');
+
+a {
+    color: inherit;
+    /* Eredita il colore del testo dal genitore */
+    text-decoration: none;
+
+    /* Rimuove la sottolineatura */
+}
+
+a:active,
+a:visited {
+    text-decoration: none;
+}
 
 body {
     font-family: 'Share-TechMono', sans-serif;
@@ -731,4 +743,56 @@ button:active {
 #viewModeSwitch {
 
     border-color: lime;
+}
+
+.gift-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.gift-icon {
+    color: lime;
+    animation: giftBounce 3s infinite;
+}
+
+@keyframes giftBounce {
+    0% {
+        transform: translateY(0) rotate(0);
+    }
+
+    50% {
+        transform: translateY(-10px) rotate(10deg);
+    }
+
+    100% {
+        transform: translateY(0) rotate(0);
+    }
+}
+
+.gift-link:hover .gift-icon {
+    animation: giftShake 0.5s infinite;
+}
+
+@keyframes giftShake {
+    0% {
+        transform: rotate(-15deg);
+    }
+
+    25% {
+        transform: rotate(15deg);
+    }
+
+    50% {
+        transform: rotate(-15deg);
+    }
+
+    75% {
+        transform: rotate(15deg);
+    }
+
+    100% {
+        transform: rotate(-15deg);
+    }
 }

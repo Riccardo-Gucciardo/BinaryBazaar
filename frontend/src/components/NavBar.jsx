@@ -2,7 +2,7 @@
 import { NavLink } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import { useCart } from "../contexts/CartContext";
-import { FaShoppingCart } from "react-icons/fa";
+import { FaGift, FaShoppingCart } from "react-icons/fa";
 
 export default function NavBar() {
     const { cart, handleShowCart } = useCart()
@@ -48,9 +48,14 @@ export default function NavBar() {
                             I Nostri Prodotti
                         </NavLink>
                     </li>
+                    <li className="nav-item">
+                        <NavLink className="nav-link gift-link" to="/gameDiscount">
+                            <FaGift className="gift-icon" size={30} />
+                        </NavLink>
+                    </li>
                     <li className="cart-container">
-                        <button className="cart-button" onClick={handleShowCart}>
-                            <FaShoppingCart size={20} />
+                        <button className="cart-button rounded" onClick={handleShowCart}>
+                            <FaShoppingCart size={25} />
                             {cart?.length > 0 && (
                                 <span className="cart-badge">{cart.length}</span>
                             )}

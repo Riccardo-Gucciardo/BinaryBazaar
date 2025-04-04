@@ -87,7 +87,10 @@ INSERT INTO brands (name) VALUES
 -- Inserimento Promozioni
 INSERT INTO promotions (code, discount, valid_from, valid_to) VALUES
 ('SUMMER25', 25.00, '2025-06-01', '2025-08-31'),
-('WELCOME10', 10.00, '2025-01-01', '2025-12-31');
+('WELCOME10', 10.00, '2025-01-01', '2025-12-31'),
+('LORIS10', 10.00, '2025-04-01', '2025-04-31'),
+('ARTHUR10', 30.00, '2025-04-01', '2025-04-31');
+
 
 -- Inserimento Prodotti (Laptop, con discount_price)
 INSERT INTO products (slug, brand_id, category, name, model, price, discount_price, image_url, created_at, stock, description) VALUES
