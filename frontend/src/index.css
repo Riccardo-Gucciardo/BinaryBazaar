@@ -10,10 +10,11 @@ body {
 .header {
     width: 100%;
     height: 10vh;
-    background-color: lightgrey;
+    background-color: black;
     display: flex;
     justify-content: space-around;
     align-items: center;
+    border-bottom: 3px solid lime;
     position: sticky;
     top: 0;
     z-index: 1;
@@ -48,6 +49,9 @@ body {
     padding: 0.25rem 0.5rem;
     font-size: 0.75rem;
 }
+.cart-container{
+    margin-top: 40px;
+}
 
 .navbar {
     background-color: rgb(168, 164, 164);
@@ -67,14 +71,14 @@ body {
 /* ----------------------------------- */
 
 .img-logo {
-    width: 250px;
+    width: 400px;
 }
 
 .nav-link {
     position: relative;
     text-decoration: none;
     /* Rimuove la sottolineatura di default */
-    color: black;
+    color: white;
     transition: color 0.3s ease-in-out, transform 0.3s ease-in-out;
     font-size: 1.1rem;
     margin: 40px 0;
@@ -111,15 +115,27 @@ body {
 
 
 
-/* card del prodotto --------------------- */
 .main-box {
     min-height: 80vh;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: rgb(32, 30, 30);
+}
+.titolo-nome{
+    width: 100%;
+    background-color: black;
+    text-align: center;
+    padding: 20px;
+    
+}
+h1{
+    color: lime;
 }
 
+
+/* card del prodotto --------------------- */
 .box-card {
     width: 100%;
     display: flex;
@@ -131,9 +147,9 @@ body {
 .product-card {
     width: 320px;
     height: auto;
-    background: white;
-    border-radius: 10px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background: rgb(255, 255, 255);
+    border: 3px solid lime;
+    box-shadow: 0 4px 8px rgba(0, 255, 115, 0.6);
     overflow: hidden;
     text-align: center;
     transition: transform 0.3s ease-in-out;
@@ -152,6 +168,9 @@ body {
 
 .product-info {
     padding: 15px;
+    
+    
+   
 }
 
 .product-name {
@@ -227,6 +246,7 @@ body {
     height: 40vh;
     display: block;
     object-fit: cover;
+    border-bottom: 3px solid lime;
 }
 
 
@@ -385,6 +405,7 @@ body {
 
 
 
+
 a {
     text-decoration: none !important;
 }
@@ -394,16 +415,17 @@ a {
 /* Search Bar Styles */
 
 .searchBox {
-    display: flex;
-    width: auto;
-    align-items: center;
-    justify-content: space-between;
-
-    gap: 8px;
-    background: #2f3640;
-    border-radius: 50px;
-    position: relative;
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+  
+  gap: 8px;
+  background: #2f3640;
+  border-radius: 50px;
+  position: relative;
 }
+
 
 .searchButton {
     color: white;
@@ -412,7 +434,7 @@ a {
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    background: var(--gradient-2, linear-gradient(90deg, #2AF598 0%, #a3ccba 100%));
+    background: var(--gradient-2, linear-gradient(90deg, #00ff11 100%, #00ff11 100%));
     border: 0;
     display: inline-block;
     transition: all 300ms cubic-bezier(.23, 1, 0.32, 1);
@@ -426,7 +448,6 @@ button:hover {
     transform: translateY(-3px);
 }
 
-/*button pressing effect*/
 button:active {
     box-shadow: none;
     transform: translateY(0);
@@ -472,87 +493,25 @@ button:active {
     padding: 20px;
 }
 
-.controls {
-    margin-bottom: 20px;
-}
-
-.view-toggle button {
-    padding: 8px 16px;
-    margin-right: 10px;
-    border: 1px solid #ccc;
-    background: gray;
-    cursor: pointer;
-}
-
-.view-toggle button.active {
-    background: lime;
-    color: black;
-    border-color: lime;
-}
-
-.filters {
-    margin-top: 15px;
+.cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
     display: flex;
-    gap: 10px;
-}
-
-.filters select,
-.filters input {
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-.products-grid {
-    display: grid;
-    gap: 20px;
-    width: 100%;
-    /* Assicura che la griglia occupi tutta la larghezza */
-}
-
-/* 4 colonne in modalità single */
-.products-grid.single {
-    grid-template-columns: repeat(4, 1fr);
-    /* 4 colonne di uguale larghezza */
-}
-
-/* 1 colonna in modalità row, occupa tutta la larghezza */
-.products-grid.row {
-    grid-template-columns: 1fr;
-    /* 1 colonna */
-}
-
-/* Stile per le card nella modalità row */
-.products-grid.row .card {
-    width: 100%;
-    /* Forza la card a occupare tutta la larghezza disponibile */
-    box-sizing: border-box;
-    /* Include padding e bordi nella larghezza */
-}
-
-
-@media (max-width: 768px) {
-    .hero-slogan h2 {
-        font-size: 1.2rem;
-    }
-
-    .hero-slogan {
-        width: 90%;
-        padding: 0.5rem 1rem;
-    }
+    align-items: center;
+    justify-content: center;
 }
 
 
 
-@media (max-width: 991px) {
-    .navbar .container-fluid {
-        padding: 0.5rem;
-    }
 
-    .cart-button {
-        padding: 0.4rem 0.8rem;
-    }
-}
+
 
 /* NOT FOUND CSS */
 /* Stili per la pagina 404 */
@@ -634,4 +593,128 @@ button:active {
     .not-found-image img {
         width: 200px;
     }
+}
+
+
+
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Stile bottone carrello */
+.cart-button {
+    background: none;
+    border: none;
+    position: relative;
+    cursor: pointer;
+    color: white !important;
+    
+}
+
+.cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Menu Hamburger */
+/* Rendi la checkbox invisibile */
+.menu-checkbox {
+    display: none;
+}
+
+
+/* Icona dell'hamburger */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    cursor: pointer;
+    position: relative;
+}
+
+/* Barra dell'hamburger */
+.bar {
+    width: 25px;
+    height: 4px;
+    background-color: white;
+    margin: 5px 0;
+}
+
+/* Mobile Search (nascondi inizialmente) */
+.mobile-search {
+    display: none;
+}
+
+/* Stili per dispositivi mobili */
+@media (max-width: 1320px) {
+    /* Mostra l'icona dell'hamburger */
+    .menu-toggle {
+        display: flex;
+    }
+
+    /* Nascondi la desktop search su mobile */
+    .desktop-search {
+        display: none;
+    }
+    
+
+    /* Menu nascosto di default */
+    .nav-menu {
+        display: none;
+    }
+
+    /* Quando la checkbox è selezionata, mostra il menu */
+    .menu-checkbox:checked ~ .nav-menu {
+        display: flex;
+        flex-direction: column;
+        background-color: black;
+        position: absolute;
+        top: 60px;
+        left: 0;
+        width: 100%;
+        padding: 20px;
+        text-align: center;
+        z-index: 10;
+    }
+
+    /* Mostra la search bar mobile */
+    .mobile-search {
+        display: block;
+        
+    }
+    
+
+    /* Posizionamento corretto del carrello */
+    .cart-button {
+        position: relative;
+        
+    }
+    .nav{
+        display: flex;
+        flex-direction: column;
+    }
+
+    
+}
+
+@media (max-width: 667px) {
+    .mobile-search .searchBox {
+        width: 70%; 
+        
+        
+    }
+
+   
 }
