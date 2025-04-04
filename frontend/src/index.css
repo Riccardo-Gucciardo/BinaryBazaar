@@ -74,6 +74,10 @@ body {
     font-size: 1.1rem;
     margin: 40px 0;
 }
+.cart-container {
+    margin: 40px 0;
+     
+ }
 
 .nav-link::after {
     content: "";
@@ -440,20 +444,52 @@ button:active {
 
 
 
-/* MENU HAMBURGER */
+
+.nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+/* Stile bottone carrello */
+.cart-button {
+    background: none;
+    border: none;
+    position: relative;
+    cursor: pointer;
+}
+
+.cart-badge {
+    position: absolute;
+    top: -5px;
+    right: -10px;
+    background-color: red;
+    color: white;
+    font-size: 12px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Menu Hamburger */
+/* Rendi la checkbox invisibile */
 .menu-checkbox {
     display: none;
 }
 
+
+/* Icona dell'hamburger */
 .menu-toggle {
     display: none;
     flex-direction: column;
     cursor: pointer;
-    position: absolute;
-    right: 20px;
-    top: 20px;
+    position: relative;
 }
 
+/* Barra dell'hamburger */
 .bar {
     width: 25px;
     height: 4px;
@@ -461,27 +497,31 @@ button:active {
     margin: 5px 0;
 }
 
-/* DEFAULT SEARCHBAR (DESKTOP) */
-.desktop-search {
-    display: flex; /* Mostra solo sopra 1070px */
-}
-
-/* NASCONDI SEARCHBAR MOBILE PER DESKTOP */
+/* Mobile Search (nascondi inizialmente) */
 .mobile-search {
     display: none;
 }
 
-/* MENU MOBILE */
-@media (max-width: 1070px) {
+/* Stili per dispositivi mobili */
+@media (max-width: 1170px) {
+    /* Mostra l'icona dell'hamburger */
     .menu-toggle {
         display: flex;
     }
 
+    /* Nascondi la desktop search su mobile */
+    .desktop-search {
+        display: none;
+    }
+    
+
+    /* Menu nascosto di default */
     .nav-menu {
         display: none;
     }
 
-    .menu-checkbox:checked + .menu-toggle + .nav-menu {
+    /* Quando la checkbox è selezionata, mostra il menu */
+    .menu-checkbox:checked ~ .nav-menu {
         display: flex;
         flex-direction: column;
         background-color: lightgray;
@@ -491,32 +531,39 @@ button:active {
         width: 100%;
         padding: 20px;
         text-align: center;
+        z-index: 10;
     }
 
-    .nav {
+    /* Mostra la search bar mobile */
+    .mobile-search {
+        display: block;
+        
+    }
+    
+
+    /* Posizionamento corretto del carrello */
+    .cart-button {
+        position: relative;
+        
+    }
+    .nav{
         display: flex;
         flex-direction: column;
-        gap: 10px;
     }
 
-    .nav-item {
-        margin: 10px 0;
-    }
-
-    /* MOSTRA SEARCHBAR SOLO IN MODALITÀ MOBILE */
-    .mobile-search {
-        display: flex;
-        width: 100%;
-        padding: 10px 0;
-        justify-content: center;
-        margin-bottom: 20px;
-    }
-
-    /* NASCONDI SEARCHBAR DESKTOP IN MODALITÀ MOBILE */
-    .desktop-search {
-        display: none;
-    }
+    
 }
+
+@media (max-width: 667px) {
+    .mobile-search .searchBox {
+        width: 70%; 
+        
+        
+    }
+
+   
+}
+
 
 
 
