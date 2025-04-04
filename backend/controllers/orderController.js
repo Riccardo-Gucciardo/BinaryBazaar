@@ -27,7 +27,7 @@ function createOrder(req, res) {
     function sendOrderConfirmationEmail(orderId, customerEmail, customerName, total, products, promotion_id, callback) {
         // Genera l'elenco dei prodotti per l'email
         const productList = products.map(item => {
-            return `<li>${item.name} - Quantità: ${item.quantity} - Prezzo unitario: €${item.price.toFixed(2)}</li>`;
+            return `<li>${item.name} - Quantità: ${item.quantity} - Prezzo unitario: ${item.price.toFixed(2)} €</li>`;
         }).join('');
 
         // Funzione per recuperare i dettagli della promozione (se esiste)
