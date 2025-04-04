@@ -8,38 +8,96 @@ export default function CheckOut() {
     const { cart, resetCart } = useCart();
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
-        firstName: "",
-        lastName: "",
-        email: "",
-        address: "",
-        city: "",
-        telephone: "",
-        promotionCode: ""
+        billing: {
+            firstName: "",
+            lastName: "",
+            email: "",
+            address: "",
+            city: "",
+            telephone: "",
+        },
+        shipping: {
+            firstName: "",
+            lastName: "",
+            address: "",
+            city: "",
+            telephone: "",
+        },
+        promotionCode: "",
+        termsAccepted: false,
+        differentShipping: false
     });
-    const [errors, setErrors] = useState({});
+    const [errors, setErrors] = useState({ billing: {}, shipping: {} });
     const [isLoading, setIsLoading] = useState(false);
 
     const total = cart.reduce((sum, item) => {
         return sum + parseFloat(item.discount_price || item.price);
     }, 0).toFixed(2);
 
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prev => ({ ...prev, [name]: value }));
+    const handleChange = (e, section = null) => {
+        const { name, value, type, checked } = e.target;
+        
+        if (type === "checkbox") {
+            // Gestione dei checkbox (termsAccepted, differentShipping)
+            setFormData(prev => ({
+                ...prev,
+                [name]: checked
+            }));
+        } else if (section) {
+            // Gestione dei campi nidificati (billing, shipping)
+            setFormData(prev => ({
+                ...prev,
+                [section]: {
+                    ...prev[section],
+                    [name]: value
+                }
+            }));
+        } else {
+            // Gestione dei campi di primo livello (promotionCode)
+            setFormData(prev => ({
+                ...prev,
+                [name]: value
+            }));
+        }
     };
 
     const validateForm = () => {
-        let tempErrors = {};
-        if (!formData.firstName) tempErrors.firstName = "Il nome è obbligatorio";
-        if (!formData.lastName) tempErrors.lastName = "Il cognome è obbligatorio";
-        if (!formData.email) tempErrors.email = "L'email è obbligatoria";
-        else if (!/\S+@\S+\.\S+/.test(formData.email)) tempErrors.email = "Email non valida";
-        if (!formData.address) tempErrors.address = "L'indirizzo è obbligatorio";
-        if (!formData.city) tempErrors.city = "La città è obbligatoria";
-        if (!formData.telephone) tempErrors.telephone = "Il telefono è obbligatorio";
+        let tempErrors = { billing: {}, shipping: {} };
+
+        const billing = formData.billing;
+        if (!billing.firstName) tempErrors.billing.firstName = "Il nome è obbligatorio";
+        else if (billing.firstName.length < 3) tempErrors.billing.firstName = "Il nome deve avere almeno 3 lettere";
+        if (!billing.lastName) tempErrors.billing.lastName = "Il cognome è obbligatorio";
+        else if (billing.lastName.length < 3) tempErrors.billing.lastName = "Il cognome deve avere almeno 3 lettere";
+        if (!billing.email) tempErrors.billing.email = "L'email è obbligatoria";
+        else if (!/^\S+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$/.test(billing.email))
+            tempErrors.billing.email = "Email deve essere nel formato nome@provider.dominio";
+        if (!billing.address) tempErrors.billing.address = "L'indirizzo è obbligatorio";
+        if (!billing.city) tempErrors.billing.city = "La città è obbligatoria";
+        if (!billing.telephone) tempErrors.billing.telephone = "Il telefono è obbligatorio";
+        else if (!/^\d{10,12}$/.test(billing.telephone))
+            tempErrors.billing.telephone = "Il telefono deve contenere 10-12 numeri";
+
+        if (formData.differentShipping) {
+            const shipping = formData.shipping;
+            if (!shipping.firstName) tempErrors.shipping.firstName = "Il nome è obbligatorio";
+            else if (shipping.firstName.length < 3) tempErrors.shipping.firstName = "Il nome deve avere almeno 3 lettere";
+            if (!shipping.lastName) tempErrors.shipping.lastName = "Il cognome è obbligatorio";
+            else if (shipping.lastName.length < 3) tempErrors.shipping.lastName = "Il cognome deve avere almeno 3 lettere";
+            if (!shipping.address) tempErrors.shipping.address = "L'indirizzo è obbligatorio";
+            if (!shipping.city) tempErrors.shipping.city = "La città è obbligatoria";
+            if (!shipping.telephone) tempErrors.shipping.telephone = "Il telefono è obbligatorio";
+            else if (!/^\d{10,12}$/.test(shipping.telephone))
+                tempErrors.shipping.telephone = "Il telefono deve contenere 10-12 numeri";
+        }
+
+        if (!formData.termsAccepted)
+            tempErrors.termsAccepted = "È obbligatorio accettare i termini e condizioni";
 
         setErrors(tempErrors);
-        return Object.keys(tempErrors).length === 0;
+        return Object.keys(tempErrors.billing).length === 0 &&
+               (!formData.differentShipping || Object.keys(tempErrors.shipping).length === 0) &&
+               !tempErrors.termsAccepted;
     };
 
     const handleSubmit = (e) => {
@@ -47,16 +105,19 @@ export default function CheckOut() {
         if (!validateForm()) return;
 
         setIsLoading(true);
+
+        const dataToUse = formData.differentShipping ? formData.shipping : formData.billing;
+
         const orderData = {
-            name: formData.firstName,
-            lastname: formData.lastName,
-            email: formData.email,
-            address: formData.address,
-            city: formData.city,
-            telephone: formData.telephone,
+            name: dataToUse.firstName,
+            lastname: dataToUse.lastName,
+            email: formData.billing.email,
+            address: dataToUse.address,
+            city: dataToUse.city,
+            telephone: dataToUse.telephone,
             promotion_code: formData.promotionCode || null,
             products: cart.map(item => ({
-                slug: item.slug, // Usa slug invece di product_id
+                slug: item.slug,
                 quantity: 1,
                 price: item.discount_price || item.price,
                 name: item.name
@@ -66,9 +127,7 @@ export default function CheckOut() {
 
         axios
             .post("http://localhost:3000/orders", orderData, {
-                headers: {
-                    "Content-Type": "application/json"
-                }
+                headers: { "Content-Type": "application/json" }
             })
             .then((response) => {
                 console.log("Ordine creato:", response.data);
@@ -81,7 +140,7 @@ export default function CheckOut() {
             })
             .finally(() => {
                 setIsLoading(false);
-                resetCart()
+                resetCart();
             });
     };
 
@@ -93,12 +152,11 @@ export default function CheckOut() {
                 <p className="text-center">Il carrello è vuoto</p>
             ) : (
                 <Row>
-                    {/* Form on the Left */}
                     <Col md={6}>
                         <Card>
                             <Card.Body>
                                 <Form onSubmit={handleSubmit} className="mt-4">
-                                    <h5>Dati Personali</h5>
+                                    <h5>Dati di Fatturazione</h5>
                                     <Row>
                                         <Col md={6}>
                                             <Form.Group className="mb-3">
@@ -106,13 +164,13 @@ export default function CheckOut() {
                                                 <Form.Control
                                                     type="text"
                                                     name="firstName"
-                                                    value={formData.firstName || ""}
-                                                    onChange={handleChange}
-                                                    isInvalid={!!errors.firstName}
+                                                    value={formData.billing.firstName}
+                                                    onChange={(e) => handleChange(e, "billing")}
+                                                    isInvalid={!!errors.billing.firstName}
                                                     disabled={isLoading}
                                                 />
                                                 <Form.Control.Feedback type="invalid">
-                                                    {errors.firstName}
+                                                    {errors.billing.firstName}
                                                 </Form.Control.Feedback>
                                             </Form.Group>
                                         </Col>
@@ -122,13 +180,13 @@ export default function CheckOut() {
                                                 <Form.Control
                                                     type="text"
                                                     name="lastName"
-                                                    value={formData.lastName || ""}
-                                                    onChange={handleChange}
-                                                    isInvalid={!!errors.lastName}
+                                                    value={formData.billing.lastName}
+                                                    onChange={(e) => handleChange(e, "billing")}
+                                                    isInvalid={!!errors.billing.lastName}
                                                     disabled={isLoading}
                                                 />
                                                 <Form.Control.Feedback type="invalid">
-                                                    {errors.lastName}
+                                                    {errors.billing.lastName}
                                                 </Form.Control.Feedback>
                                             </Form.Group>
                                         </Col>
@@ -139,13 +197,13 @@ export default function CheckOut() {
                                         <Form.Control
                                             type="email"
                                             name="email"
-                                            value={formData.email || ""}
-                                            onChange={handleChange}
-                                            isInvalid={!!errors.email}
+                                            value={formData.billing.email}
+                                            onChange={(e) => handleChange(e, "billing")}
+                                            isInvalid={!!errors.billing.email}
                                             disabled={isLoading}
                                         />
                                         <Form.Control.Feedback type="invalid">
-                                            {errors.email}
+                                            {errors.billing.email}
                                         </Form.Control.Feedback>
                                     </Form.Group>
 
@@ -154,13 +212,13 @@ export default function CheckOut() {
                                         <Form.Control
                                             type="text"
                                             name="address"
-                                            value={formData.address || ""}
-                                            onChange={handleChange}
-                                            isInvalid={!!errors.address}
+                                            value={formData.billing.address}
+                                            onChange={(e) => handleChange(e, "billing")}
+                                            isInvalid={!!errors.billing.address}
                                             disabled={isLoading}
                                         />
                                         <Form.Control.Feedback type="invalid">
-                                            {errors.address}
+                                            {errors.billing.address}
                                         </Form.Control.Feedback>
                                     </Form.Group>
 
@@ -171,13 +229,13 @@ export default function CheckOut() {
                                                 <Form.Control
                                                     type="text"
                                                     name="city"
-                                                    value={formData.city || ""}
-                                                    onChange={handleChange}
-                                                    isInvalid={!!errors.city}
+                                                    value={formData.billing.city}
+                                                    onChange={(e) => handleChange(e, "billing")}
+                                                    isInvalid={!!errors.billing.city}
                                                     disabled={isLoading}
                                                 />
                                                 <Form.Control.Feedback type="invalid">
-                                                    {errors.city}
+                                                    {errors.billing.city}
                                                 </Form.Control.Feedback>
                                             </Form.Group>
                                         </Col>
@@ -187,27 +245,147 @@ export default function CheckOut() {
                                                 <Form.Control
                                                     type="text"
                                                     name="telephone"
-                                                    value={formData.telephone || ""}
-                                                    onChange={handleChange}
-                                                    isInvalid={!!errors.telephone}
+                                                    value={formData.billing.telephone}
+                                                    onChange={(e) => handleChange(e, "billing")}
+                                                    isInvalid={!!errors.billing.telephone}
                                                     disabled={isLoading}
                                                 />
                                                 <Form.Control.Feedback type="invalid">
-                                                    {errors.telephone}
+                                                    {errors.billing.telephone}
                                                 </Form.Control.Feedback>
                                             </Form.Group>
                                         </Col>
                                     </Row>
 
                                     <Form.Group className="mb-3">
+                                        <Form.Check
+                                            type="checkbox"
+                                            name="differentShipping"
+                                            label="Spedizione diversa dalla fatturazione"
+                                            checked={formData.differentShipping}
+                                            onChange={(e) => handleChange(e)}
+                                            disabled={isLoading}
+                                        />
+                                    </Form.Group>
+
+                                    {formData.differentShipping && (
+                                        <>
+                                            <h5 className="mt-4">Dati di Spedizione</h5>
+                                            <Row>
+                                                <Col md={6}>
+                                                    <Form.Group className="mb-3">
+                                                        <Form.Label>Nome</Form.Label>
+                                                        <Form.Control
+                                                            type="text"
+                                                            name="firstName"
+                                                            value={formData.shipping.firstName}
+                                                            onChange={(e) => handleChange(e, "shipping")}
+                                                            isInvalid={!!errors.shipping.firstName}
+                                                            disabled={isLoading}
+                                                        />
+                                                        <Form.Control.Feedback type="invalid">
+                                                            {errors.shipping.firstName}
+                                                        </Form.Control.Feedback>
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col md={6}>
+                                                    <Form.Group className="mb-3">
+                                                        <Form.Label>Cognome</Form.Label>
+                                                        <Form.Control
+                                                            type="text"
+                                                            name="lastName"
+                                                            value={formData.shipping.lastName}
+                                                            onChange={(e) => handleChange(e, "shipping")}
+                                                            isInvalid={!!errors.shipping.lastName}
+                                                            disabled={isLoading}
+                                                        />
+                                                        <Form.Control.Feedback type="invalid">
+                                                            {errors.shipping.lastName}
+                                                        </Form.Control.Feedback>
+                                                    </Form.Group>
+                                                </Col>
+                                            </Row>
+
+                                            <Form.Group className="mb-3">
+                                                <Form.Label>Indirizzo</Form.Label>
+                                                <Form.Control
+                                                    type="text"
+                                                    name="address"
+                                                    value={formData.shipping.address}
+                                                    onChange={(e) => handleChange(e, "shipping")}
+                                                    isInvalid={!!errors.shipping.address}
+                                                    disabled={isLoading}
+                                                />
+                                                <Form.Control.Feedback type="invalid">
+                                                    {errors.shipping.address}
+                                                </Form.Control.Feedback>
+                                            </Form.Group>
+
+                                            <Row>
+                                                <Col md={6}>
+                                                    <Form.Group className="mb-3">
+                                                        <Form.Label>Città</Form.Label>
+                                                        <Form.Control
+                                                            type="text"
+                                                            name="city"
+                                                            value={formData.shipping.city}
+                                                            onChange={(e) => handleChange(e, "shipping")}
+                                                            isInvalid={!!errors.shipping.city}
+                                                            disabled={isLoading}
+                                                        />
+                                                        <Form.Control.Feedback type="invalid">
+                                                            {errors.shipping.city}
+                                                        </Form.Control.Feedback>
+                                                    </Form.Group>
+                                                </Col>
+                                                <Col md={6}>
+                                                    <Form.Group className="mb-3">
+                                                        <Form.Label>Telefono</Form.Label>
+                                                        <Form.Control
+                                                            type="text"
+                                                            name="telephone"
+                                                            value={formData.shipping.telephone}
+                                                            onChange={(e) => handleChange(e, "shipping")}
+                                                            isInvalid={!!errors.shipping.telephone}
+                                                            disabled={isLoading}
+                                                        />
+                                                        <Form.Control.Feedback type="invalid">
+                                                            {errors.shipping.telephone}
+                                                        </Form.Control.Feedback>
+                                                    </Form.Group>
+                                                </Col>
+                                            </Row>
+                                        </>
+                                    )}
+
+                                    <Form.Group className="mb-3">
                                         <Form.Label>Codice Promozionale (opzionale)</Form.Label>
                                         <Form.Control
                                             type="text"
                                             name="promotionCode"
-                                            value={formData.promotionCode || ""}
-                                            onChange={handleChange}
+                                            value={formData.promotionCode}
+                                            onChange={(e) => handleChange(e)} // Senza section
                                             disabled={isLoading}
                                         />
+                                    </Form.Group>
+
+                                    <Form.Group className="mb-3">
+                                        <Form.Check
+                                            required
+                                            type="checkbox"
+                                            name="termsAccepted"
+                                            label="Accetto i termini e condizioni *"
+                                            checked={formData.termsAccepted}
+                                            onChange={(e) => handleChange(e)} // Senza section
+                                            isInvalid={!!errors.termsAccepted}
+                                            disabled={isLoading}
+                                        />
+                                        <Form.Text className="text-muted">
+                                            * Campo obbligatorio
+                                        </Form.Text>
+                                        <Form.Control.Feedback type="invalid" className="d-block">
+                                            {errors.termsAccepted}
+                                        </Form.Control.Feedback>
                                     </Form.Group>
 
                                     <Button
@@ -223,7 +401,6 @@ export default function CheckOut() {
                         </Card>
                     </Col>
 
-                    {/* Cart on the Right */}
                     <Col md={6}>
                         <ListGroup variant="flush">
                             {cart.map((item, index) => (
