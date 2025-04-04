@@ -14,8 +14,11 @@ export default function Card({ product, addToCart }) {
         <div className="box-card">
             <div className="product-card">
                 <img src={product.image_url} alt="Product Image" className="product-image" />
+
+                <hr className="color" />
                 <div className="product-info">
                     <h2 className="product-name">{product.name || product.product_name}</h2>
+
                     <p className="product-description">{product.description}</p>
                     <p className="product-model"><strong>Modello: </strong>{product.model}</p>
                     <p className="product-price">
