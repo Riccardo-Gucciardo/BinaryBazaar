@@ -49,7 +49,8 @@ body {
     padding: 0.25rem 0.5rem;
     font-size: 0.75rem;
 }
-.cart-container{
+
+.cart-container {
     margin-top: 40px;
 }
 
@@ -123,14 +124,16 @@ body {
     justify-content: center;
     background-color: rgb(32, 30, 30);
 }
-.titolo-nome{
+
+.titolo-nome {
     width: 100%;
     background-color: black;
     text-align: center;
     padding: 20px;
-    
+
 }
-h1{
+
+h1 {
     color: lime;
 }
 
@@ -168,9 +171,9 @@ h1{
 
 .product-info {
     padding: 15px;
-    
-    
-   
+
+
+
 }
 
 .product-name {
@@ -415,15 +418,15 @@ a {
 /* Search Bar Styles */
 
 .searchBox {
-  display: flex;
-  width: 100%;
-  align-items: center;
-  justify-content: space-between;
-  
-  gap: 8px;
-  background: #2f3640;
-  border-radius: 50px;
-  position: relative;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: space-between;
+
+    gap: 8px;
+    background: #2f3640;
+    border-radius: 50px;
+    position: relative;
 }
 
 
@@ -520,7 +523,7 @@ button:active {
     justify-content: center;
     align-items: center;
     min-height: 80vh;
-    background-color: #212529;
+    background-color: transparent;
     padding: 20px;
     text-align: center;
     flex-wrap: wrap;
@@ -611,7 +614,7 @@ button:active {
     position: relative;
     cursor: pointer;
     color: white !important;
-    
+
 }
 
 .cart-badge {
@@ -659,6 +662,7 @@ button:active {
 
 /* Stili per dispositivi mobili */
 @media (max-width: 1320px) {
+
     /* Mostra l'icona dell'hamburger */
     .menu-toggle {
         display: flex;
@@ -668,7 +672,7 @@ button:active {
     .desktop-search {
         display: none;
     }
-    
+
 
     /* Menu nascosto di default */
     .nav-menu {
@@ -676,7 +680,7 @@ button:active {
     }
 
     /* Quando la checkbox è selezionata, mostra il menu */
-    .menu-checkbox:checked ~ .nav-menu {
+    .menu-checkbox:checked~.nav-menu {
         display: flex;
         flex-direction: column;
         background-color: black;
@@ -692,29 +696,30 @@ button:active {
     /* Mostra la search bar mobile */
     .mobile-search {
         display: block;
-        
+
     }
-    
+
 
     /* Posizionamento corretto del carrello */
     .cart-button {
         position: relative;
-        
+
     }
-    .nav{
+
+    .nav {
         display: flex;
         flex-direction: column;
     }
 
-    
+
 }
 
 @media (max-width: 667px) {
     .mobile-search .searchBox {
-        width: 70%; 
-        
-        
+        width: 70%;
+
+
     }
 
-   
+
 }
