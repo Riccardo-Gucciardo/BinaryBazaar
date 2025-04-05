@@ -11,7 +11,7 @@ export default function DefaultLayout() {
                 <Outlet />
             </main>
             <CartOffcanvas />
-            {/* <Footer /> commentato SOLO PER ORA */}
+            <Footer />
         </>
     );
 }

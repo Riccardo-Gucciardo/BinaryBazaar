@@ -30,13 +30,17 @@ export default function CheckOut() {
     const [errors, setErrors] = useState({ billing: {}, shipping: {} });
     const [isLoading, setIsLoading] = useState(false);
 
-    const total = cart.reduce((sum, item) => {
+    // const total = cart.reduce((sum, item) => {
+    //     return sum + parseFloat(item.discount_price || item.price);
+    // }, 0).toFixed(2); 
+    //fix APPLICO CORREZIONE PER EVITARE => "cart.reduce is not a function"
+    const total = Array.isArray(cart) ? cart.reduce((sum, item) => {
         return sum + parseFloat(item.discount_price || item.price);
-    }, 0).toFixed(2);
+    }, 0).toFixed(2) : "0.00";
 
     const handleChange = (e, section = null) => {
         const { name, value, type, checked } = e.target;
-        
+
         if (type === "checkbox") {
             // Gestione dei checkbox (termsAccepted, differentShipping)
             setFormData(prev => ({
@@ -66,9 +70,9 @@ export default function CheckOut() {
 
         const billing = formData.billing;
         if (!billing.firstName) tempErrors.billing.firstName = "Il nome è obbligatorio";
-        else if (billing.firstName.length < 3) tempErrors.billing.firstName = "Il nome deve avere almeno 3 lettere";
+        else if (billing.firstName.trim().length < 3) tempErrors.billing.firstName = "Il nome deve avere almeno 3 lettere";
         if (!billing.lastName) tempErrors.billing.lastName = "Il cognome è obbligatorio";
-        else if (billing.lastName.length < 3) tempErrors.billing.lastName = "Il cognome deve avere almeno 3 lettere";
+        else if (billing.lastName.trim().length < 3) tempErrors.billing.lastName = "Il cognome deve avere almeno 3 lettere";
         if (!billing.email) tempErrors.billing.email = "L'email è obbligatoria";
         else if (!/^\S+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$/.test(billing.email))
             tempErrors.billing.email = "Email deve essere nel formato nome@provider.dominio";
@@ -81,9 +85,9 @@ export default function CheckOut() {
         if (formData.differentShipping) {
             const shipping = formData.shipping;
             if (!shipping.firstName) tempErrors.shipping.firstName = "Il nome è obbligatorio";
-            else if (shipping.firstName.length < 3) tempErrors.shipping.firstName = "Il nome deve avere almeno 3 lettere";
+            else if (shipping.firstName.trim().length < 3) tempErrors.shipping.firstName = "Il nome deve avere almeno 3 lettere";
             if (!shipping.lastName) tempErrors.shipping.lastName = "Il cognome è obbligatorio";
-            else if (shipping.lastName.length < 3) tempErrors.shipping.lastName = "Il cognome deve avere almeno 3 lettere";
+            else if (shipping.lastName.trim().length < 3) tempErrors.shipping.lastName = "Il cognome deve avere almeno 3 lettere";
             if (!shipping.address) tempErrors.shipping.address = "L'indirizzo è obbligatorio";
             if (!shipping.city) tempErrors.shipping.city = "La città è obbligatoria";
             if (!shipping.telephone) tempErrors.shipping.telephone = "Il telefono è obbligatorio";
@@ -96,8 +100,8 @@ export default function CheckOut() {
 
         setErrors(tempErrors);
         return Object.keys(tempErrors.billing).length === 0 &&
-               (!formData.differentShipping || Object.keys(tempErrors.shipping).length === 0) &&
-               !tempErrors.termsAccepted;
+            (!formData.differentShipping || Object.keys(tempErrors.shipping).length === 0) &&
+            !tempErrors.termsAccepted;
     };
 
     const handleSubmit = (e) => {
@@ -391,7 +395,7 @@ export default function CheckOut() {
                                     <Button
                                         variant="success"
                                         type="submit"
-                                        className="w-100 mt-3"
+                                        className="w-50 float-end  "
                                         disabled={isLoading}
                                     >
                                         {isLoading ? "Elaborazione..." : "Completa Pagamento"}
