@@ -25,38 +25,40 @@ export default function CheckOut() {
         },
         promotionCode: "",
         termsAccepted: false,
-        differentShipping: false
+        differentShipping: false,
     });
     const [errors, setErrors] = useState({ billing: {}, shipping: {} });
     const [isLoading, setIsLoading] = useState(false);
 
-    const total = cart.reduce((sum, item) => {
+
+    const subtotal = cart.reduce((sum, item) => {
         return sum + parseFloat(item.discount_price || item.price);
     }, 0).toFixed(2);
 
+
+    const shippingCost = subtotal >= 50 ? 0 : 5;
+    const total = (parseFloat(subtotal) + shippingCost).toFixed(2);
+
     const handleChange = (e, section = null) => {
         const { name, value, type, checked } = e.target;
-        
+
         if (type === "checkbox") {
-            // Gestione dei checkbox (termsAccepted, differentShipping)
-            setFormData(prev => ({
+            setFormData((prev) => ({
                 ...prev,
-                [name]: checked
+                [name]: checked,
             }));
         } else if (section) {
-            // Gestione dei campi nidificati (billing, shipping)
-            setFormData(prev => ({
+            setFormData((prev) => ({
                 ...prev,
                 [section]: {
                     ...prev[section],
-                    [name]: value
-                }
+                    [name]: value,
+                },
             }));
         } else {
-            // Gestione dei campi di primo livello (promotionCode)
-            setFormData(prev => ({
+            setFormData((prev) => ({
                 ...prev,
-                [name]: value
+                [name]: value,
             }));
         }
     };
@@ -95,9 +97,11 @@ export default function CheckOut() {
             tempErrors.termsAccepted = "È obbligatorio accettare i termini e condizioni";
 
         setErrors(tempErrors);
-        return Object.keys(tempErrors.billing).length === 0 &&
-               (!formData.differentShipping || Object.keys(tempErrors.shipping).length === 0) &&
-               !tempErrors.termsAccepted;
+        return (
+            Object.keys(tempErrors.billing).length === 0 &&
+            (!formData.differentShipping || Object.keys(tempErrors.shipping).length === 0) &&
+            !tempErrors.termsAccepted
+        );
     };
 
     const handleSubmit = (e) => {
@@ -116,18 +120,20 @@ export default function CheckOut() {
             city: dataToUse.city,
             telephone: dataToUse.telephone,
             promotion_code: formData.promotionCode || null,
-            products: cart.map(item => ({
+            products: cart.map((item) => ({
                 slug: item.slug,
                 quantity: 1,
                 price: item.discount_price || item.price,
-                name: item.name
+                name: item.name,
             })),
-            total: total
+            shipping_cost: shippingCost,
+            subtotal: subtotal,
+            total: total,
         };
 
         axios
             .post("http://localhost:3000/orders", orderData, {
-                headers: { "Content-Type": "application/json" }
+                headers: { "Content-Type": "application/json" },
             })
             .then((response) => {
                 console.log("Ordine creato:", response.data);
@@ -364,7 +370,7 @@ export default function CheckOut() {
                                             type="text"
                                             name="promotionCode"
                                             value={formData.promotionCode}
-                                            onChange={(e) => handleChange(e)} // Senza section
+                                            onChange={(e) => handleChange(e)}
                                             disabled={isLoading}
                                         />
                                     </Form.Group>
@@ -376,13 +382,11 @@ export default function CheckOut() {
                                             name="termsAccepted"
                                             label="Accetto i termini e condizioni *"
                                             checked={formData.termsAccepted}
-                                            onChange={(e) => handleChange(e)} // Senza section
+                                            onChange={(e) => handleChange(e)}
                                             isInvalid={!!errors.termsAccepted}
                                             disabled={isLoading}
                                         />
-                                        <Form.Text className="text-muted">
-                                            * Campo obbligatorio
-                                        </Form.Text>
+                                        <Form.Text className="text-muted">* Campo obbligatorio</Form.Text>
                                         <Form.Control.Feedback type="invalid" className="d-block">
                                             {errors.termsAccepted}
                                         </Form.Control.Feedback>
@@ -412,16 +416,12 @@ export default function CheckOut() {
                                                     <Card.Title>{item.name}</Card.Title>
                                                     {item.discount_price && (
                                                         <Card.Text>
-                                                            <small className="text-muted">
-                                                                Prezzo originale: €{item.price}
-                                                            </small>
+                                                            <small className="text-muted">Prezzo originale: {item.price}€</small>
                                                         </Card.Text>
                                                     )}
                                                 </Col>
                                                 <Col xs={4} className="text-end">
-                                                    <h5 className="mb-0">
-                                                        €{item.discount_price || item.price}
-                                                    </h5>
+                                                    <h5 className="mb-0">{item.discount_price || item.price}€</h5>
                                                 </Col>
                                             </Row>
                                         </Card.Body>
@@ -433,10 +433,36 @@ export default function CheckOut() {
                             <Card.Body>
                                 <Row>
                                     <Col>
+                                        <h5>Subtotale</h5>
+                                    </Col>
+                                    <Col className="text-end">
+                                        <h5>{subtotal}€</h5>
+                                    </Col>
+                                </Row>
+                                <Row className="mt-2">
+                                    <Col>
+                                        <h5>Spedizione</h5>
+                                    </Col>
+                                    <Col className="text-end">
+                                        <h5>{shippingCost === 0 ? "Gratuita" : `€${shippingCost.toFixed(2)}`}</h5>
+                                    </Col>
+                                </Row>
+                                {shippingCost > 0 && (
+                                    <Row className="mt-2">
+                                        <Col>
+                                            <small className="text-muted">
+                                                Spedizione gratuita per ordini superiori a 50€
+                                            </small>
+                                        </Col>
+                                    </Row>
+                                )}
+                                <hr />
+                                <Row>
+                                    <Col>
                                         <h4>Totale</h4>
                                     </Col>
                                     <Col className="text-end">
-                                        <h4>€{total}</h4>
+                                        <h4>{total}€</h4>
                                     </Col>
                                 </Row>
                             </Card.Body>
