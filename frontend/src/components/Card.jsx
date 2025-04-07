@@ -13,6 +13,7 @@ export default function Card({ product, addToCart }) {
 
         <div className="box-card">
             <div className="product-card">
+            {product.discount_price && <span className="sconto"></span>}
                 <img src={product.image_url} alt="Product Image" className="product-image" />
                 <div className="product-info">
                     <h2 className="product-name">{product.name || product.product_name}</h2>
@@ -22,9 +23,11 @@ export default function Card({ product, addToCart }) {
 
                         {product.discount_price ? (
                             <>
+                            
+
                                 <span className="original-price">{product.price} €</span>
                                 <span
-                                    className="discount-price"
+                                    className="discount-price" 
                                     style={{ color: 'black', fontWeight: 'bold' }}
                                 >
                                     {product.discount_price} €
