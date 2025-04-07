@@ -1,44 +1,62 @@
-// CartContext.jsx
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useContext, useState } from "react";
 
 const CartContext = createContext();
 
 export function CartProvider({ children }) {
-    // Initialize cart from localStorage if it exists
-    const [cart, setCart] = useState(() => {
-        const savedCart = localStorage.getItem('cart');
-        return savedCart ? JSON.parse(savedCart) : [];
-    });
+    const [cart, setCart] = useState(JSON.parse(localStorage.getItem("cart")) || []);
     const [showCart, setShowCart] = useState(false);
 
-    const addToCart = (item) => {
-        setCart(prevCart => [...prevCart, item]);
+    const addToCart = (product) => {
+        setCart((prev) => {
+            const existingItem = prev.find((item) => item.slug === product.slug);
+            if (existingItem) {
+                return prev.map((item) =>
+                    item.slug === product.slug ? { ...item, quantity: item.quantity + 1 } : item
+                );
+            }
+            return [
+                ...prev,
+                { ...product, quantity: 1, price: parseFloat(product.price) || 0 },
+            ];
+        });
     };
 
     const removeFromCart = (index) => {
-        setCart(prevCart => prevCart.filter((_, i) => i !== index));
+        setCart((prev) => prev.filter((_, i) => i !== index));
     };
 
-    const resetCart = () => {
-        setCart('')
-    }
+    const updateQuantity = (slug, newQuantity) => {
+        if (newQuantity < 1) return; // Impedisce quantità inferiori a 1
+        setCart((prev) =>
+            prev.map((item) =>
+                item.slug === slug ? { ...item, quantity: newQuantity } : item
+            )
+        );
+    };
 
-    const handleCloseCart = () => setShowCart(false);
     const handleShowCart = () => setShowCart(true);
+    const handleCloseCart = () => setShowCart(false);
+
+    const resetCart = () => setCart([]);
 
     return (
-        <CartContext.Provider value={{
-            cart,
-            addToCart,
-            removeFromCart,
-            showCart,
-            handleCloseCart,
-            handleShowCart,
-            resetCart
-        }}>
+        <CartContext.Provider
+            value={{
+                cart,
+                addToCart,
+                removeFromCart,
+                updateQuantity,
+                showCart,
+                handleShowCart,
+                handleCloseCart,
+                resetCart,
+            }}
+        >
             {children}
         </CartContext.Provider>
     );
 }
 
-export const useCart = () => useContext(CartContext);
+export function useCart() {
+    return useContext(CartContext);
+}
