@@ -2,12 +2,12 @@
 import { NavLink } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import { useCart } from "../contexts/CartContext";
-import { useWishlist } from "../contexts/WishlistContext";
 import { FaGift, FaShoppingCart,FaHeart } from "react-icons/fa";
+import { useWishlist } from "../contexts/WishlistContext";
 
 export default function NavBar() {
     const { cart, handleShowCart } = useCart()
-    const { wishlist } = useWishlist(); // Ottieni wishlist dal contesto
+    const {wishlist} = useWishlist();
 
     return (
         <header className="header">
@@ -36,7 +36,7 @@ export default function NavBar() {
 
                 {/* SearchBar dentro il menu su mobile */}
                 <div className="mobile-search">
-
+                    <SearchBar />
                 </div>
 
                 <ul className="nav">
@@ -50,18 +50,17 @@ export default function NavBar() {
                             I Nostri Prodotti
                         </NavLink>
                     </li>
-                {/* ... altri elementi ... */}
-                <li className="wishlist-container">
-                    <NavLink className="nav-link" to="/wishlist">
-                        <FaHeart size={25} />
+                    <li className="wishlist-container">
+                        <NavLink to='/WishList' className='nav-link'>
+                        <FaHeart size={25}/>
                         {wishlist?.length > 0 && (
                             <span className="wishlist-badge">{wishlist.length}</span>
                         )}
-                    </NavLink>
-                </li>
+                        </NavLink>
+                    </li>
                     <li className="nav-item">
                         <NavLink className="nav-link gift-link" to="/gameDiscount">
-                            <FaGift className="gift-icon" size={30} />
+                            <FaGift className="gift-icon" size={25} />
                         </NavLink>
                     </li>
                     <li className="cart-container">
@@ -72,8 +71,8 @@ export default function NavBar() {
                             )}
                         </button>
                     </li>
-            </ul>
 
+                </ul>
             </div>
 
             {/* Carrello */}
