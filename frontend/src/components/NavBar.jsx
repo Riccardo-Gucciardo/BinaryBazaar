@@ -9,7 +9,7 @@ export default function NavBar() {
 
     return (
         <header className="header">
-            <NavLink to="/">
+            <NavLink to="/home">
                 <img src="/Logo.png" alt="" className="img-logo img-fluid" />
             </NavLink>
 
@@ -39,7 +39,7 @@ export default function NavBar() {
 
                 <ul className="nav">
                     <li className="nav-item">
-                        <NavLink className="nav-link active" to="/" aria-current="page">
+                        <NavLink className="nav-link active" to="/home" aria-current="page">
                             HomePage
                         </NavLink>
                     </li>
@@ -48,11 +48,7 @@ export default function NavBar() {
                             I Nostri Prodotti
                         </NavLink>
                     </li>
-                    <li className="nav-item">
-                        <NavLink className="nav-link" to="/products/outlet">
-                            Outlet
-                        </NavLink>
-                    </li>
+
                     <li className="nav-item">
                         <NavLink className="nav-link gift-link" to="/gameDiscount">
                             <FaGift className="gift-icon" size={30} />

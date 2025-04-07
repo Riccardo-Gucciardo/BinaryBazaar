@@ -18,7 +18,7 @@ function App() {
         <CartProvider>
           <Routes>
             <Route Component={DefaultLayout}>
-              <Route path="/" Component={HomePage} />
+              <Route path="/home" Component={HomePage} />
               <Route path="/:slug/" Component={ProductPage} />
               <Route path="/checkout" Component={CheckOut} />
               <Route path="/products" Component={ProductList} />

@@ -39,7 +39,7 @@ export default function HomePage() {
         return accessories.map((product) => (
 
             <Link
-                to={`/${product.slug}`}
+                to={`/home/${product.slug}`}
                 key={product.product_id}
                 style={{ textDecoration: 'none', color: 'inherit' }}
             >
@@ -52,7 +52,7 @@ export default function HomePage() {
     return (
         <>
             <Hero />
-            
+
             <div className="titolo-nome">
                 <h1 className="lime">LAPTOP</h1>
 

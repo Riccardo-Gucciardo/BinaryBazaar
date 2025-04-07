@@ -13,7 +13,7 @@ export default function Footer() {
                 <div className="footer-section">
                     <h4>Quick Links</h4>
                     <ul>
-                        <li><Link to="/">Home</Link></li>
+                        <li><Link to="/home">Home</Link></li>
                         <li><Link to="/products">Prodotti</Link></li>
                         <li><Link to="/gameDiscount">Gioco & Sconti</Link></li>
                     </ul>
