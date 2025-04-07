@@ -90,9 +90,10 @@ export default function DiscountGame() {
         <>
             <MatrixCodeRain />
             <div className="game-container">
-                <h1 className="game-title">Indovina il Numero e Vinci uno Sconto!</h1>
+                <h1 className="game-title animated-title flicker-effect">GUESS && LESS</h1>
+                <h2 className="game-title">Indovina il Numero e Vinci uno Sconto!</h2>
                 <p className="game-instructions">
-                    Indovina il numero segreto (tra 1 e 100) per ottenere un codice sconto del 10%! <br />
+                    Indovina il numero segreto (tra 1 e 100) <br /> per ottenere un codice sconto del 10%! <br />
                     E se indovini entro 10 Tentativi il bonus è TRIPLO! <br />
                     AH...il bottone fa un pò come gli pare!<FaSkull />
                 </p>
@@ -102,11 +103,11 @@ export default function DiscountGame() {
                 {isGameWon ? (
                     <div className="game-won">
                         <h2 className="game-won-title">Hai Vinto!</h2>
-                        <p className="game-won-code"> Codice Sconto: <strong>{attempts < 10 ? "ARTHUR30" : "LORIS10"}</strong></p>
-                        <button className="game-button" onClick={resetGame}>
+                        <p className="game-won-code"> Codice Sconto: <strong>{attempts < 10 ? "ARTUR30" : "LORIS10"}</strong></p>
+                        <button className="game-button glitch" onClick={resetGame}>
                             Riprova
                         </button>
-                        <button className="game-button mx-2" > <Link to={'/checkout'}>Checkout</Link>
+                        <button className="game-button mx-2 glitch" > <Link to={'/checkout'}>Checkout</Link>
 
                         </button>
                     </div>
@@ -126,26 +127,22 @@ export default function DiscountGame() {
                         <button
                             ref={guessButtonRef}
                             type="submit"
-                            className="rounded game-button ui-btn"
+                            className="rounded glitch game-button "
                             style={{
                                 position: 'absolute',
                                 top: buttonPosition.top,
                                 left: buttonPosition.left,
-                                // Assicurati che il bottone sia cliccabile anche se spostato
                                 cursor: 'pointer',
-                                // Stili originali del bottone
-                                // Puoi estrarre questi stili in un oggetto o nel CSS
                             }}
-                            onMouseEnter={handleButtonHover}
-                            onMouseLeave={handleButtonMouseLeave}
+                        // onMouseEnter={handleButtonHover}
+                        // onMouseLeave={handleButtonMouseLeave}
                         >
-                            <span>
-                                INDOVINA
-                            </span>
+                            INDOVINA
                         </button>
                     </form>
                 )}
             </div>
+            <div className="light-bar"></div>
         </>
     );
 }

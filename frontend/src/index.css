@@ -11,7 +11,7 @@ a {
 
 a:active,
 a:visited {
-    text-decoration: none;
+    text-decoration: none !important;
 }
 
 body {
@@ -524,95 +524,6 @@ button:active {
 }
 
 
-
-
-
-
-/* NOT FOUND CSS */
-/* Stili per la pagina 404 */
-.not-found-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 80vh;
-    background-color: transparent;
-    padding: 20px;
-    text-align: center;
-    flex-wrap: wrap;
-}
-
-.not-found-content {
-    max-width: 500px;
-    margin-right: 20px;
-}
-
-.not-found-title {
-    font-size: 6rem;
-    color: #ff4d4d;
-    margin: 0;
-    line-height: 1;
-}
-
-.not-found-subtitle {
-    font-size: 2rem;
-    color: #F0C14B;
-    margin: 10px 0;
-}
-
-.not-found-message {
-    font-size: 1.1rem;
-    color: #F0C14B;
-    margin-bottom: 20px;
-}
-
-.not-found-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: lime;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-}
-
-.not-found-button:hover {
-    background-color: #F0C14B;
-}
-
-.not-found-image img {
-    max-width: 100%;
-    height: auto;
-    width: 300px;
-}
-
-/* Stili responsive */
-@media (max-width: 768px) {
-    .not-found-container {
-        flex-direction: column;
-    }
-
-    .not-found-content {
-        margin-right: 0;
-        margin-bottom: 20px;
-    }
-
-    .not-found-title {
-        font-size: 4rem;
-    }
-
-    .not-found-subtitle {
-        font-size: 1.5rem;
-    }
-
-    .not-found-image img {
-        width: 200px;
-    }
-}
-
-
-
-
 .nav-actions {
     display: flex;
     align-items: center;
@@ -729,11 +640,7 @@ button:active {
 @media (max-width: 667px) {
     .mobile-search .searchBox {
         width: 70%;
-
-
     }
-
-
 }
 
 .color {
@@ -741,7 +648,6 @@ button:active {
 }
 
 #viewModeSwitch {
-
     border-color: lime;
 }
 
@@ -795,4 +701,9 @@ button:active {
     100% {
         transform: rotate(-15deg);
     }
+}
+
+.animated-title {
+    font-size: 2em;
+    color: #333;
 }

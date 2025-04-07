@@ -87,9 +87,12 @@ INSERT INTO brands (name) VALUES
 -- Inserimento Promozioni
 INSERT INTO promotions (code, discount, valid_from, valid_to) VALUES
 ('SUMMER25', 25.00, '2025-06-01', '2025-08-31'),
-('WELCOME10', 10.00, '2025-01-01', '2025-12-31'),
-('LORIS10', 10.00, '2025-04-01', '2025-04-31'),
-('ARTHUR10', 30.00, '2025-04-01', '2025-04-31');
+('WELCOME10', 10.00, '2025-01-01', '2025-12-31');
+
+-- inserimento PROMO nuove da GAMEDISCOUNT
+INSERT INTO promotions (code, discount, valid_from, valid_to) VALUES
+('LORIS10', 10.00, '2025-04-02', '2025-04-30'),
+('ARTUR30', 30.00, '2025-04-01', '2025-04-30');
 
 
 -- Inserimento Prodotti (Laptop, con discount_price)
@@ -159,6 +162,40 @@ INSERT INTO orders (name, lastname, email, address, telephone, order_date, total
 INSERT INTO product_order (order_id, product_id, quantity, price, name) VALUES
 (1, 1, 1, 1299.99, 'MacBook Air M2');
 
+
+
+-- APPLICA NUOVA PATCH al db
+-- inserimento e aggiornamento laptop
+INSERT INTO products (slug, brand_id, category, name, model, price, discount_price, image_url, created_at, stock, description) VALUES
+('apple-macbook-pro-14', 1, 'laptop', 'MacBook Pro 14 M3', 'A2918', 1999.99, 1799.99, NULL, CURRENT_TIMESTAMP, 15, 'Laptop con chip M3 per professionisti'),
+('dell-alienware-m16', 2, 'laptop', 'Dell Alienware M16', 'AW1623', 2499.99, NULL, NULL, CURRENT_TIMESTAMP, 8, 'Laptop gaming con display QHD+'),
+('hp-envy-16', 3, 'laptop', 'HP Envy 16', '16-H1023DX', 1699.99, 1499.99, NULL, CURRENT_TIMESTAMP, 12, 'Laptop creativo con display 4K'),
+('asus-vivobook-15', 4, 'laptop', 'Asus VivoBook 15', 'X1502ZA', 799.99, NULL, NULL, CURRENT_TIMESTAMP, 20, 'Laptop per uso quotidiano con design moderno'),
+('msi-prestige-14', 5, 'laptop', 'MSI Prestige 14', 'A12SC', 1399.99, NULL, NULL, CURRENT_TIMESTAMP, 10, 'Laptop leggero per professionisti');
+
+-- inserimento e aggiornamento laptop details
+INSERT INTO laptop_details (product_id, processor, ram, memory, video_card, os, year) VALUES
+(21, 'Apple M3', 16, 512, 'Integrated', 'macOS', 2024), -- MacBook Pro 14 M3
+(22, 'AMD Ryzen 9', 32, 1000, 'NVIDIA RTX 4070', 'Windows 11', 2023), -- Dell Alienware M16
+(23, 'Intel i7', 16, 1000, 'Integrated', 'Windows 11', 2023), -- HP Envy 16
+(24, 'Intel i5', 8, 256, 'Integrated', 'Windows 11', 2023), -- Asus VivoBook 15
+(25, 'Intel i7', 16, 512, 'NVIDIA GTX 1650', 'Windows 11', 2023); -- MSI Prestige 14;
+
+-- inserimento accessori
+INSERT INTO products (slug, brand_id, category, name, model, price, discount_price, image_url, created_at, stock, description) VALUES
+('apple-magic-keyboard', 1, 'accessory', 'Apple Magic Keyboard', 'MK2A3LL/A', 129.99, 109.99, NULL, CURRENT_TIMESTAMP, 30, 'Tastiera wireless con Touch ID'),
+('dell-portable-ssd', 2, 'accessory', 'Dell Portable SSD', 'DP-500GB', 99.99, NULL, NULL, CURRENT_TIMESTAMP, 25, 'SSD portatile da 500GB'),
+('hp-bluetooth-speaker', 3, 'accessory', 'HP Bluetooth Speaker', 'S6500', 49.99, NULL, NULL, CURRENT_TIMESTAMP, 40, 'Altoparlante Bluetooth portatile'),
+('asus-usb-c-adapter', 4, 'accessory', 'Asus USB-C Adapter', 'UA-2023', 39.99, NULL, NULL, CURRENT_TIMESTAMP, 50, 'Adattatore USB-C multiporta'),
+('msi-gaming-mouse', 5, 'accessory', 'MSI Gaming Mouse', 'GM-2023', 69.99, 59.99, NULL, CURRENT_TIMESTAMP, 35, 'Mouse gaming con RGB');
+
+-- inserimento accessory-details
+INSERT INTO accessory_details (product_id, type, compatibility) VALUES
+(21, 'Keyboard', 'macOS, iOS'), -- Apple Magic Keyboard
+(22, 'SSD External', 'Windows, macOS, Linux'), -- Dell Portable SSD
+(23, 'Speaker', 'Bluetooth, Windows, macOS, Android, iOS'), -- HP Bluetooth Speaker
+(24, 'Adapter', 'Windows, macOS, Linux'), -- Asus USB-C Adapter
+(25, 'Mouse', 'Windows, macOS'); -- MSI Gaming Mouse
 
 
 
