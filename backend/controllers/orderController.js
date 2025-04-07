@@ -112,8 +112,12 @@ function createOrder(req, res) {
                 const price = parseFloat(results[0].discount_price || results[0].price);
 
 
+
                 // Calcolo totale in base alla quantità
                 total += price * p.quantity;
+
+                // //*calcolo spedizione gratuita SE total supera i 50 €
+                // total < 50 ? total + 10 : total
 
                 // Aggiornamento sul product_id, prezzo e name
                 products[index] = {

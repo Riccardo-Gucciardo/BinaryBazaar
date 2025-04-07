@@ -1,6 +1,18 @@
 /* import matrix font */
-/* @import url('https://fonts.cdnfonts.com/css/matrix'); */
 @import url('https://fonts.cdnfonts.com/css/share-techmono-2');
+
+a {
+    color: inherit;
+    /* Eredita il colore del testo dal genitore */
+    text-decoration: none;
+
+    /* Rimuove la sottolineatura */
+}
+
+a:active,
+a:visited {
+    text-decoration: none !important;
+}
 
 body {
     font-family: 'Share-TechMono', sans-serif;
@@ -149,13 +161,14 @@ h1 {
 }
 
 .product-card {
+    position: relative; 
     width: 320px;
     height: auto;
     background: rgb(255, 255, 255);
     border: 3px solid lime;
     box-shadow: 0 4px 8px rgba(0, 255, 115, 0.6);
-    overflow: hidden;
-    text-align: center;
+    overflow: visible;
+    text-align:center;
     transition: transform 0.3s ease-in-out;
 
 }
@@ -180,7 +193,7 @@ h1 {
 .product-name {
     font-size: 1.5em;
     margin: 10px 0;
-    height: 50px;
+    height: 70px;
     color: black;
 }
 
@@ -188,11 +201,13 @@ h1 {
     font-size: 0.9em;
     color: #555;
     margin-bottom: 10px;
+    height: 40px;
 }
 
 .product-model {
     font-size: 1em;
     color: #333;
+    height: 50px;
 
 }
 
@@ -200,7 +215,7 @@ h1 {
     font-size: 1.2em;
     margin: 5px 0;
     color: black;
-    padding: px;
+    height: 40px;
 }
 
 .original-price {
@@ -229,6 +244,37 @@ h1 {
     background-color: #0056b3;
 }
 
+
+.sconto {
+    position: absolute;
+    overflow: hidden;
+    width: 150px;
+    height: 150px;
+    top: -10px;
+    left: -10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .sconto::before {
+    content: 'Discount';
+    position: absolute;
+    width: 150%;
+    height: 40px;
+    background-image: linear-gradient(45deg, #8f502c 0%, #f32525  51%, #8f502c 100%);
+    transform: rotate(-45deg) translateY(-20px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    box-shadow: 0 5px 10px rgba(0,0,0,0.23);
+  }
+  
+  
 
 
 /* Hero img sotto Header  */
@@ -511,95 +557,6 @@ button:active {
     align-items: center;
     justify-content: center;
 }
-
-
-
-
-
-
-/* NOT FOUND CSS */
-/* Stili per la pagina 404 */
-.not-found-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 80vh;
-    background-color: transparent;
-    padding: 20px;
-    text-align: center;
-    flex-wrap: wrap;
-}
-
-.not-found-content {
-    max-width: 500px;
-    margin-right: 20px;
-}
-
-.not-found-title {
-    font-size: 6rem;
-    color: #ff4d4d;
-    margin: 0;
-    line-height: 1;
-}
-
-.not-found-subtitle {
-    font-size: 2rem;
-    color: #F0C14B;
-    margin: 10px 0;
-}
-
-.not-found-message {
-    font-size: 1.1rem;
-    color: #F0C14B;
-    margin-bottom: 20px;
-}
-
-.not-found-button {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: lime;
-    color: white;
-    text-decoration: none;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background-color 0.3s ease;
-}
-
-.not-found-button:hover {
-    background-color: #F0C14B;
-}
-
-.not-found-image img {
-    max-width: 100%;
-    height: auto;
-    width: 300px;
-}
-
-/* Stili responsive */
-@media (max-width: 768px) {
-    .not-found-container {
-        flex-direction: column;
-    }
-
-    .not-found-content {
-        margin-right: 0;
-        margin-bottom: 20px;
-    }
-
-    .not-found-title {
-        font-size: 4rem;
-    }
-
-    .not-found-subtitle {
-        font-size: 1.5rem;
-    }
-
-    .not-found-image img {
-        width: 200px;
-    }
-}
-
-
 
 
 .nav-actions {

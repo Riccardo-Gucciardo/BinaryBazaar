@@ -25,38 +25,42 @@ export default function CheckOut() {
         },
         promotionCode: "",
         termsAccepted: false,
-        differentShipping: false
+        differentShipping: false,
     });
     const [errors, setErrors] = useState({ billing: {}, shipping: {} });
     const [isLoading, setIsLoading] = useState(false);
 
-    const total = cart.reduce((sum, item) => {
-        return sum + parseFloat(item.discount_price || item.price);
-    }, 0).toFixed(2);
+    const subtotal = Array.isArray(cart) ? cart.reduce((sum, item) => {
+        return sum + parseFloat(item.discount_price || item.price)
+
+
+    }, 0).toFixed(2) : "0.00";
+
+
+    const shippingCost = subtotal >= 50 ? 0 : 5;
+    const total = (parseFloat(subtotal) + shippingCost).toFixed(2);
+
 
     const handleChange = (e, section = null) => {
         const { name, value, type, checked } = e.target;
-        
+
         if (type === "checkbox") {
-            // Gestione dei checkbox (termsAccepted, differentShipping)
-            setFormData(prev => ({
+            setFormData((prev) => ({
                 ...prev,
-                [name]: checked
+                [name]: checked,
             }));
         } else if (section) {
-            // Gestione dei campi nidificati (billing, shipping)
-            setFormData(prev => ({
+            setFormData((prev) => ({
                 ...prev,
                 [section]: {
                     ...prev[section],
-                    [name]: value
-                }
+                    [name]: value,
+                },
             }));
         } else {
-            // Gestione dei campi di primo livello (promotionCode)
-            setFormData(prev => ({
+            setFormData((prev) => ({
                 ...prev,
-                [name]: value
+                [name]: value,
             }));
         }
     };
@@ -66,9 +70,9 @@ export default function CheckOut() {
 
         const billing = formData.billing;
         if (!billing.firstName) tempErrors.billing.firstName = "Il nome è obbligatorio";
-        else if (billing.firstName.length < 3) tempErrors.billing.firstName = "Il nome deve avere almeno 3 lettere";
+        else if (billing.firstName.trim().length < 3) tempErrors.billing.firstName = "Il nome deve avere almeno 3 lettere";
         if (!billing.lastName) tempErrors.billing.lastName = "Il cognome è obbligatorio";
-        else if (billing.lastName.length < 3) tempErrors.billing.lastName = "Il cognome deve avere almeno 3 lettere";
+        else if (billing.lastName.trim().length < 3) tempErrors.billing.lastName = "Il cognome deve avere almeno 3 lettere";
         if (!billing.email) tempErrors.billing.email = "L'email è obbligatoria";
         else if (!/^\S+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$/.test(billing.email))
             tempErrors.billing.email = "Email deve essere nel formato nome@provider.dominio";
@@ -81,9 +85,9 @@ export default function CheckOut() {
         if (formData.differentShipping) {
             const shipping = formData.shipping;
             if (!shipping.firstName) tempErrors.shipping.firstName = "Il nome è obbligatorio";
-            else if (shipping.firstName.length < 3) tempErrors.shipping.firstName = "Il nome deve avere almeno 3 lettere";
+            else if (shipping.firstName.trim().length < 3) tempErrors.shipping.firstName = "Il nome deve avere almeno 3 lettere";
             if (!shipping.lastName) tempErrors.shipping.lastName = "Il cognome è obbligatorio";
-            else if (shipping.lastName.length < 3) tempErrors.shipping.lastName = "Il cognome deve avere almeno 3 lettere";
+            else if (shipping.lastName.trim().length < 3) tempErrors.shipping.lastName = "Il cognome deve avere almeno 3 lettere";
             if (!shipping.address) tempErrors.shipping.address = "L'indirizzo è obbligatorio";
             if (!shipping.city) tempErrors.shipping.city = "La città è obbligatoria";
             if (!shipping.telephone) tempErrors.shipping.telephone = "Il telefono è obbligatorio";
@@ -95,9 +99,11 @@ export default function CheckOut() {
             tempErrors.termsAccepted = "È obbligatorio accettare i termini e condizioni";
 
         setErrors(tempErrors);
-        return Object.keys(tempErrors.billing).length === 0 &&
-               (!formData.differentShipping || Object.keys(tempErrors.shipping).length === 0) &&
-               !tempErrors.termsAccepted;
+        return (
+            Object.keys(tempErrors.billing).length === 0 &&
+            (!formData.differentShipping || Object.keys(tempErrors.shipping).length === 0) &&
+            !tempErrors.termsAccepted
+        );
     };
 
     const handleSubmit = (e) => {
@@ -116,18 +122,20 @@ export default function CheckOut() {
             city: dataToUse.city,
             telephone: dataToUse.telephone,
             promotion_code: formData.promotionCode || null,
-            products: cart.map(item => ({
+            products: cart.map((item) => ({
                 slug: item.slug,
                 quantity: 1,
                 price: item.discount_price || item.price,
-                name: item.name
+                name: item.name,
             })),
-            total: total
+            shipping_cost: shippingCost,
+            subtotal: subtotal,
+            total: total,
         };
 
         axios
             .post("http://localhost:3000/orders", orderData, {
-                headers: { "Content-Type": "application/json" }
+                headers: { "Content-Type": "application/json" },
             })
             .then((response) => {
                 console.log("Ordine creato:", response.data);
@@ -364,7 +372,7 @@ export default function CheckOut() {
                                             type="text"
                                             name="promotionCode"
                                             value={formData.promotionCode}
-                                            onChange={(e) => handleChange(e)} // Senza section
+                                            onChange={(e) => handleChange(e)}
                                             disabled={isLoading}
                                         />
                                     </Form.Group>
@@ -376,13 +384,11 @@ export default function CheckOut() {
                                             name="termsAccepted"
                                             label="Accetto i termini e condizioni *"
                                             checked={formData.termsAccepted}
-                                            onChange={(e) => handleChange(e)} // Senza section
+                                            onChange={(e) => handleChange(e)}
                                             isInvalid={!!errors.termsAccepted}
                                             disabled={isLoading}
                                         />
-                                        <Form.Text className="text-muted">
-                                            * Campo obbligatorio
-                                        </Form.Text>
+                                        <Form.Text className="text-muted">* Campo obbligatorio</Form.Text>
                                         <Form.Control.Feedback type="invalid" className="d-block">
                                             {errors.termsAccepted}
                                         </Form.Control.Feedback>
@@ -391,7 +397,7 @@ export default function CheckOut() {
                                     <Button
                                         variant="success"
                                         type="submit"
-                                        className="w-100 mt-3"
+                                        className="w-50 float-end  "
                                         disabled={isLoading}
                                     >
                                         {isLoading ? "Elaborazione..." : "Completa Pagamento"}
@@ -412,31 +418,84 @@ export default function CheckOut() {
                                                     <Card.Title>{item.name}</Card.Title>
                                                     {item.discount_price && (
                                                         <Card.Text>
-                                                            <small className="text-muted">
-                                                                Prezzo originale: €{item.price}
-                                                            </small>
+                                                            <small className="text-muted">Prezzo originale: {item.price}€</small>
                                                         </Card.Text>
                                                     )}
                                                 </Col>
                                                 <Col xs={4} className="text-end">
-                                                    <h5 className="mb-0">
-                                                        €{item.discount_price || item.price}
-                                                    </h5>
+                                                    <h5 className="mb-0">{item.discount_price || item.price}€</h5>
                                                 </Col>
                                             </Row>
                                         </Card.Body>
                                     </Card>
                                 </ListGroup.Item>
                             ))}
+                            <Col className="text-center">
+                                <p>per ordini superiori a 49.99€ la spedizione è gratuita!</p>
+                            </Col>
                         </ListGroup>
                         <Card className="mt-4">
                             <Card.Body>
                                 <Row>
                                     <Col>
+                                        <h5>Subtotale</h5>
+                                    </Col>
+                                    <Col className="text-end">
+                                        <h5>{subtotal}€</h5>
+                                    </Col>
+                                </Row>
+                                <Row className="mt-2">
+                                    <Col>
+                                        <h5>Spedizione</h5>
+                                    </Col>
+                                    <Col className="text-end">
+                                        <h5>{shippingCost === 0 ? "Gratuita" : `€${shippingCost.toFixed(2)}`}</h5>
+                                    </Col>
+                                </Row>
+                                {shippingCost > 0 && (
+                                    <Row className="mt-2">
+                                        <Col>
+                                            <small className="text-muted">
+                                                Spedizione gratuita per ordini superiori a 50€
+                                            </small>
+                                        </Col>
+                                    </Row>
+                                )}
+                                <hr />
+                                <Row>
+                                    <Col>
+                                        <h5>Subtotale</h5>
+                                    </Col>
+                                    <Col className="text-end">
+                                        <h5>{subtotal}€</h5>
+                                    </Col>
+                                </Row>
+                                <Row className="mt-2">
+                                    <Col>
+                                        <h5>Spedizione</h5>
+                                    </Col>
+                                    <Col className="text-end">
+                                        <h5>{shippingCost === 0 ? "Gratuita" : `€${shippingCost.toFixed(2)}`}</h5>
+                                    </Col>
+                                </Row>
+                                {shippingCost > 0 && (
+                                    <Row className="mt-2">
+                                        <Col>
+                                            <small className="text-muted">
+                                                Spedizione gratuita per ordini superiori a 50€
+                                            </small>
+                                        </Col>
+                                    </Row>
+                                )}
+                                <hr />
+                                <Row>
+
+                                    <Col>
                                         <h4>Totale</h4>
                                     </Col>
                                     <Col className="text-end">
-                                        <h4>€{total}</h4>
+                                        <h4>{total}€</h4>
+
                                     </Col>
                                 </Row>
                             </Card.Body>

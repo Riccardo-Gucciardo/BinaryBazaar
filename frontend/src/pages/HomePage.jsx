@@ -23,12 +23,12 @@ export default function HomePage() {
         const laptops = products.filter(product => product.category === 'laptop');
         return laptops.map((product) => (
 
-            <Link 
-                to={`/${product.slug}`} 
-                key={product.product_id} 
+            <Link
+                to={`/${product.slug}`}
+                key={product.product_id}
                 style={{ textDecoration: 'none', color: 'inherit' }}
             >
-                <Card product={product}/>
+                <Card product={product} />
 
             </Link>
         ));
@@ -38,12 +38,12 @@ export default function HomePage() {
         const accessories = products.filter(product => product.category === 'accessory');
         return accessories.map((product) => (
 
-            <Link 
-                to={`/${product.slug}`} 
-                key={product.product_id} 
+            <Link
+                to={`/${product.slug}`}
+                key={product.product_id}
                 style={{ textDecoration: 'none', color: 'inherit' }}
             >
-                <Card product={product}/>
+                <Card product={product} />
 
             </Link>
         ));
@@ -52,21 +52,22 @@ export default function HomePage() {
     return (
         <>
             <Hero />
+            
             <div className="titolo-nome">
                 <h1 className="lime">LAPTOP</h1>
 
-                </div>
+            </div>
             <div className="container mx-auto ">
 
-                
+
                 {/* <Button variant="primary" onClick={handleShow} style={{ marginBottom: '20px' }}>
                     Carrello ({cart.length})
                 </Button> */}
-                <div className="row row-cols-md-3 row-cols-lg-4 g-1">
+                <div className="row row-cols-md-2 row-cols-lg-4 g-1">
                     {renderLaptops()}
                 </div>
 
-                
+
             </div>
             <div className="titolo-nome">
                 <h1 className="lime">ACCESSORI</h1>

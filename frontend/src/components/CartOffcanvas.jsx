@@ -42,7 +42,7 @@ export default function CartOffcanvas() {
                                     }}
                                 >
                                     <span>
-                                        {item.name} - €{item.discount_price || item.price}
+                                        {item.name} - {item.discount_price || item.price} €
                                     </span>
                                     <Button
                                         variant="danger"
