@@ -134,8 +134,8 @@ export default function DiscountGame() {
                                 left: buttonPosition.left,
                                 cursor: 'pointer',
                             }}
-                            onMouseEnter={handleButtonHover}
-                            onMouseLeave={handleButtonMouseLeave}
+                        // onMouseEnter={handleButtonHover}
+                        // onMouseLeave={handleButtonMouseLeave}
                         >
                             INDOVINA
                         </button>

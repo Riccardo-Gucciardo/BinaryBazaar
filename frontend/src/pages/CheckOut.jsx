@@ -33,6 +33,7 @@ export default function CheckOut() {
     // const total = cart.reduce((sum, item) => {
     //     return sum + parseFloat(item.discount_price || item.price);
     // }, 0).toFixed(2); 
+
     //fix APPLICO CORREZIONE PER EVITARE => "cart.reduce is not a function"
     const total = Array.isArray(cart) ? cart.reduce((sum, item) => {
         return sum + parseFloat(item.discount_price || item.price);
@@ -417,30 +418,36 @@ export default function CheckOut() {
                                                     {item.discount_price && (
                                                         <Card.Text>
                                                             <small className="text-muted">
-                                                                Prezzo originale: €{item.price}
+                                                                Prezzo originale: {item.price}€
                                                             </small>
                                                         </Card.Text>
                                                     )}
                                                 </Col>
                                                 <Col xs={4} className="text-end">
                                                     <h5 className="mb-0">
-                                                        €{item.discount_price || item.price}
+                                                        {item.discount_price || item.price}€
                                                     </h5>
                                                 </Col>
+
+
                                             </Row>
                                         </Card.Body>
                                     </Card>
                                 </ListGroup.Item>
                             ))}
+                            <Col className="text-center">
+                                <p>per ordini superiori a 49.99€ la spedizione è gratuita!</p>
+                            </Col>
                         </ListGroup>
                         <Card className="mt-4">
                             <Card.Body>
                                 <Row>
+
                                     <Col>
                                         <h4>Totale</h4>
                                     </Col>
                                     <Col className="text-end">
-                                        <h4>€{total}</h4>
+                                        <h4>{total}€</h4>
                                     </Col>
                                 </Row>
                             </Card.Body>

@@ -49,6 +49,11 @@ export default function NavBar() {
                         </NavLink>
                     </li>
                     <li className="nav-item">
+                        <NavLink className="nav-link" to="/products/outlet">
+                            Outlet
+                        </NavLink>
+                    </li>
+                    <li className="nav-item">
                         <NavLink className="nav-link gift-link" to="/gameDiscount">
                             <FaGift className="gift-icon" size={30} />
                         </NavLink>
