@@ -22,7 +22,6 @@ function App() {
               <Route path="/:slug/" Component={ProductPage} />
               <Route path="/checkout" Component={CheckOut} />
               <Route path="/products" Component={ProductList} />
-              <Route path="/products/outlet" Component={ProductList} />
               <Route path="/allDone" Component={AllDone} />
               <Route path="/gameDiscount" Component={DiscountGame} />
               <Route path="*" Component={NotFound} />
