@@ -2,10 +2,12 @@
 import { NavLink } from "react-router-dom";
 import SearchBar from "./SearchBar";
 import { useCart } from "../contexts/CartContext";
-import { FaGift, FaShoppingCart } from "react-icons/fa";
+import { useWishlist } from "../contexts/WishlistContext";
+import { FaGift, FaShoppingCart,FaHeart } from "react-icons/fa";
 
 export default function NavBar() {
     const { cart, handleShowCart } = useCart()
+    const { wishlist } = useWishlist(); // Ottieni wishlist dal contesto
 
     return (
         <header className="header">
@@ -34,7 +36,7 @@ export default function NavBar() {
 
                 {/* SearchBar dentro il menu su mobile */}
                 <div className="mobile-search">
-                    <SearchBar />
+
                 </div>
 
                 <ul className="nav">
@@ -48,11 +50,15 @@ export default function NavBar() {
                             I Nostri Prodotti
                         </NavLink>
                     </li>
-                    <li className="nav-item">
-                        <NavLink className="nav-link" to="/products/outlet">
-                            Outlet
-                        </NavLink>
-                    </li>
+                {/* ... altri elementi ... */}
+                <li className="wishlist-container">
+                    <NavLink className="nav-link" to="/wishlist">
+                        <FaHeart size={25} />
+                        {wishlist?.length > 0 && (
+                            <span className="wishlist-badge">{wishlist.length}</span>
+                        )}
+                    </NavLink>
+                </li>
                     <li className="nav-item">
                         <NavLink className="nav-link gift-link" to="/gameDiscount">
                             <FaGift className="gift-icon" size={30} />
@@ -66,8 +72,8 @@ export default function NavBar() {
                             )}
                         </button>
                     </li>
+            </ul>
 
-                </ul>
             </div>
 
             {/* Carrello */}

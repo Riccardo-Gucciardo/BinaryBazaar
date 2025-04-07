@@ -9,13 +9,15 @@ import ProductList from "./pages/ProductsList";
 import AllDone from "./pages/AllDone";
 import NotFound from "./pages/NotFound";
 import DiscountGame from "./pages/DiscountGame";
-
+import WishList from "./pages/WishList";
+import { WishlistProvider } from "./contexts/WishlistContext";
 
 function App() {
   return (
     <>
       <BrowserRouter>
         <CartProvider>
+          <WishlistProvider>
           <Routes>
             <Route Component={DefaultLayout}>
               <Route path="/" Component={HomePage} />
@@ -26,8 +28,10 @@ function App() {
               <Route path="/allDone" Component={AllDone} />
               <Route path="/gameDiscount" Component={DiscountGame} />
               <Route path="*" Component={NotFound} />
+              <Route path="/WishList" Component={WishList}/>
             </Route>
           </Routes>
+          </WishlistProvider>
         </CartProvider>
       </BrowserRouter></>
   )
