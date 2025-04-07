@@ -129,8 +129,8 @@ const MatrixCodeRain = () => {
                     this.$cfg.resetGlobalAlpha();
                 },
                 _initChars: function () {
-                    // Sostituisci i caratteri con solo 0 e 1
-                    this.chars = ["0", "1"];
+                    // Includi i caratteri "I", "G", "O", "R", "M", "A", "N", "U", "E", "L", "G", "I", "U", "S", "E", "P", "P", "E", "R", "I", "C", "A", "R", "D", "O"
+                    this.chars = ["0", "1", "I", "G", "O", "R", "M", "A", "N", "U", "E", "L", "S", "P", "C", "D"];
                 },
                 _initColors: function () {
                     var tailRgb = new janvas.Rgb().fromRgbString(this.colors.tail),
@@ -144,7 +144,7 @@ const MatrixCodeRain = () => {
                     }
                     this.colors.gradient = new Array(this.colors.count);
                     var headSRgb = new janvas.Rgb().fromRgbString(this.colors.head)
-                            .sRgbInverseCompanding(),
+                        .sRgbInverseCompanding(),
                         tailSRgb = tailRgb.sRgbInverseCompanding(),
                         mix = new janvas.Rgb();
                     for (i = 1; i < this.colors.count; i++) {
@@ -168,7 +168,7 @@ const MatrixCodeRain = () => {
                     return text;
                 },
                 getRandomChar: function () {
-                    return this.chars[this.rand(this.chars.length)]; // Seleziona solo tra "0" e "1"
+                    return this.chars[this.rand(this.chars.length)];
                 },
                 getRandomX: function () {
                     var x;
