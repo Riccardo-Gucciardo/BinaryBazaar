@@ -6,7 +6,7 @@ export default function Hero() {
 
     const slides = [
         {
-            image: 'https://img.freepik.com/foto-gratuito/concetto-di-collage-html-e-css_23-2150061955.jpg?t=st=1743548607~exp=1743552207~hmac=bb8ad22c4239b63efcbc52781c2a9f2421dedc0c0d6c7a3ca9181283b7185599&w=900',
+            image: 'https://img.freepik.com/premium-photo/hand-touching-virtual-info-graphics-with-trolley-cart-icons-technology-online-shopping-business-concept_50039-2510.jpg?w=996',
             slogan: "Tecnologia all'avanguardia per le tue esigenze"
         },
         {
@@ -14,7 +14,7 @@ export default function Hero() {
             slogan: "Performance eccezionali, prezzi accessibili"
         },
         {
-            image: "https://img.freepik.com/foto-gratuito/tecnologia-di-fondo-del-tocco-umano-remake-moderno-di-la-creazione-di-adamo_53876-129794.jpg?t=st=1743699363~exp=1743702963~hmac=25eebb0e306b26684a78d806bb2dc4faebdfd1eaef0847dd84b55f6ec4fc1c21&w=996",
+            image: "https://img.freepik.com/premium-photo/virtual-shopping-bags-hovering-cyber-space-quality_1336216-6723.jpg?w=1380",
             slogan: "Il futuro è già qui, scoprilo con noi"
         }
     ];

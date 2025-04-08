@@ -2,12 +2,12 @@
 import SearchBar from "./SearchBar";
 import { NavLink } from "react-router-dom";
 import { useCart } from "../contexts/CartContext";
-import { FaGift, FaShoppingCart,FaHeart } from "react-icons/fa";
+import { FaGift, FaShoppingCart, FaHeart, FaInfoCircle } from "react-icons/fa";
 import { useWishlist } from "../contexts/WishlistContext";
 
 export default function NavBar() {
     const { cart, handleShowCart } = useCart()
-    const {wishlist} = useWishlist();
+    const { wishlist } = useWishlist();
 
     return (
         <header className="header">
@@ -41,7 +41,7 @@ export default function NavBar() {
 
                 <ul className="nav">
                     <li className="nav-item">
-                        <NavLink className="nav-link active" to="/home" aria-current="page">
+                        <NavLink className="nav-link " to="/home" aria-current="page">
                             HomePage
                         </NavLink>
                     </li>
@@ -52,15 +52,20 @@ export default function NavBar() {
                     </li>
                     <li className="wishlist-container">
                         <NavLink to='/WishList' className='nav-link'>
-                        <FaHeart size={25}/>
-                        {wishlist?.length > 0 && (
-                            <span className="wishlist-badge">{wishlist.length}</span>
-                        )}
+                            <FaHeart size={25} />
+                            {wishlist?.length > 0 && (
+                                <span className="wishlist-badge">{wishlist.length}</span>
+                            )}
                         </NavLink>
                     </li>
                     <li className="nav-item">
                         <NavLink className="nav-link gift-link" to="/gameDiscount">
                             <FaGift className="gift-icon" size={25} />
+                        </NavLink>
+                    </li>
+                    <li className="nav-item">
+                        <NavLink className="nav-link" to="/credits">
+                            <FaInfoCircle size={25} />
                         </NavLink>
                     </li>
                     <li className="cart-container">

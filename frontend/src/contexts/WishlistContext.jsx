@@ -1,10 +1,15 @@
 // WishlistContext.jsx
-import React, { createContext, useContext, useState } from 'react';
+import React, { createContext, useContext, useState, useEffect } from 'react';
 
 const WishlistContext = createContext();
 
 export function WishlistProvider({ children }) {
-    const [wishlist, setWishlist] = useState([]);
+    const [wishlist, setWishlist] = useState(JSON.parse(localStorage.getItem("wishlist")) || []);
+
+    // Salva la wishlist nel localStorage quando cambia
+    useEffect(() => {
+        localStorage.setItem("wishlist", JSON.stringify(wishlist));
+    }, [wishlist]);
 
     const addToWishlist = (product) => {
         setWishlist((prevWishlist) => {
@@ -40,6 +45,7 @@ export function WishlistProvider({ children }) {
     );
 }
 
+//*customHook
 export const useWishlist = () => {
     const context = useContext(WishlistContext);
     if (!context) {

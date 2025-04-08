@@ -4,15 +4,19 @@
 a {
     color: inherit;
     /* Eredita il colore del testo dal genitore */
-    text-decoration: none;
-
+    text-decoration: none !important;
     /* Rimuove la sottolineatura */
 }
 
-a:active,
-a:visited {
+a.nav-link.active {
+    color: lime !important;
+}
+
+a.visited {
     text-decoration: none !important;
 }
+
+
 
 body {
     font-family: 'Share-TechMono', sans-serif;

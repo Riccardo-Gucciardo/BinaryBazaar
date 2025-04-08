@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import axios from 'axios';
 import Card from "../components/Card";
-import Hero from "../components/Hero";
+import Hero from "../components/hero";
 import { Link } from "react-router-dom";
 
 export default function HomePage() {

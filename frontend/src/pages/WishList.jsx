@@ -13,6 +13,7 @@ export default function WishList() {
         console.log("Aggiungendo al carrello dalla Wishlist:", product); // Debug
         addToCart(product);
         handleShowCart();
+        removeFromWishlist(product.id);
     };
 
     return (

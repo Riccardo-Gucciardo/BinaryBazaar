@@ -11,6 +11,7 @@ import NotFound from "./pages/NotFound";
 import DiscountGame from "./pages/DiscountGame";
 import WishList from "./pages/WishList";
 import { WishlistProvider } from "./contexts/WishlistContext";
+import Credits from "./pages/Credits";
 
 
 function App() {
@@ -28,8 +29,9 @@ function App() {
                 <Route path="/products" Component={ProductList} />
                 <Route path="/allDone" Component={AllDone} />
                 <Route path="/gameDiscount" Component={DiscountGame} />
-                <Route path="*" Component={NotFound} />
                 <Route path="/WishList" Component={WishList} />
+                <Route path="/credits" Component={Credits} />
+                <Route path="*" Component={NotFound} />
               </Route>
             </Routes>
           </WishlistProvider>

@@ -157,7 +157,7 @@ export default function CheckOut() {
 
     return (
         <Container className="py-5">
-            <h2 className="mb-4 text-center">Checkout</h2>
+            <h2 className="mb-4 text-center">Checkout sicuro</h2>
 
             {cart.length === 0 ? (
                 <p className="text-center">Il carrello è vuoto</p>
