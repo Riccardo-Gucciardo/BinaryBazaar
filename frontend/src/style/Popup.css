@@ -18,7 +18,6 @@
 
 .popup {
   background-color: rgb(17, 1, 1);
-
   border-radius: 10px;
   border: 2px solid lime;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -33,16 +32,25 @@
 
 .popup h2 {
   margin: 5px 60px 150px 80px;
-
   padding-bottom: 100px;
   color: lime;
-
 }
 
 
 .popup p {
   margin: 300px 0 5px 0;
   color: lime;
+}
+
+.rabbit-image {
+  position: absolute;
+  bottom: 0px;
+  right: 0px;
+  width: 100px;
+  /* Adjust size as needed */
+  height: auto;
+  opacity: 0.8;
+  pointer-events: none;
 }
 
 .popup button {

@@ -6,7 +6,7 @@
 }
 
 .chatbot-toggle {
-    background-color: #32CD32;
+    background-color: green;
     /* Lime */
     color: #000000;
     /* Nero per contrasto */
@@ -48,7 +48,7 @@
 }
 
 .chatbot-header {
-    background-color: #32CD32;
+    background-color: green;
     /* Lime per l'header */
     color: #000000;
     /* Nero per il testo */

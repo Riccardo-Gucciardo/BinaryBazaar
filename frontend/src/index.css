@@ -129,7 +129,7 @@ body {
 
 
 .main-box {
-    min-height: 63vh;
+    min-height: 80vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -160,14 +160,14 @@ h1 {
 }
 
 .product-card {
-    position: relative; 
+    position: relative;
     width: 320px;
     height: auto;
     background: rgb(255, 255, 255);
     border: 3px solid lime;
     box-shadow: 0 4px 8px rgba(0, 255, 115, 0.6);
     overflow: visible;
-    text-align:center;
+    text-align: center;
     transition: transform 0.3s ease-in-out;
 
 }
@@ -254,14 +254,14 @@ h1 {
     display: flex;
     align-items: center;
     justify-content: center;
-  }
-  
-  .sconto::before {
-    content: 'Discount';
+}
+
+.sconto::before {
+    content: 'Prezzo Shock!';
     position: absolute;
     width: 150%;
     height: 40px;
-    background-image: linear-gradient(45deg, #8f502c 0%, #f32525  51%, #8f502c 100%);
+    background-image: linear-gradient(45deg, #8f502c 0%, #f32525 51%, #8f502c 100%);
     transform: rotate(-45deg) translateY(-20px);
     display: flex;
     align-items: center;
@@ -270,10 +270,10 @@ h1 {
     font-weight: 600;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    box-shadow: 0 5px 10px rgba(0,0,0,0.23);
-  }
-  
-  
+    box-shadow: 0 5px 10px rgba(0, 0, 0, 0.23);
+}
+
+
 
 
 /* Hero img sotto Header  */
@@ -749,24 +749,32 @@ button:active {
 
 /* Contenitore principale */
 .product-list-container {
-    margin-left: 250px; /* Spazio per la barra laterale */
+    margin-left: 250px;
+    /* Spazio per la barra laterale */
     padding: 20px;
 }
 
 /* Barra dei controlli a sinistra */
 .controls {
-    position: fixed; /* Fissa a sinistra */
+    position: fixed;
+    /* Fissa a sinistra */
     left: 0;
     bottom: 0;
     /* width: 250px; Larghezza fissa della barra */
-    height: 90vh; /* Altezza piena */
-    background-color: rgb(33, 37, 41); /* Sfondo chiaro */
+    height: 90vh;
+    /* Altezza piena */
+    background-color: rgb(33, 37, 41);
+    /* Sfondo chiaro */
     padding: 20px;
-    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Ombra a destra */
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    /* Ombra a destra */
     display: flex;
-    flex-direction: column; /* Disposizione verticale */
-    gap: 20px; /* Spaziatura tra gli elementi */
-    z-index: 10; /* Sopra il contenuto */
+    flex-direction: column;
+    /* Disposizione verticale */
+    gap: 20px;
+    /* Spaziatura tra gli elementi */
+    z-index: 10;
+    /* Sopra il contenuto */
 }
 
 /* Toggle della vista */
@@ -779,7 +787,8 @@ button:active {
 /* Filtri */
 .filters {
     display: flex;
-    flex-direction: column; /* Verticale */
+    flex-direction: column;
+    /* Verticale */
     gap: 15px;
 }
 
@@ -791,7 +800,8 @@ button:active {
     border-radius: 20px;
     background-color: black;
     font-size: 14px;
-    width: 100%; /* Occupa tutta la larghezza disponibile */
+    width: 100%;
+    /* Occupa tutta la larghezza disponibile */
     transition: border-color 0.3s ease;
 }
 
@@ -945,23 +955,23 @@ button:active {
     transition: var(--effect-transition);
 }
 
-.switch input:checked + .slider {
+.switch input:checked+.slider {
     background: var(--switch-checked-bg);
 }
 
-.switch input:checked + .slider .checkmark {
+.switch input:checked+.slider .checkmark {
     transform: scale(1);
 }
 
-.switch input:checked + .slider .cross {
+.switch input:checked+.slider .cross {
     transform: scale(0);
 }
 
-.switch input:checked + .slider::before {
+.switch input:checked+.slider::before {
     left: calc(100% - var(--effect-width) - (var(--effect-width) / 2) - var(--switch-offset));
 }
 
-.switch input:checked + .slider .circle {
+.switch input:checked+.slider .circle {
     left: calc(100% - var(--circle-diameter) - var(--switch-offset));
     box-shadow: var(--circle-checked-shadow);
 }
@@ -969,19 +979,21 @@ button:active {
 /* Media Query per schermi piccoli (sotto 768px) */
 @media (max-width: 768px) {
     .product-list-container {
-        margin-left: 0; /* Rimuovi margine sinistro */
-        padding: 10px; /* Riduci padding */
+        margin-left: 0;
+        /* Rimuovi margine sinistro */
+        padding: 10px;
+        /* Riduci padding */
     }
 
-    .product-grid-single{
-       
+    .product-grid-single {
+
         display: flex;
         flex-direction: column;
     }
 
     .product-main-image-single {
         max-width: 350px;
-                   
+
     }
 }
 
@@ -998,16 +1010,21 @@ button:active {
 .wishlist-items {
     width: 100%;
     display: flex;
-    flex-wrap: wrap; /* Permette alle card di andare a capo */
-    justify-content: center; /* Centra le card orizzontalmente */
-    gap: 20px; /* Spazio tra le card */
+    flex-wrap: wrap;
+    /* Permette alle card di andare a capo */
+    justify-content: center;
+    /* Centra le card orizzontalmente */
+    gap: 20px;
+    /* Spazio tra le card */
 }
 
 /* Singola card della Wishlist */
 .wishlist-card {
-    width: 50vw; /* Larghezza al 50% della viewport */
+    width: 50vw;
+    /* Larghezza al 50% della viewport */
     margin-bottom: 20px;
-    border: 3px solid #333; /* Bordo più spesso e scuro */
+    border: 3px solid #333;
+    /* Bordo più spesso e scuro */
     border-radius: 8px;
     padding: 15px;
     background-color: #fff;
@@ -1021,7 +1038,8 @@ button:active {
     align-items: center;
     gap: 25px;
     width: 100%;
-    max-width: 600px; /* Limita il contenuto interno per leggibilità */
+    max-width: 600px;
+    /* Limita il contenuto interno per leggibilità */
     margin: 0 auto;
 }
 
@@ -1080,8 +1098,10 @@ button:active {
 /* Responsive: adatta la card su schermi piccoli */
 @media (max-width: 768px) {
     .wishlist-card {
-        width: 100%; /* Torna a larghezza piena su mobile */
-        border: 2px solid #333; /* Mantiene un bordo visibile ma più sottile */
+        width: 100%;
+        /* Torna a larghezza piena su mobile */
+        border: 2px solid #333;
+        /* Mantiene un bordo visibile ma più sottile */
     }
 
     .wishlist-card-content {
@@ -1104,14 +1124,17 @@ button:active {
 /* Contenitore delle azioni nella card */
 .wishlist-actions {
     display: flex;
-    flex-direction: column; /* Impila i pulsanti verticalmente */
-    gap: 10px; /* Spazio tra i pulsanti */
+    flex-direction: column;
+    /* Impila i pulsanti verticalmente */
+    gap: 10px;
+    /* Spazio tra i pulsanti */
 }
 
 /* Stile per il bottone "Aggiungi al carrello" */
 .add-to-cart-btn {
     padding: 8px 15px;
-    background-color: #28a745; /* Verde, simile a "Procedi al Pagamento" */
+    background-color: #28a745;
+    /* Verde, simile a "Procedi al Pagamento" */
     color: white;
     border: none;
     border-radius: 4px;
@@ -1121,5 +1144,6 @@ button:active {
 }
 
 .add-to-cart-btn:hover {
-    background-color: #218838; /* Verde più scuro al passaggio del mouse */
+    background-color: #218838;
+    /* Verde più scuro al passaggio del mouse */
 }

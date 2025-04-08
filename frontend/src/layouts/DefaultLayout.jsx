@@ -19,8 +19,20 @@ export default function DefaultLayout() {
         // Dividiamo il pathname in parti usando lo slash
         const pathParts = location.pathname.split('/');
 
-        // Se il path è /products/qualcosa/ nascondi lo ScrollUp
-        return !(pathParts[1] === 'products' && pathParts[2]);
+        // Array delle rotte dove ScrollUp non deve apparire
+        const hideScrollUpRoutes = [
+            'gameDiscount',
+            'allDone',
+            '*' // Per NotFound
+        ];
+
+        // Nascondi ScrollUp se:
+        // 1. Siamo in una pagina prodotto (/products/:slug/)
+        // 2. Siamo in una delle rotte specificate
+        return !(
+            (pathParts[1] === 'products' && pathParts[2]) ||
+            hideScrollUpRoutes.includes(pathParts[1])
+        );
     };
 
 

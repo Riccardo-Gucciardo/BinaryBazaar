@@ -29,9 +29,9 @@ export default function WelcomePopup() {
       <div className="popup-overlay">
         <div className="popup ">
           <h2>Benvenuto Nel Mondo Reale!</h2>
-          <p>Scegli la tua strada</p>
-          <button className="blue-pill gift-icon" onClick={() => handleClose("/error")}>404</button>
-          <button className="red-pill gift-icon" onClick={() => handleClose("/home")}>Home</button>
+          <p>usa lo sconto WELCOME10 <br />  ...esplora la tana del Bianconiglio</p> <img src="/BinaRabbit.png" alt="rabbit" className="rabbit-image" />
+          <button className="blue-pill gift-icon" onClick={() => handleClose("/error")}>Esci</button>
+          <button className="red-pill gift-icon" onClick={() => handleClose("/home")}>Resta</button>
         </div>
       </div>
     </>
