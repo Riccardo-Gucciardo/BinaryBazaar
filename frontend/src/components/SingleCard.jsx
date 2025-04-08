@@ -31,7 +31,7 @@ function SingleCard({ product }) {
 
     return (
         <div className="product-details-container-single">
-            <div className="product-grid-single">
+            <div className="product-grid-single ">
                 <div className="product-image-section-single">
                     <img
                         src={image_url || "placeholder-image.jpg"}
