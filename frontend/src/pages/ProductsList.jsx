@@ -93,7 +93,7 @@ export default function ProductList() {
                                     className="list-group-item d-flex align-items-center "
                                 >
                                     <Link
-                                        to={`/${p.slug}`}
+                                        to={`/products/${p.slug}`}
                                         className="d-flex align-items-center text-decoration-none text-dark"
                                     >
                                         <img

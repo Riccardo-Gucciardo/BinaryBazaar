@@ -45,6 +45,7 @@ export default function DiscountGame() {
         e.preventDefault();
         const userGuess = parseInt(guess, 10);
         setAttempts(attempts + 1);
+        setGuess('')
 
         // Controlla se l'input è valido
         if (isNaN(userGuess) || userGuess < 1 || userGuess > 100) {
@@ -134,8 +135,8 @@ export default function DiscountGame() {
                                 left: buttonPosition.left,
                                 cursor: 'pointer',
                             }}
-                            onMouseEnter={handleButtonHover}
-                            onMouseLeave={handleButtonMouseLeave}
+                        onMouseEnter={handleButtonHover}
+                        onMouseLeave={handleButtonMouseLeave}
                         >
                             INDOVINA
                         </button>

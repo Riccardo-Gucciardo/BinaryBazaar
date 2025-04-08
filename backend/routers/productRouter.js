@@ -23,7 +23,6 @@ router.get('/s', searchProduct);
 // Route per dettagli prodotto singolo
 router.get('/:slug', showProductDetails); // Rimosso lo slash finale per convenzione
 
-
 export default router
 
 
