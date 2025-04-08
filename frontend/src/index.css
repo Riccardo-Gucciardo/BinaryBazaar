@@ -745,3 +745,347 @@ button:active {
 
 
 
+
+
+/* Contenitore principale */
+.product-list-container {
+    margin-left: 250px; /* Spazio per la barra laterale */
+    padding: 20px;
+}
+
+/* Barra dei controlli a sinistra */
+.controls {
+    position: fixed; /* Fissa a sinistra */
+    left: 0;
+    bottom: 0;
+    /* width: 250px; Larghezza fissa della barra */
+    height: 90vh; /* Altezza piena */
+    background-color: rgb(33, 37, 41); /* Sfondo chiaro */
+    padding: 20px;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1); /* Ombra a destra */
+    display: flex;
+    flex-direction: column; /* Disposizione verticale */
+    gap: 20px; /* Spaziatura tra gli elementi */
+    z-index: 10; /* Sopra il contenuto */
+}
+
+/* Toggle della vista */
+.view-toggle {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Filtri */
+.filters {
+    display: flex;
+    flex-direction: column; /* Verticale */
+    gap: 15px;
+}
+
+/* Stile per select, input e checkbox */
+.filters select,
+.filters input[type="number"] {
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 20px;
+    background-color: black;
+    font-size: 14px;
+    width: 100%; /* Occupa tutta la larghezza disponibile */
+    transition: border-color 0.3s ease;
+}
+
+.filters select:focus,
+.filters input[type="number"]:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3);
+}
+
+/* Checkbox dei prodotti scontati */
+.filters label {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 14px;
+    color: #333;
+}
+
+/* Risultati */
+.results-count {
+    margin-bottom: 20px;
+    text-align: center;
+    font-size: 16px;
+    color: #666;
+}
+
+/* Griglia prodotti */
+.products-grid {
+    padding: 20px;
+}
+
+/* Vista "single" */
+.products-grid.single {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
+}
+
+/* Vista "row" */
+.products-grid.row {
+    display: block;
+}
+
+.products-grid.row ul {
+    list-style: none;
+    padding: 0;
+}
+
+.products-grid.row ul li {
+    padding: 10px;
+    border-bottom: 1px solid #eee;
+}
+
+.products-grid.row ul li a {
+    text-decoration: none;
+    color: #007bff;
+    font-size: 16px;
+}
+
+.products-grid.row ul li a:hover {
+    text-decoration: underline;
+}
+
+/* Stile dello switch */
+.switch {
+    --switch-width: 46px;
+    --switch-height: 24px;
+    --switch-bg: rgb(131, 131, 131);
+    --switch-checked-bg: rgb(0, 218, 80);
+    --switch-offset: calc((var(--switch-height) - var(--circle-diameter)) / 2);
+    --switch-transition: all .2s cubic-bezier(0.27, 0.2, 0.25, 1.51);
+    --circle-diameter: 18px;
+    --circle-bg: #fff;
+    --circle-shadow: 1px 1px 2px rgba(146, 146, 146, 0.45);
+    --circle-checked-shadow: -1px 1px 2px rgba(163, 163, 163, 0.45);
+    --circle-transition: var(--switch-transition);
+    --icon-transition: all .2s cubic-bezier(0.27, 0.2, 0.25, 1.51);
+    --icon-cross-color: var(--switch-bg);
+    --icon-cross-size: 6px;
+    --icon-checkmark-color: var(--switch-checked-bg);
+    --icon-checkmark-size: 10px;
+    --effect-width: calc(var(--circle-diameter) / 2);
+    --effect-height: calc(var(--effect-width) / 2 - 1px);
+    --effect-bg: var(--circle-bg);
+    --effect-border-radius: 1px;
+    --effect-transition: all .2s ease-in-out;
+}
+
+.switch input {
+    display: none;
+}
+
+.switch {
+    display: inline-block;
+}
+
+.switch svg {
+    transition: var(--icon-transition);
+    position: absolute;
+    height: auto;
+}
+
+.switch .checkmark {
+    width: var(--icon-checkmark-size);
+    color: var(--icon-checkmark-color);
+    transform: scale(0);
+}
+
+.switch .cross {
+    width: var(--icon-cross-size);
+    color: var(--icon-cross-color);
+}
+
+.slider {
+    box-sizing: border-box;
+    width: var(--switch-width);
+    height: var(--switch-height);
+    background: var(--switch-bg);
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    position: relative;
+    transition: var(--switch-transition);
+    cursor: pointer;
+}
+
+.circle {
+    width: var(--circle-diameter);
+    height: var(--circle-diameter);
+    background: var(--circle-bg);
+    border-radius: inherit;
+    box-shadow: var(--circle-shadow);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--circle-transition);
+    z-index: 1;
+    position: absolute;
+    left: var(--switch-offset);
+}
+
+.slider::before {
+    content: "";
+    position: absolute;
+    width: var(--effect-width);
+    height: var(--effect-height);
+    left: calc(var(--switch-offset) + (var(--effect-width) / 2));
+    background: var(--effect-bg);
+    border-radius: var(--effect-border-radius);
+    transition: var(--effect-transition);
+}
+
+.switch input:checked + .slider {
+    background: var(--switch-checked-bg);
+}
+
+.switch input:checked + .slider .checkmark {
+    transform: scale(1);
+}
+
+.switch input:checked + .slider .cross {
+    transform: scale(0);
+}
+
+.switch input:checked + .slider::before {
+    left: calc(100% - var(--effect-width) - (var(--effect-width) / 2) - var(--switch-offset));
+}
+
+.switch input:checked + .slider .circle {
+    left: calc(100% - var(--circle-diameter) - var(--switch-offset));
+    box-shadow: var(--circle-checked-shadow);
+}
+
+/* Media Query per schermi piccoli (sotto 768px) */
+@media (max-width: 768px) {
+    .product-list-container {
+        margin-left: 0; /* Rimuovi margine sinistro */
+        padding: 10px; /* Riduci padding */
+    }
+}
+
+
+
+
+
+
+
+
+/* WishList */
+
+/* Contenitore principale della Wishlist */
+
+
+/* Contenitore degli elementi della Wishlist */
+.wishlist-items {
+    width: 100%;
+}
+
+/* Singola card della Wishlist */
+.wishlist-card {
+    width: 100vw; /* Usa la larghezza della viewport per occupare tutto lo schermo */
+    margin-left: calc(-50vw + 50%); /* Centra la card rispetto allo schermo */
+    margin-bottom: 20px; /* Aumenta lo spazio tra le card */
+    border: 1px solid #ddd;
+    border-radius: 8px; /* Angoli leggermente più arrotondati */
+    padding: 15px; /* Più spazio interno */
+    background-color: #fff; /* Sfondo bianco per contrasto */
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombra leggera per profondità */
+    box-sizing: border-box; /* Include padding e bordi nella larghezza */
+}
+
+/* Contenuto interno della card */
+.wishlist-card-content {
+    display: flex;
+    align-items: center;
+    gap: 25px; /* Aumenta leggermente lo spazio tra elementi */
+    width: 100%;
+    max-width: 1200px; /* Limita il contenuto interno per leggibilità */
+    margin: 0 auto; /* Centra il contenuto all'interno della card */
+}
+
+/* Immagine del prodotto */
+.wishlist-item-image {
+    width: 120px; /* Leggermente più grande per visibilità */
+    height: 120px;
+    object-fit: cover;
+    border-radius: 5px; /* Angoli arrotondati per l'immagine */
+}
+
+/* Informazioni del prodotto */
+.wishlist-item-info {
+    flex: 1; /* Occupa tutto lo spazio disponibile */
+    display: flex;
+    flex-direction: column;
+    gap: 5px; /* Spazio tra nome, categoria e prezzo */
+}
+
+/* Stile per il nome del prodotto */
+.wishlist-item-info h3 {
+    margin: 0;
+    font-size: 1.2rem; /* Dimensione del testo leggibile */
+    color: #333;
+}
+
+/* Stile per categoria e prezzo */
+.wishlist-item-info p {
+    margin: 0;
+    font-size: 1rem;
+    color: #666;
+}
+
+/* Prezzo */
+.wishlist-price {
+    font-weight: bold;
+    color: #000;
+}
+
+/* Bottone di rimozione */
+.remove-wishlist-btn {
+    padding: 8px 15px; /* Dimensioni leggermente maggiori */
+    background-color: #ff4444;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease; /* Transizione fluida */
+}
+
+.remove-wishlist-btn:hover {
+    background-color: #cc0000;
+}
+
+/* Responsive: adatta la card su schermi piccoli */
+@media (max-width: 768px) {
+    .wishlist-card {
+        width: 100%; /* Torna a larghezza normale sui dispositivi mobili */
+        margin-left: 0; /* Rimuove il centramento viewport */
+    }
+
+    .wishlist-card-content {
+        flex-direction: column; /* Impila gli elementi verticalmente */
+        align-items: flex-start;
+        gap: 15px;
+    }
+
+    .wishlist-item-image {
+        width: 100%; /* Immagine a larghezza piena su mobile */
+        height: auto;
+        max-height: 200px;
+    }
+
+    .remove-wishlist-btn {
+        width: 100%; /* Bottone a larghezza piena su mobile */
+    }
+}

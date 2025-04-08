@@ -1,6 +1,9 @@
 import React, { useState, useEffect, useRef } from 'react';
 import '../style/Chatbot.css'; // Stile
-// import OpenAI from 'openai'
+// import OpenAI from 'openai' //API REQ OPENAI
+// import { GoogleGenAI } from "@google/genai"; //API REQ GEMINI
+
+
 
 
 
@@ -15,7 +18,8 @@ const Chatbot = () => {
     const toggleChatbot = () => {
         setIsOpen(!isOpen);
     };
-    //*CHIAMATE CON TOKEN AI DEEPSEEK/OPENAI
+
+    //*CHIAMATE CON TOKEN AI DEEPSEEK/OPENAI/GIMINI
     //! API REQ OPENAI ==> bash: `npm install openai`
     // const openai = new OpenAI({
     //     apiKey: import.meta.env.VITE_OPENAI_API_KEY, // Idealmente in .env: process.env.OPENAI_API_KEY
@@ -123,6 +127,82 @@ const Chatbot = () => {
 
     // Gestione tasto Enter
 
+
+
+    //! API REQ GEMINI  ==> `npm install @google/genai`
+    // const ai = new GoogleGenAI({ apiKey: import.meta.env.VITE_GEMINI_API_KEY });
+
+    // async function main() {
+    //     const response = await ai.models.generateContent({
+    //         model: "gemini-2.0-flash",
+    //         contents: "Explain how AI works",
+    //     });
+    //     console.log(response.text);
+    // }
+
+    //!OCCHIO SOLO QUESTO O QUELLO DI SOTTO
+
+    // const handleSendGEM = async () => {
+    //     if (input.trim() === "") return;
+
+    //     const userMessage = input.toLowerCase();
+    //     setMessages(prev => [...prev, { text: input, sender: "user" }]);
+
+    //     try {
+    //         // Prima controlla se è un comando predefinito
+    //         if (predefinedResponses.greetings.some(greeting => userMessage.includes(greeting))) {
+    //             setMessages(prev => [...prev, {
+    //                 text: predefinedResponses.greetingResponse,
+    //                 sender: "bot"
+    //             }]);
+    //         } else if (Object.entries(predefinedResponses.keywords).some(([keyword, response]) => {
+    //             if (userMessage.includes(keyword)) {
+    //                 setMessages(prev => [...prev, { text: response, sender: "bot" }]);
+    //                 return true;
+    //             }
+    //             return false;
+    //         })) {
+    //             // Se è stato trovato un comando predefinito, non fa nulla qui
+    //         } else {
+    //             // Se non è un comando predefinito, usa Gemini
+    //             setMessages(prev => [...prev, {
+    //                 text: "Sto pensando...",
+    //                 sender: "bot",
+    //                 isLoading: true
+    //             }]);
+
+    //             const model = ai.getGenerativeModel({ model: "gemini-2.0-flash" });
+
+    //             const prompt = `Sei Morpheus, un assistente virtuale dell'e-commerce Binary Bazaar che vende laptop e accessori.
+    //                           Rispondi in modo conciso e professionale alla seguente domanda: ${input}
+    //                           Limita la risposta a massimo 100 parole.`;
+
+    //             const result = await model.generateContent(prompt);
+    //             const response = await result.response;
+    //             const text = response.text();
+
+    //             setMessages(prev => {
+    //                 const withoutLoading = prev.filter(msg => !msg.isLoading);
+    //                 return [...withoutLoading, {
+    //                     text: text,
+    //                     sender: "bot"
+    //                 }];
+    //             });
+    //         }
+    //     } catch (error) {
+    //         console.error('Error:', error);
+    //         setMessages(prev => {
+    //             const withoutLoading = prev.filter(msg => !msg.isLoading);
+    //             return [...withoutLoading, {
+    //                 text: "Mi dispiace, c'è stato un errore. Riprova più tardi.",
+    //                 sender: "bot"
+    //             }];
+    //         });
+    //     }
+
+    //     setInput("");
+    // };
+
     //!soluzione GRATIS
 
     const predefinedResponses = {
@@ -155,7 +235,7 @@ const Chatbot = () => {
             // Assistenza e supporto
             'spedizione': 'La spedizione è gratuita per ordini superiori a 50€. Consegniamo in 2-3 giorni lavorativi.',
             'tracking': 'Puoi tracciare il tuo ordine nella sezione "I miei ordini" usando il numero di tracking.',
-            'sconto': 'Puoi ottenere uno sconto giocando al nostro gioco nella sezione "Gioco & Sconti"!',
+            'scont': 'Puoi ottenere uno sconto giocando al nostro gioco nella sezione "Gioco & Sconti"!',
             'codice': 'Usa il codice WELCOME10 per ottenere il 10% di sconto sul tuo primo acquisto, o SUMMER25 per uno sconto del 25% sui prodotti estivi!',
             'pagamento': 'Accettiamo tutti i principali metodi di pagamento: carte di credito, PayPal e bonifico bancario.',
             'reso': 'Hai 14 giorni per restituire il prodotto se non sei soddisfatto.',
@@ -165,8 +245,8 @@ const Chatbot = () => {
             'riparazione': 'Per riparazioni in garanzia, contatta il nostro servizio assistenza.',
 
             // Info aziendali
-            'contatti': 'Email: support@binarybazaar.com - Tel: +39 123456789',
-            'sede': 'La nostra sede è a Milano, in Via Tech 42.',
+            'contatt': 'Email: support@binarybazaar.com - Tel: +39 123456789',
+            'sede': 'La nostra sede è a Milano, in Via HiTech 42.',
             'chi siamo': 'Binary Bazaar è il tuo shop di fiducia per laptop e accessori dal 2024.',
             'lavora': 'Vuoi lavorare con noi? Invia il tuo CV a careers@binarybazaar.com',
 

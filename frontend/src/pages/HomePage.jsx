@@ -52,7 +52,7 @@ export default function HomePage() {
     return (
         <>
             <Hero />
-            
+
             <div className="titolo-nome">
                 <h1 className="lime">LAPTOP</h1>
 

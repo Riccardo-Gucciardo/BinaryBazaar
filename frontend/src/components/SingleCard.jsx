@@ -1,16 +1,22 @@
-
+// SingleCard.jsx
 import React from "react";
 import { useCart } from "../contexts/CartContext";
-// import CartOffcanvas from "./CartOffcanvas";
+import { useWishlist } from "../contexts/WishlistContext";
 
 function SingleCard({ product }) {
-
     const { addToCart, showCart, handleCloseCart, handleShowCart } = useCart();
+    const { addToWishlist } = useWishlist();
 
     function mostraCart(e) {
-        e.preventDefault
-        handleShowCart()
-        addToCart(product)
+        e.preventDefault();
+        handleShowCart();
+        addToCart(product);
+    }
+
+    function handleAddToWishlist(e) {
+        e.preventDefault();
+        console.log("Tentativo di aggiungere:", product); // Debug
+        addToWishlist(product);
     }
 
     const {
@@ -33,14 +39,12 @@ function SingleCard({ product }) {
                         className="product-main-image-single"
                     />
                 </div>
-
                 <div className="product-info-section-single">
                     <h2 className="product-title-single">{name || "Nome non disponibile"}</h2>
                     <p className="product-brand-single">Categoria: {category || "Non specificata"}</p>
                     <hr />
                     <p className="product-description-single">{description || "Descrizione non disponibile"}</p>
                     <hr />
-
                     {Object.keys(details).length > 0 && (
                         <div className="product-details-section-single">
                             <h3>Dettagli del prodotto</h3>
@@ -57,29 +61,27 @@ function SingleCard({ product }) {
                         </div>
                     )}
                 </div>
-
                 <div className="product-purchase-section-single">
                     <div className="price-container-single">
                         {discount_price && (
-                            <span className="original-price-single">
-                                {price} €
-                            </span>
+                            <span className="original-price-single">{price} €</span>
                         )}
                         <span className="product-price-single mx-2">
                             {discount_price || price || "N/A"} €
                         </span>
                     </div>
-
                     <div className="purchase-actions">
                         <button className="add-to-cart-btn" onClick={mostraCart}>
                             Aggiungi al carrello
                         </button>
+                        <button className="add-to-wishlist-btn" onClick={handleAddToWishlist}>
+                            Aggiungi alla Wishlist
+                        </button>
                     </div>
                 </div>
             </div>
-
         </div>
-    )
+    );
 }
 
 export default SingleCard;
