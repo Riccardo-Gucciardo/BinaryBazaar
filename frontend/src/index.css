@@ -983,57 +983,57 @@ button:active {
 
 /* WishList */
 
-/* Contenitore principale della Wishlist */
-
-
 /* Contenitore degli elementi della Wishlist */
 .wishlist-items {
     width: 100%;
+    display: flex;
+    flex-wrap: wrap; /* Permette alle card di andare a capo */
+    justify-content: center; /* Centra le card orizzontalmente */
+    gap: 20px; /* Spazio tra le card */
 }
 
 /* Singola card della Wishlist */
 .wishlist-card {
-    width: 100vw; /* Usa la larghezza della viewport per occupare tutto lo schermo */
-    margin-left: calc(-50vw + 50%); /* Centra la card rispetto allo schermo */
-    margin-bottom: 20px; /* Aumenta lo spazio tra le card */
-    border: 1px solid #ddd;
-    border-radius: 8px; /* Angoli leggermente più arrotondati */
-    padding: 15px; /* Più spazio interno */
-    background-color: #fff; /* Sfondo bianco per contrasto */
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* Ombra leggera per profondità */
-    box-sizing: border-box; /* Include padding e bordi nella larghezza */
+    width: 50vw; /* Larghezza al 50% della viewport */
+    margin-bottom: 20px;
+    border: 3px solid #333; /* Bordo più spesso e scuro */
+    border-radius: 8px;
+    padding: 15px;
+    background-color: #fff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box;
 }
 
 /* Contenuto interno della card */
 .wishlist-card-content {
     display: flex;
     align-items: center;
-    gap: 25px; /* Aumenta leggermente lo spazio tra elementi */
+    gap: 25px;
     width: 100%;
-    max-width: 1200px; /* Limita il contenuto interno per leggibilità */
-    margin: 0 auto; /* Centra il contenuto all'interno della card */
+    max-width: 600px; /* Limita il contenuto interno per leggibilità */
+    margin: 0 auto;
 }
 
 /* Immagine del prodotto */
 .wishlist-item-image {
-    width: 120px; /* Leggermente più grande per visibilità */
+    width: 120px;
     height: 120px;
     object-fit: cover;
-    border-radius: 5px; /* Angoli arrotondati per l'immagine */
+    border-radius: 5px;
 }
 
 /* Informazioni del prodotto */
 .wishlist-item-info {
-    flex: 1; /* Occupa tutto lo spazio disponibile */
+    flex: 1;
     display: flex;
     flex-direction: column;
-    gap: 5px; /* Spazio tra nome, categoria e prezzo */
+    gap: 5px;
 }
 
 /* Stile per il nome del prodotto */
 .wishlist-item-info h3 {
     margin: 0;
-    font-size: 1.2rem; /* Dimensione del testo leggibile */
+    font-size: 1.2rem;
     color: #333;
 }
 
@@ -1052,14 +1052,14 @@ button:active {
 
 /* Bottone di rimozione */
 .remove-wishlist-btn {
-    padding: 8px 15px; /* Dimensioni leggermente maggiori */
+    padding: 8px 15px;
     background-color: #ff4444;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     font-size: 0.9rem;
-    transition: background-color 0.2s ease; /* Transizione fluida */
+    transition: background-color 0.2s ease;
 }
 
 .remove-wishlist-btn:hover {
@@ -1069,23 +1069,46 @@ button:active {
 /* Responsive: adatta la card su schermi piccoli */
 @media (max-width: 768px) {
     .wishlist-card {
-        width: 100%; /* Torna a larghezza normale sui dispositivi mobili */
-        margin-left: 0; /* Rimuove il centramento viewport */
+        width: 100%; /* Torna a larghezza piena su mobile */
+        border: 2px solid #333; /* Mantiene un bordo visibile ma più sottile */
     }
 
     .wishlist-card-content {
-        flex-direction: column; /* Impila gli elementi verticalmente */
+        flex-direction: column;
         align-items: flex-start;
         gap: 15px;
     }
 
     .wishlist-item-image {
-        width: 100%; /* Immagine a larghezza piena su mobile */
+        width: 100%;
         height: auto;
         max-height: 200px;
     }
 
     .remove-wishlist-btn {
-        width: 100%; /* Bottone a larghezza piena su mobile */
+        width: 100%;
     }
+}
+
+/* Contenitore delle azioni nella card */
+.wishlist-actions {
+    display: flex;
+    flex-direction: column; /* Impila i pulsanti verticalmente */
+    gap: 10px; /* Spazio tra i pulsanti */
+}
+
+/* Stile per il bottone "Aggiungi al carrello" */
+.add-to-cart-btn {
+    padding: 8px 15px;
+    background-color: #28a745; /* Verde, simile a "Procedi al Pagamento" */
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    transition: background-color 0.2s ease;
+}
+
+.add-to-cart-btn:hover {
+    background-color: #218838; /* Verde più scuro al passaggio del mouse */
 }
