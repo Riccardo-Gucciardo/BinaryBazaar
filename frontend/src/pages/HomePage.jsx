@@ -39,7 +39,7 @@ export default function HomePage() {
         return accessories.map((product) => (
 
             <Link
-                to={`/home/${product.slug}`}
+                to={`/${product.slug}`}
                 key={product.product_id}
                 style={{ textDecoration: 'none', color: 'inherit' }}
             >
