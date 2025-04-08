@@ -14,6 +14,15 @@ export default function DefaultLayout() {
         location.pathname === '/home' ||
         location.pathname.startsWith('/products')
 
+    // Gestione dello ScrollUp
+    const shouldShowScrollUp = () => {
+        // Dividiamo il pathname in parti usando lo slash
+        const pathParts = location.pathname.split('/');
+
+        // Se il path è /products/qualcosa/ nascondi lo ScrollUp
+        return !(pathParts[1] === 'products' && pathParts[2]);
+    };
+
 
     // Funzione per scrollare in alto
     const scrollToTop = () => {
@@ -35,7 +44,7 @@ export default function DefaultLayout() {
             </main>
             {isRightPath && <Chatbot />}
             <CartOffcanvas />
-            <ScrollUp />
+            {shouldShowScrollUp() && <ScrollUp />}
             <Footer />
 
         </>
