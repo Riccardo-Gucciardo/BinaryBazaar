@@ -1,14 +1,22 @@
-// WishList.jsx
 import React from "react";
 import { useWishlist } from "../contexts/WishlistContext";
+import { useCart } from "../contexts/CartContext"; // Importa useCart
 
 export default function WishList() {
     const { wishlist, removeFromWishlist } = useWishlist();
+    const { addToCart, showCart, handleCloseCart, handleShowCart } = useCart();
 
     console.log("Wishlist corrente:", wishlist); // Debug
 
+    // Funzione per aggiungere al carrello
+    const handleAddToCart = (product) => {
+        console.log("Aggiungendo al carrello dalla Wishlist:", product); // Debug
+        addToCart(product);
+        handleShowCart();
+    };
+
     return (
-        <div className="wishlist-container">
+        <div className="wishlist-container text-center">
             <h1>I miei prodotti preferiti</h1>
             {wishlist.length === 0 ? (
                 <p>La tua wishlist è vuota</p>
@@ -29,12 +37,20 @@ export default function WishList() {
                                         {product.discount_price || product.price} €
                                     </p>
                                 </div>
-                                <button
-                                    className="remove-wishlist-btn"
-                                    onClick={() => removeFromWishlist(product.id)}
-                                >
-                                    Rimuovi
-                                </button>
+                                <div className="wishlist-actions">
+                                    <button
+                                        className="remove-wishlist-btn"
+                                        onClick={() => removeFromWishlist(product.id)}
+                                    >
+                                        Rimuovi
+                                    </button>
+                                    <button
+                                        className="add-to-cart-btn"
+                                        onClick={() => handleAddToCart(product)}
+                                    >
+                                        Aggiungi al carrello
+                                    </button>
+                                </div>
                             </div>
                         </div>
                     ))}
