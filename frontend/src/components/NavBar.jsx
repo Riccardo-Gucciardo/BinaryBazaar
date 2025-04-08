@@ -1,6 +1,6 @@
 
-import { NavLink } from "react-router-dom";
 import SearchBar from "./SearchBar";
+import { NavLink } from "react-router-dom";
 import { useCart } from "../contexts/CartContext";
 import { FaGift, FaShoppingCart } from "react-icons/fa";
 
