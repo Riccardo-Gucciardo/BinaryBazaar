@@ -1,4 +1,5 @@
 import { Outlet, useLocation } from "react-router-dom";
+import { useEffect } from "react";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Chatbot from "../components/ChatBot";
@@ -12,6 +13,18 @@ export default function DefaultLayout() {
     const isRightPath =
         location.pathname === '/home' ||
         location.pathname.startsWith('/products')
+
+
+    // Funzione per scrollare in alto
+    const scrollToTop = () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
+    // Scroll immediato al cambio di rotta (NavLink, Link, Navigate)
+    useEffect(() => {
+        scrollToTop();
+    }, [location.pathname]); // Si attiva a ogni cambio di percorso
+
     return (
         <>
             <Header />

@@ -223,7 +223,12 @@ const Chatbot = () => {
             • /newsletter - Iscriviti alla newsletter
             • /regalo - Servizio regalo
             • /aziende - Info B2B
-            • /codice - Codici sconto disponibili`,
+            • /codice - Codici sconto disponibili
+            • /lavora - Lavora con noi
+            • /rimborso - Info sui rimborsi
+            • /sede - Vienici a Trovare in sede
+            • /riparazione - Info Riparazioni in garanzia
+            `,
 
             // Info prodotti
             'prezz': 'I nostri prezzi sono molto competitivi. Puoi trovare tutti i prodotti nella sezione "I Nostri Prodotti".',
@@ -240,7 +245,7 @@ const Chatbot = () => {
             'pagamento': 'Accettiamo tutti i principali metodi di pagamento: carte di credito, PayPal e bonifico bancario.',
             'reso': 'Hai 14 giorni per restituire il prodotto se non sei soddisfatto.',
             'rimborso': 'I rimborsi vengono elaborati entro 5-7 giorni lavorativi dalla ricezione del reso.',
-            'assistenza': 'Il nostro team di assistenza è disponibile dal lunedì al venerdì, dalle 9:00 alle 18:00.',
+            'assistenza': 'Il nostro team di assistenza è disponibile dal lunedì al venerdì, dalle 9:00 alle 18:00, contattaci via Email: support@binarybazaar.com oppure al +39 123456789 ',
             'garanzia': 'Tutti i nostri prodotti hanno 2 anni di garanzia.',
             'riparazione': 'Per riparazioni in garanzia, contatta il nostro servizio assistenza.',
 
@@ -248,7 +253,7 @@ const Chatbot = () => {
             'contatt': 'Email: support@binarybazaar.com - Tel: +39 123456789',
             'sede': 'La nostra sede è a Milano, in Via HiTech 42.',
             'chi siamo': 'Binary Bazaar è il tuo shop di fiducia per laptop e accessori dal 2024.',
-            'lavora': 'Vuoi lavorare con noi? Invia il tuo CV a careers@binarybazaar.com',
+            'lavor': 'Vuoi lavorare con noi? Invia il tuo CV a careers@binarybazaar.com',
 
             // Extra servizi
             'newsletter': 'Iscriviti alla newsletter per ricevere offerte esclusive!',

@@ -67,7 +67,7 @@ export default function SearchBar() {
             (product) => product.name.toLowerCase() === e.target.value.toLowerCase()
         );
         if (selectedProduct) {
-            navigate(`/${selectedProduct.slug}`);
+            navigate(`/products/${selectedProduct.slug}`);
             setSearch("");
             setShowDatalist(false);
         }

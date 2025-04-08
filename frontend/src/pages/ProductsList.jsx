@@ -79,7 +79,7 @@ export default function ProductList() {
                         <div className="row  row-cols-md-2 row-cols-lg-2 g-4">
                             {products.map((p) => (
                                 <div className="col" key={p.slug}>
-                                    <Link to={`/${p.slug}`} className="text-decoration-none">
+                                    <Link to={`/products/${p.slug}`} className="text-decoration-none">
                                         <Card product={p} />
                                     </Link>
                                 </div>
@@ -193,6 +193,6 @@ export default function ProductList() {
                     </div>
                 </div>
             </div>
-            </div>
-        );
+        </div>
+    );
 }
