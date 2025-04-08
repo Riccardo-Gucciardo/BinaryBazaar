@@ -18,11 +18,11 @@ export default function QuantityControl({ quantity, onQuantityChange }) {
                 onClick={handleDecrement}
                 disabled={quantity <= 1}
             >
-                -1
+                -
             </Button>
             <InputGroup.Text className="px-2">{quantity}</InputGroup.Text>
             <Button variant="outline-secondary" onClick={handleIncrement}>
-                +1
+                +
             </Button>
         </InputGroup>
     );

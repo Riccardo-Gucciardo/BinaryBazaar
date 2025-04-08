@@ -53,6 +53,7 @@
   border-radius: 50px;
   border: 2px solid lime;
   cursor: pointer;
+  transition: all 0.3s ease;
 }
 
 .red-pill {
@@ -60,8 +61,16 @@
   left: 100px;
   bottom: 105px;
   background-color: red;
+}
 
+.red-pill:hover {
+  transform: scale(1.5);
+  box-shadow: 0 0 30px rgba(255, 0, 0, 0.5);
+}
 
+.blue-pill:hover {
+  transform: scale(1.5);
+  box-shadow: 0 0 30px rgba(0, 0, 255, 0.5);
 }
 
 .blue-pill {
@@ -71,9 +80,9 @@
   background-color: blue;
 }
 
-.popup button:hover {
+/* .popup button:hover {
   background-color: lime;
-}
+} */
 
 @media (max-width: 1000px) {
 
@@ -82,9 +91,8 @@
     left: 20px;
     bottom: 110px;
     background-color: red;
-
-
   }
+
 
   .blue-pill {
     position: absolute;
