@@ -12,6 +12,7 @@ import DiscountGame from "./pages/DiscountGame";
 import WishList from "./pages/WishList";
 import { WishlistProvider } from "./contexts/WishlistContext";
 
+
 function App() {
   return (
     <>
