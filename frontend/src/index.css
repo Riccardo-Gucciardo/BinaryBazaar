@@ -84,7 +84,7 @@ body {
 /* ----------------------------------- */
 
 .img-logo {
-    width: 350px;
+    width: 300px;
 }
 
 .nav-link {
@@ -129,7 +129,7 @@ body {
 
 
 .main-box {
-    min-height: 90vh;
+    min-height: 63vh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -971,6 +971,17 @@ button:active {
     .product-list-container {
         margin-left: 0; /* Rimuovi margine sinistro */
         padding: 10px; /* Riduci padding */
+    }
+
+    .product-grid-single{
+       
+        display: flex;
+        flex-direction: column;
+    }
+
+    .product-main-image-single {
+        max-width: 350px;
+                   
     }
 }
 

@@ -31,7 +31,7 @@ function SingleCard({ product }) {
 
     return (
         <div className="product-details-container-single">
-            <div className="product-grid-single">
+            <div className="product-grid-single ">
                 <div className="product-image-section-single">
                     <img
                         src={image_url || "placeholder-image.jpg"}
@@ -71,10 +71,10 @@ function SingleCard({ product }) {
                         </span>
                     </div>
                     <div className="purchase-actions">
-                        <button className="add-to-cart-btn" onClick={mostraCart}>
+                        <button className="add-to-cart-btn rounded" onClick={mostraCart}>
                             Aggiungi al carrello
                         </button>
-                        <button className="add-to-wishlist-btn" onClick={handleAddToWishlist}>
+                        <button className="add-to-wishlist-btn rounded" onClick={handleAddToWishlist}>
                             Aggiungi alla Wishlist
                         </button>
                     </div>

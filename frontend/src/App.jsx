@@ -12,25 +12,26 @@ import DiscountGame from "./pages/DiscountGame";
 import WishList from "./pages/WishList";
 import { WishlistProvider } from "./contexts/WishlistContext";
 
+
 function App() {
   return (
     <>
       <BrowserRouter>
         <CartProvider>
           <WishlistProvider>
-          <Routes>
-            <Route Component={DefaultLayout}>
-              <Route path="/" element={<Navigate to="/home" replace />} />
-              <Route path="/home" Component={HomePage} />
-              <Route path="/:slug/" Component={ProductPage} />
-              <Route path="/checkout" Component={CheckOut} />
-              <Route path="/products" Component={ProductList} />
-              <Route path="/allDone" Component={AllDone} />
-              <Route path="/gameDiscount" Component={DiscountGame} />
-              <Route path="*" Component={NotFound} />
-              <Route path="/WishList" Component={WishList}/>
-            </Route>
-          </Routes>
+            <Routes>
+              <Route Component={DefaultLayout}>
+                <Route path="/" element={<Navigate to="/home" replace />} />
+                <Route path="/home" Component={HomePage} />
+                <Route path="/products/:slug/" Component={ProductPage} />
+                <Route path="/checkout" Component={CheckOut} />
+                <Route path="/products" Component={ProductList} />
+                <Route path="/allDone" Component={AllDone} />
+                <Route path="/gameDiscount" Component={DiscountGame} />
+                <Route path="*" Component={NotFound} />
+                <Route path="/WishList" Component={WishList} />
+              </Route>
+            </Routes>
           </WishlistProvider>
         </CartProvider>
       </BrowserRouter></>

@@ -24,7 +24,7 @@ export default function HomePage() {
         return laptops.map((product) => (
 
             <Link
-                to={`/${product.slug}`}
+                to={`/products/${product.slug}`}
                 key={product.product_id}
                 style={{ textDecoration: 'none', color: 'inherit' }}
             >
@@ -39,7 +39,7 @@ export default function HomePage() {
         return accessories.map((product) => (
 
             <Link
-                to={`/${product.slug}`}
+                to={`/products/${product.slug}`}
                 key={product.product_id}
                 style={{ textDecoration: 'none', color: 'inherit' }}
             >

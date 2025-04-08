@@ -13,7 +13,7 @@ export default function ScrollUp() {
         const windowHeight = window.innerHeight; // Altezza della finestra
 
         // Mostra il pulsante se il footer è visibile o vicino (entro 200px dal fondo)
-        if (footerPosition < windowHeight + 50) {
+        if (footerPosition < windowHeight + 20) {
             setShowScrollTop(true);
         } else {
             setShowScrollTop(false);
