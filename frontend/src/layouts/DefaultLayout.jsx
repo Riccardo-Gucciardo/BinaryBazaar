@@ -3,6 +3,7 @@ import Header from "../components/Header";
 import Footer from "../components/Footer";
 import Chatbot from "../components/ChatBot";
 import CartOffcanvas from "../components/CartOffcanvas";
+import WelcomePopup from "../components/WelcomePopup";
 
 
 export default function DefaultLayout() {
@@ -15,6 +16,8 @@ export default function DefaultLayout() {
             <Header />
             <main className="main-box">
                 <Outlet />
+                <WelcomePopup />
+                {/* Header, nav, contenuto, footer ecc. */}
             </main>
             {isRightPath && <Chatbot />}
             <CartOffcanvas />
