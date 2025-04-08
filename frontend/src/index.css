@@ -16,8 +16,6 @@ a.visited {
     text-decoration: none !important;
 }
 
-
-
 body {
     font-family: 'Share-TechMono', sans-serif;
 }
@@ -1001,15 +999,7 @@ button:active {
     }
 }
 
-
-
-
-
-
-
-
 /* WishList */
-
 /* Contenitore degli elementi della Wishlist */
 .wishlist-items {
     width: 100%;

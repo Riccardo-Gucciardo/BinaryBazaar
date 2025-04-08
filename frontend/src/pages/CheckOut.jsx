@@ -73,9 +73,9 @@ export default function CheckOut() {
 
         const billing = formData.billing;
         if (!billing.firstName) tempErrors.billing.firstName = "Il nome è obbligatorio";
-        else if (billing.firstName.length < 3) tempErrors.billing.firstName = "Il nome deve avere almeno 3 lettere";
+        else if (billing.firstName.trim().length < 3) tempErrors.billing.firstName = "Il nome deve avere almeno 3 lettere";
         if (!billing.lastName) tempErrors.billing.lastName = "Il cognome è obbligatorio";
-        else if (billing.lastName.length < 3) tempErrors.billing.lastName = "Il cognome deve avere almeno 3 lettere";
+        else if (billing.lastName.trim().length < 3) tempErrors.billing.lastName = "Il cognome deve avere almeno 3 lettere";
         if (!billing.email) tempErrors.billing.email = "L'email è obbligatoria";
         else if (!/^\S+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$/.test(billing.email))
             tempErrors.billing.email = "Email deve essere nel formato nome@provider.dominio";
@@ -88,9 +88,9 @@ export default function CheckOut() {
         if (formData.differentShipping) {
             const shipping = formData.shipping;
             if (!shipping.firstName) tempErrors.shipping.firstName = "Il nome è obbligatorio";
-            else if (shipping.firstName.length < 3) tempErrors.shipping.firstName = "Il nome deve avere almeno 3 lettere";
+            else if (shipping.firstName.trim().length < 3) tempErrors.shipping.firstName = "Il nome deve avere almeno 3 lettere";
             if (!shipping.lastName) tempErrors.shipping.lastName = "Il cognome è obbligatorio";
-            else if (shipping.lastName.length < 3) tempErrors.shipping.lastName = "Il cognome deve avere almeno 3 lettere";
+            else if (shipping.lastName.trim().length < 3) tempErrors.shipping.lastName = "Il cognome deve avere almeno 3 lettere";
             if (!shipping.address) tempErrors.shipping.address = "L'indirizzo è obbligatorio";
             if (!shipping.city) tempErrors.shipping.city = "La città è obbligatoria";
             if (!shipping.telephone) tempErrors.shipping.telephone = "Il telefono è obbligatorio";
@@ -142,7 +142,7 @@ export default function CheckOut() {
             })
             .then((response) => {
                 console.log("Ordine creato:", response.data);
-                alert("Ordine creato con successo!");
+                // alert("Ordine creato con successo!");
                 navigate("/allDone", { state: { orderId: response.data.orderId } });
             })
             .catch((error) => {
