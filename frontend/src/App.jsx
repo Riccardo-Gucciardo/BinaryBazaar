@@ -1,5 +1,5 @@
 import DefaultLayout from "./layouts/DefaultLayout";
-import { Route, Routes, BrowserRouter } from "react-router-dom";
+import { Route, Routes, BrowserRouter, Navigate } from "react-router-dom";
 import { CartProvider } from "./contexts/CartContext";
 
 import HomePage from "./pages/HomePage";
@@ -20,11 +20,11 @@ function App() {
           <WishlistProvider>
           <Routes>
             <Route Component={DefaultLayout}>
-              <Route path="/" Component={HomePage} />
+              <Route path="/" element={<Navigate to="/home" replace />} />
+              <Route path="/home" Component={HomePage} />
               <Route path="/:slug/" Component={ProductPage} />
               <Route path="/checkout" Component={CheckOut} />
               <Route path="/products" Component={ProductList} />
-              <Route path="/products/outlet" Component={ProductList} />
               <Route path="/allDone" Component={AllDone} />
               <Route path="/gameDiscount" Component={DiscountGame} />
               <Route path="*" Component={NotFound} />

@@ -3,9 +3,10 @@ import { Container, Row, Col, Card, ListGroup, Form, Button } from "react-bootst
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
+import QuantityControl from "../components/quantityControl";
 
 export default function CheckOut() {
-    const { cart, resetCart } = useCart();
+    const { cart, updateQuantity, resetCart } = useCart();
     const navigate = useNavigate();
     const [formData, setFormData] = useState({
         billing: {
@@ -30,16 +31,18 @@ export default function CheckOut() {
     const [errors, setErrors] = useState({ billing: {}, shipping: {} });
     const [isLoading, setIsLoading] = useState(false);
 
-    const subtotal = Array.isArray(cart) ? cart.reduce((sum, item) => {
-        return sum + parseFloat(item.discount_price || item.price)
+    // Calcolo del subtotale (con quantità)
+    const subtotal = cart
+        .reduce((sum, item) => {
+            const price = parseFloat(item.discount_price || item.price) || 0;
+            const quantity = item.quantity || 1;
+            return sum + price * quantity;
+        }, 0)
+        .toFixed(2);
 
-
-    }, 0).toFixed(2) : "0.00";
-
-
-    const shippingCost = subtotal >= 50 ? 0 : 5;
+    // Costo spedizione: 5€ se subtotal < 50€, altrimenti gratuita
+    const shippingCost = parseFloat(subtotal) >= 50 ? 0 : 5;
     const total = (parseFloat(subtotal) + shippingCost).toFixed(2);
-
 
     const handleChange = (e, section = null) => {
         const { name, value, type, checked } = e.target;
@@ -70,9 +73,9 @@ export default function CheckOut() {
 
         const billing = formData.billing;
         if (!billing.firstName) tempErrors.billing.firstName = "Il nome è obbligatorio";
-        else if (billing.firstName.trim().length < 3) tempErrors.billing.firstName = "Il nome deve avere almeno 3 lettere";
+        else if (billing.firstName.length < 3) tempErrors.billing.firstName = "Il nome deve avere almeno 3 lettere";
         if (!billing.lastName) tempErrors.billing.lastName = "Il cognome è obbligatorio";
-        else if (billing.lastName.trim().length < 3) tempErrors.billing.lastName = "Il cognome deve avere almeno 3 lettere";
+        else if (billing.lastName.length < 3) tempErrors.billing.lastName = "Il cognome deve avere almeno 3 lettere";
         if (!billing.email) tempErrors.billing.email = "L'email è obbligatoria";
         else if (!/^\S+@[a-zA-Z0-9]+\.[a-zA-Z]{2,}$/.test(billing.email))
             tempErrors.billing.email = "Email deve essere nel formato nome@provider.dominio";
@@ -85,9 +88,9 @@ export default function CheckOut() {
         if (formData.differentShipping) {
             const shipping = formData.shipping;
             if (!shipping.firstName) tempErrors.shipping.firstName = "Il nome è obbligatorio";
-            else if (shipping.firstName.trim().length < 3) tempErrors.shipping.firstName = "Il nome deve avere almeno 3 lettere";
+            else if (shipping.firstName.length < 3) tempErrors.shipping.firstName = "Il nome deve avere almeno 3 lettere";
             if (!shipping.lastName) tempErrors.shipping.lastName = "Il cognome è obbligatorio";
-            else if (shipping.lastName.trim().length < 3) tempErrors.shipping.lastName = "Il cognome deve avere almeno 3 lettere";
+            else if (shipping.lastName.length < 3) tempErrors.shipping.lastName = "Il cognome deve avere almeno 3 lettere";
             if (!shipping.address) tempErrors.shipping.address = "L'indirizzo è obbligatorio";
             if (!shipping.city) tempErrors.shipping.city = "La città è obbligatoria";
             if (!shipping.telephone) tempErrors.shipping.telephone = "Il telefono è obbligatorio";
@@ -124,8 +127,8 @@ export default function CheckOut() {
             promotion_code: formData.promotionCode || null,
             products: cart.map((item) => ({
                 slug: item.slug,
-                quantity: 1,
-                price: item.discount_price || item.price,
+                quantity: item.quantity || 1,
+                price: parseFloat(item.discount_price || item.price) || 0,
                 name: item.name,
             })),
             shipping_cost: shippingCost,
@@ -397,7 +400,7 @@ export default function CheckOut() {
                                     <Button
                                         variant="success"
                                         type="submit"
-                                        className="w-50 float-end  "
+                                        className="w-100 mt-3"
                                         disabled={isLoading}
                                     >
                                         {isLoading ? "Elaborazione..." : "Completa Pagamento"}
@@ -409,30 +412,43 @@ export default function CheckOut() {
 
                     <Col md={6}>
                         <ListGroup variant="flush">
-                            {cart.map((item, index) => (
-                                <ListGroup.Item key={index} className="mb-3">
-                                    <Card>
-                                        <Card.Body>
-                                            <Row className="align-items-center">
-                                                <Col xs={8}>
-                                                    <Card.Title>{item.name}</Card.Title>
-                                                    {item.discount_price && (
-                                                        <Card.Text>
-                                                            <small className="text-muted">Prezzo originale: {item.price}€</small>
-                                                        </Card.Text>
-                                                    )}
-                                                </Col>
-                                                <Col xs={4} className="text-end">
-                                                    <h5 className="mb-0">{item.discount_price || item.price}€</h5>
-                                                </Col>
-                                            </Row>
-                                        </Card.Body>
-                                    </Card>
-                                </ListGroup.Item>
-                            ))}
-                            <Col className="text-center">
-                                <p>per ordini superiori a 49.99€ la spedizione è gratuita!</p>
-                            </Col>
+                            {cart.map((item, index) => {
+                                const price = parseFloat(item.discount_price || item.price) || 0;
+                                const quantity = item.quantity || 1;
+                                const itemTotal = (price * quantity).toFixed(2);
+
+                                return (
+                                    <ListGroup.Item key={index} className="mb-3">
+                                        <Card>
+                                            <Card.Body>
+                                                <Row className="align-items-center">
+                                                    <Col xs={6}>
+                                                        <Card.Title>{item.name}</Card.Title>
+                                                        {item.discount_price && (
+                                                            <Card.Text>
+                                                                <small className="text-muted">
+                                                                    Prezzo originale: {item.price}€
+                                                                </small>
+                                                            </Card.Text>
+                                                        )}
+                                                    </Col>
+                                                    <Col xs={3}>
+                                                        <QuantityControl
+                                                            quantity={quantity} // Passa il valore corrente
+                                                            onQuantityChange={(newQuantity) =>
+                                                                updateQuantity(item.slug, newQuantity)
+                                                            }
+                                                        />
+                                                    </Col>
+                                                    <Col xs={3} className="text-end">
+                                                        <h5 className="mb-0">{itemTotal}€</h5>
+                                                    </Col>
+                                                </Row>
+                                            </Card.Body>
+                                        </Card>
+                                    </ListGroup.Item>
+                                );
+                            })}
                         </ListGroup>
                         <Card className="mt-4">
                             <Card.Body>
@@ -449,7 +465,7 @@ export default function CheckOut() {
                                         <h5>Spedizione</h5>
                                     </Col>
                                     <Col className="text-end">
-                                        <h5>{shippingCost === 0 ? "Gratuita" : `€${shippingCost.toFixed(2)}`}</h5>
+                                        <h5>{shippingCost === 0 ? "Gratuita" : `${shippingCost.toFixed(2)}€`}</h5>
                                     </Col>
                                 </Row>
                                 {shippingCost > 0 && (
@@ -463,39 +479,11 @@ export default function CheckOut() {
                                 )}
                                 <hr />
                                 <Row>
-                                    <Col>
-                                        <h5>Subtotale</h5>
-                                    </Col>
-                                    <Col className="text-end">
-                                        <h5>{subtotal}€</h5>
-                                    </Col>
-                                </Row>
-                                <Row className="mt-2">
-                                    <Col>
-                                        <h5>Spedizione</h5>
-                                    </Col>
-                                    <Col className="text-end">
-                                        <h5>{shippingCost === 0 ? "Gratuita" : `€${shippingCost.toFixed(2)}`}</h5>
-                                    </Col>
-                                </Row>
-                                {shippingCost > 0 && (
-                                    <Row className="mt-2">
-                                        <Col>
-                                            <small className="text-muted">
-                                                Spedizione gratuita per ordini superiori a 50€
-                                            </small>
-                                        </Col>
-                                    </Row>
-                                )}
-                                <hr />
-                                <Row>
-
                                     <Col>
                                         <h4>Totale</h4>
                                     </Col>
                                     <Col className="text-end">
                                         <h4>{total}€</h4>
-
                                     </Col>
                                 </Row>
                             </Card.Body>

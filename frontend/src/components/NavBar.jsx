@@ -1,6 +1,6 @@
 
-import { NavLink } from "react-router-dom";
 import SearchBar from "./SearchBar";
+import { NavLink } from "react-router-dom";
 import { useCart } from "../contexts/CartContext";
 import { FaGift, FaShoppingCart,FaHeart } from "react-icons/fa";
 import { useWishlist } from "../contexts/WishlistContext";
@@ -11,7 +11,7 @@ export default function NavBar() {
 
     return (
         <header className="header">
-            <NavLink to="/">
+            <NavLink to="/home">
                 <img src="/Logo.png" alt="" className="img-logo img-fluid" />
             </NavLink>
 
@@ -41,7 +41,7 @@ export default function NavBar() {
 
                 <ul className="nav">
                     <li className="nav-item">
-                        <NavLink className="nav-link active" to="/" aria-current="page">
+                        <NavLink className="nav-link active" to="/home" aria-current="page">
                             HomePage
                         </NavLink>
                     </li>
