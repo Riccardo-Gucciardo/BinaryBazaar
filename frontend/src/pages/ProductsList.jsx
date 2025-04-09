@@ -66,7 +66,7 @@ export default function ProductList() {
                             onChange={toggleViewMode}
                         />
                         <label className="form-check-label" htmlFor="viewModeSwitch">
-                            {viewMode === 'single' ? 'Single View' : 'Row View'}
+                            {viewMode === 'single' ? 'Griglia' : 'Lista'}
                         </label>
                     </div>
 
