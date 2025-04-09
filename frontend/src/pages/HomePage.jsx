@@ -63,7 +63,7 @@ export default function HomePage() {
                 {/* <Button variant="primary" onClick={handleShow} style={{ marginBottom: '20px' }}>
                     Carrello ({cart.length})
                 </Button> */}
-                <div className="row row-cols-md-2 row-cols-lg-4 g-1">
+                <div className="row row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-1">
                     {renderLaptops()}
                 </div>
 
@@ -76,7 +76,7 @@ export default function HomePage() {
 
             <div className="container mx-auto ">
 
-                <div className="row row-cols-md-3 row-cols-lg-4 g-1">
+                <div className="row row-cols-md-2 row-cols-lg-3 row-cols-xl-4 g-1">
                     {renderAccessories()}
                 </div>
             </div>

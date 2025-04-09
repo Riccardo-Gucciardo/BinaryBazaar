@@ -72,28 +72,33 @@
 .credits-content {
     padding: 40px;
     text-align: center;
-    transform: translateY(100%);
+    transform: translateY(20%);
+    /* Changed from 100% to start closer to view */
     max-width: 1200px;
     margin: 0 auto;
 }
 
 .credits-content.scrolling {
-    animation: scroll-up 35s linear forwards;
-    /* Reduced from 40s to 30s */
+    animation: scroll-up 45s linear forwards;
+    /* Increased from 35s to 45s for slower scroll */
 }
 
 @keyframes scroll-up {
     from {
-        transform: translateY(50%) rotateX(15deg);
-        /* Reduced rotation for better readability */
+        transform: translateY(20%) rotateX(10deg);
+        /* Reduced rotation angle */
     }
 
     to {
-        transform: translateY(-100%) rotateX(15deg);
+        transform: translateY(-100%) rotateX(10deg);
     }
 }
 
 .credit-item {
     margin: 60px 0;
     /* Increased spacing between items */
+}
+
+* {
+    transition: all 0.3s ease-out;
 }

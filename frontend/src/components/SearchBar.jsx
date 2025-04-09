@@ -84,7 +84,7 @@ export default function SearchBar() {
                         onChange={handleChange}
                         onKeyDown={handleKeyDown}
                         onInput={handleSelectProduct}
-                        placeholder="Search products..."
+                        placeholder="Cerca Prodotti..."
                         list="product-list"
                         autoComplete="off"
                         style={{ flex: 1, height: "50px", fontSize: "18px" }}
