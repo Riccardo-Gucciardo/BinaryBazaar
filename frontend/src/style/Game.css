@@ -1,22 +1,3 @@
-.game-wrapper {
-    position: relative;
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: clamp(1rem, 3vw, 2rem);
-}
-
-.matrix-canvas {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 1;
-}
-
 .game-container {
     font-size: clamp(1rem, 2.5vw, 1.5rem);
     position: relative;
@@ -248,26 +229,6 @@
     filter: drop-shadow(0 0 15px rgba(0, 255, 0, 0.5));
 }
 
-/* Add these animations if not already present */
-@keyframes flicker {
-    0% {
-        opacity: 1;
-    }
-
-    50% {
-        opacity: 0.8;
-    }
-
-    100% {
-        opacity: 1;
-    }
-}
-
-.flicker-effect {
-    animation: flicker 2s infinite;
-}
-
-
 /** CSS glitch per tutti i bottoni */
 .glitch,
 .glitch::after {
@@ -370,5 +331,30 @@
     100% {
         clip-path: var(--move1);
         transform: translate(0);
+    }
+}
+
+@media (max-width: 768px) {
+    .game-form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 20px;
+        position: relative;
+    }
+
+    .game-button {
+        position: static !important;
+        /* Override inline styles */
+        margin-top: 20px;
+        transform: none !important;
+        /* Prevent any transformations */
+        transition: none !important;
+        /* Disable transitions */
+    }
+
+    .game-input {
+        width: 80%;
+        max-width: 300px;
     }
 }

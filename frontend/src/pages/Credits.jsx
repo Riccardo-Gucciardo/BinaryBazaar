@@ -12,7 +12,7 @@ export default function Credits() {
         { role: "Giuseppe", fact: "Il nostro Morpheus, che ci ha guidato attraverso le complessità di React" },
         { role: "Manuel", fact: "Il nostro Neo, che ha piegato il codice alla sua volontà" },
         { role: "Igor", fact: "Il nostro Oracle, maestro del CSS e domatore di media queries" },
-        { role: "Riccardo", fact: "Il nostro Trinity, che ha hackerato ogni bug fino alla vittoria" },
+        { role: "Riccardo", fact: "Il nostro Tank, che ha hackerato ogni bug fino alla vittoria" },
         { role: "Matrix Facts", fact: "Did you know? The 'digital rain' in Matrix was actually created from Japanese sushi recipes!" },
         {
             role: "Special Thanks", names: [

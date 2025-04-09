@@ -91,9 +91,9 @@ export default function DiscountGame() {
         <>
             <MatrixCodeRain />
             <div className="game-container">
-                <h1 className="game-title animated-title flicker-effect">GUESS && LESS</h1>
-                <h2 className="game-title">Indovina il Numero e Vinci uno Sconto!</h2>
-                <p className="game-instructions">
+                <h1 className="game-title flicker-effect">GUESS && LESS</h1>
+                <h2 className="game-title ">Indovina il Numero e Vinci uno Sconto!</h2>
+                <p className="game-instructions flicker-effect">
                     Indovina il numero segreto (tra 1 e 100) <br /> per ottenere un codice sconto del 10%! <br />
                     E se indovini entro 10 Tentativi il bonus è TRIPLO! <br />
                     AH...il bottone fa un pò come gli pare!<FaSkull />
@@ -135,8 +135,8 @@ export default function DiscountGame() {
                                 left: buttonPosition.left,
                                 cursor: 'pointer',
                             }}
-                        onMouseEnter={handleButtonHover}
-                        onMouseLeave={handleButtonMouseLeave}
+                            onMouseEnter={handleButtonHover}
+                            onMouseLeave={handleButtonMouseLeave}
                         >
                             INDOVINA
                         </button>
