@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom';
-import { FaGithub, FaLinkedin, FaInstagram, FaFacebook, FaTwitter } from 'react-icons/fa';
+import { FaGithub, FaLinkedin, FaInstagram, FaFacebook} from 'react-icons/fa';
+import { BsTwitterX } from "react-icons/bs";
 import "../style/Footer.css"
 
 export default function Footer() {
@@ -44,7 +45,7 @@ export default function Footer() {
                             <FaFacebook size={24} />
                         </a>
                         <a href="https://twitter.com/binarybazaar" target="_blank" rel="noopener noreferrer">
-                            <FaTwitter size={24} />
+                            <BsTwitterX size={24} />
                         </a>
                     </div>
                 </div>
