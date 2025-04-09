@@ -249,7 +249,7 @@ const Chatbot = () => {
             'assistenza': 'Il nostro team di assistenza è disponibile dal lunedì al venerdì, dalle 9:00 alle 18:00, contattaci via Email: support@binarybazaar.com oppure al +39 123456789 ',
             'garanzia': 'Tutti i nostri prodotti hanno 2 anni di garanzia.',
             'riparazione': 'Per riparazioni in garanzia, contatta il nostro servizio assistenza.',
-            'dei': 'I MIEI CREATORI (DEI) SONO:GIUSEPPE,MANUEL,IGOR(IVAN DRAGO.css),RICCARDO....RISPETTATELI',
+            'dei': 'I MIEI CREATORI (DEI) SONO:GIUSEPPE,MANUEL,IGOR(IVAN DRAGO.css),RICCARDO....RESPECT',
 
             // Info aziendali
             'contatt': 'Email: support@binarybazaar.com - Tel: +39 123456789',
