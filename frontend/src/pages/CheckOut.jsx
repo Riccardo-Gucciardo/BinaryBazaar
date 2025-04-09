@@ -30,8 +30,10 @@ export default function CheckOut() {
     });
     const [errors, setErrors] = useState({ billing: {}, shipping: {} });
     const [isLoading, setIsLoading] = useState(false);
+    const [discount, setDiscount] = useState(0);
+    const [promoCodeStatus, setPromoCodeStatus] = useState('');
 
-    // Calcolo del subtotale (con quantità)
+    // Calcolo del subtotale e totale con sconto
     const subtotal = cart
         .reduce((sum, item) => {
             const price = parseFloat(item.discount_price || item.price) || 0;
@@ -40,9 +42,9 @@ export default function CheckOut() {
         }, 0)
         .toFixed(2);
 
-    // Costo spedizione: 5€ se subtotal < 50€, altrimenti gratuita
     const shippingCost = parseFloat(subtotal) >= 50 ? 0 : 5;
-    const total = (parseFloat(subtotal) + shippingCost).toFixed(2);
+    const discountAmount = (parseFloat(subtotal) * (discount / 100)).toFixed(2);
+    const total = (parseFloat(subtotal) + shippingCost - discountAmount).toFixed(2);
 
     const handleChange = (e, section = null) => {
         const { name, value, type, checked } = e.target;
@@ -109,6 +111,25 @@ export default function CheckOut() {
         );
     };
 
+    const validatePromoCode = () => {
+        const validCodes = {
+            'SUMMER25': 25,
+            'WELCOME10': 10,
+            'LORIS10': 10,
+            'ARTUR30': 30
+        };
+
+        const code = formData.promotionCode.toUpperCase().trim();
+        
+        if (validCodes[code]) {
+            setDiscount(validCodes[code]);
+            setPromoCodeStatus('Codice valido applicato!');
+        } else {
+            setDiscount(0);
+            setPromoCodeStatus('Codice non valido');
+        }
+    };
+
     const handleSubmit = (e) => {
         e.preventDefault();
         if (!validateForm()) return;
@@ -125,6 +146,7 @@ export default function CheckOut() {
             city: dataToUse.city,
             telephone: dataToUse.telephone,
             promotion_code: formData.promotionCode || null,
+            discount: discount,
             products: cart.map((item) => ({
                 slug: item.slug,
                 quantity: item.quantity || 1,
@@ -142,7 +164,6 @@ export default function CheckOut() {
             })
             .then((response) => {
                 console.log("Ordine creato:", response.data);
-                // alert("Ordine creato con successo!");
                 navigate("/allDone", { state: { orderId: response.data.orderId } });
             })
             .catch((error) => {
@@ -371,13 +392,28 @@ export default function CheckOut() {
 
                                     <Form.Group className="mb-3">
                                         <Form.Label>Codice Promozionale (opzionale)</Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            name="promotionCode"
-                                            value={formData.promotionCode}
-                                            onChange={(e) => handleChange(e)}
-                                            disabled={isLoading}
-                                        />
+                                        <div className="d-flex gap-2">
+                                            <Form.Control
+                                                type="text"
+                                                name="promotionCode"
+                                                value={formData.promotionCode}
+                                                onChange={(e) => handleChange(e)}
+                                                disabled={isLoading}
+                                                className="flex-grow-1"
+                                            />
+                                            <Button
+                                                variant="outline-success"
+                                                onClick={validatePromoCode}
+                                                disabled={isLoading || !formData.promotionCode}
+                                            >
+                                                Applica
+                                            </Button>
+                                        </div>
+                                        {promoCodeStatus && (
+                                            <Form.Text className={discount > 0 ? "text-success" : "text-danger"}>
+                                                {promoCodeStatus}
+                                            </Form.Text>
+                                        )}
                                     </Form.Group>
 
                                     <Form.Group className="mb-3">
@@ -434,7 +470,7 @@ export default function CheckOut() {
                                                     </Col>
                                                     <Col xs={3}>
                                                         <QuantityControl
-                                                            quantity={quantity} // Passa il valore corrente
+                                                            quantity={quantity}
                                                             onQuantityChange={(newQuantity) =>
                                                                 updateQuantity(item.slug, newQuantity)
                                                             }
@@ -460,6 +496,16 @@ export default function CheckOut() {
                                         <h5>{subtotal}€</h5>
                                     </Col>
                                 </Row>
+                                {discount > 0 && (
+                                    <Row className="mt-2">
+                                        <Col>
+                                            <h5>Sconto ({discount}%)</h5>
+                                        </Col>
+                                        <Col className="text-end">
+                                            <h5>-{discountAmount}€</h5>
+                                        </Col>
+                                    </Row>
+                                )}
                                 <Row className="mt-2">
                                     <Col>
                                         <h5>Spedizione</h5>
