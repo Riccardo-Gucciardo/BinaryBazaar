@@ -79,7 +79,7 @@
 }
 
 .credits-content.scrolling {
-    animation: scroll-up 45s linear forwards;
+    animation: scroll-up 50s linear forwards;
     /* Increased from 35s to 45s for slower scroll */
 }
 

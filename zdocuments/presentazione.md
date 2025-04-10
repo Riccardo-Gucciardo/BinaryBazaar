@@ -3,9 +3,10 @@ Ecco una scaletta di 10 minuti divisa per i 4 membri del team, con focus sulle p
 
 **Breve intro dell'AI(1min)**
 - scorrimento 3 SLIDES veloce con voce dell'AI di sottofondo
+- Concept: E-commerce ispirato a Matrix(introduzione estrosa riguardo un deja-vu)
 
 **Introduzione (2 min) - Giuseppe:**
-- Concept: E-commerce ispirato a Matrix(introduzione estrosa riguardo un deja-vu)
+- INTRO breve
 - Tech Stack: React, Node.js(tecnologie impiegate)
 - Demo rapida homepage(con modale che compare solo la prima volta)
 
@@ -28,8 +29,8 @@ Ecco una scaletta di 10 minuti divisa per i 4 membri del team, con focus sulle p
 - Chatbot Morpheus:
   - AI Integration
   - Comandi predefiniti
-- Search bar dinamica con filtri
-## ..a questo punto visto che l'inizio della pèresentazione è stata fatta da Morpheus, passo la parola al nostro Sito..
+- Search bar dinamica con filtri(i nostri prodotti)
+## ..a questo punto visto che l'inizio della presentazione è stata fatta da Morpheus, passo la parola direttamente al nostro Sito..
 ## Credits page
 
 **Punti di forza da evidenziare:**
