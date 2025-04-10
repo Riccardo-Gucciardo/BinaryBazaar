@@ -7,6 +7,7 @@ import "../style/Popup.css"; // importa il file CSS per il popup
 
 export default function WelcomePopup() {
   const [showPopup, setShowPopup] = useState(false);
+  const [showDiscount, setShowDiscount] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -17,9 +18,15 @@ export default function WelcomePopup() {
     }
   }, []);
 
-  const handleClose = (path) => {
+  const handleRedPill = () => {
+    setShowDiscount(true);
+    setTimeout(() => {
+      setShowPopup(false);
+    }, 5000);
+  };
+
+  const handleBluePill = () => {
     setShowPopup(false);
-    navigate(path)
   };
 
   if (!showPopup) return null;
@@ -28,10 +35,16 @@ export default function WelcomePopup() {
     <>
       <div className="popup-overlay">
         <div className="popup ">
-          <h2>Benvenuto Nel Mondo Reale!</h2>
-          <p>usa lo sconto WELCOME10 <br />  ...esplora la tana del Bianconiglio</p> <img src="/BinaRabbit.png" alt="rabbit" className="rabbit-image" />
-          <button className="blue-pill gift-icon" onClick={() => handleClose("/error")}>Esci</button>
-          <button className="red-pill gift-icon" onClick={() => handleClose("/home")}>Resta</button>
+          <h4>Benvenuto Nel Mondo Reale!</h4>
+          {showDiscount && (
+            <p className="discount-reveal">
+              codice sconto: WELCOME10
+            </p>
+          )}
+          <p > blu, resti nell'illusione; rossa, scopri la verità</p>
+          {/* <img src="/BinaRabbit.png" alt="rabbit" className="rabbit-image" /> */}
+          <button className="blue-pill gift-icon" onClick={handleBluePill}>BLU</button>
+          <button className="red-pill gift-icon" onClick={handleRedPill}>ROSSA</button>
         </div>
       </div>
     </>

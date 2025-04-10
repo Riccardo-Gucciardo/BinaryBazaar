@@ -17,6 +17,8 @@
 }
 
 .popup {
+  width: 500px;
+  height: 400px;
   background-color: rgb(17, 1, 1);
   border-radius: 10px;
   border: 2px solid lime;
@@ -30,15 +32,15 @@
 
 }
 
-.popup h2 {
-  margin: 5px 60px 150px 80px;
+.popup h4 {
+  margin: 5px 60px 200px 80px;
   padding-bottom: 100px;
   color: lime;
 }
 
 
 .popup p {
-  margin: 300px 0 5px 0;
+  /* margin: 300px 0 5px 0; */
   color: lime;
 }
 
@@ -66,8 +68,8 @@
 
 .red-pill {
   position: absolute;
-  left: 100px;
-  bottom: 105px;
+  left: 74px;
+  bottom: 84px;
   background-color: red;
 }
 
@@ -83,16 +85,33 @@
 
 .blue-pill {
   position: absolute;
-  right: 130px;
-  bottom: 105px;
+  right: 104px;
+  bottom: 85px;
   background-color: blue;
+}
+
+.discount-reveal {
+  color: lime;
+  font-size: 1.2em;
+  animation: fadeIn 0.5s ease-in;
+  text-align: center;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
 }
 
 /* .popup button:hover {
   background-color: lime;
 } */
 
-@media (max-width: 1000px) {
+/* @media (max-width: 1000px) {
 
   .red-pill {
     position: absolute;
@@ -116,4 +135,4 @@
     color: lime;
 
   }
-}
+} */
